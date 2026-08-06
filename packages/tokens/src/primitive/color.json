@@ -57,7 +57,7 @@
           "$value": "#11340f",
           "$type": "color"
         },
-        "$description": "Nosso verde institucional. O degrau 500 é a cor de marca EXATA (#02cb03). ATENÇÃO: nenhum degrau de 50 a 700 atinge 4,5:1 contra branco — texto branco sobre a marca é proibido. Use preto por cima (9,55:1) ou o degrau 800+ para texto verde sobre fundo claro."
+        "$description": "Nosso verde institucional. O degrau 500 é a cor de marca EXATA (#02cb03), e serve à identidade — não a controle. ATENÇÃO: nenhum degrau de 50 a 700 atinge 4,5:1 contra branco. Superfície de ação e texto verde usam o degrau 800 ou mais escuro."
       },
       "neutral": {
         "50": {
@@ -249,6 +249,24 @@
           "$type": "color"
         },
         "$description": "Azul informativo e neutro-de-marca. Também é a única cor forte do sistema que não colide com nenhum status do domínio."
+      },
+
+      "gold": {
+        "$description": "Dourado secundário da marca. NÃO é escala de 11 degraus de propósito: são três valores com consumidor real (destaque de marca, tinta sobre ele, e a versão escura que serve de texto). Escala completa sem uso seria peso morto.",
+        "brand": { "$value": "#ffd700", "$type": "color", "$description": "Valor exato do dourado. Só como preenchimento, com tinta escura por cima — como texto ou borda sobre claro dá 1,40:1 e reprova até 1.4.11." },
+        "ink": { "$value": "#1a1200", "$type": "color", "$description": "Texto sobre o dourado. 13,24:1." },
+        "deep": { "$value": "#897300", "$type": "color", "$description": "Dourado escuro o bastante para ser texto sobre fundo claro. 4,65:1." }
+      },
+
+      "teal": {
+        "$description": "Quarta cor de gráfico. Existe por um consumidor só — a série 4 do parking-new-front — e por isso é um valor, não uma escala.",
+        "brand": { "$value": "#0e8a7d", "$type": "color", "$description": "4,24:1 sobre branco: serve de marca de dado, não de texto." }
+      },
+
+      "data-blue": {
+        "$description": "Azul de DADO, não de marca. Serve a gráfico e a distinção de categoria — o azul de feedback informativo é outro (`info`), e misturar os dois faria 'informação' e 'categoria azul' parecerem a mesma coisa.",
+        "brand": { "$value": "#00549a", "$type": "color", "$description": "7,68:1 sobre branco: serve de texto e de preenchimento com branco por cima." },
+        "light": { "$value": "#3d93d6", "$type": "color", "$description": "Versão para fundo escuro. 4,63:1 sobre a superfície escura." }
       }
     }
   }

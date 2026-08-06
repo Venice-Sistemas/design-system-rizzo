@@ -6,35 +6,21 @@
       "foreground": "color.action.primary.foreground.default",
       "background": "color.action.primary.background.default",
       "min": 4.5,
-      "measured": 9.55
+      "measured": 6.41
     },
     {
       "id": "action-primary-hover",
       "foreground": "color.action.primary.foreground.default",
       "background": "color.action.primary.background.hover",
       "min": 4.5,
-      "measured": 7.05
+      "measured": 9.52
     },
     {
       "id": "action-primary-active",
       "foreground": "color.action.primary.foreground.default",
       "background": "color.action.primary.background.active",
       "min": 4.5,
-      "measured": 4.87
-    },
-    {
-      "id": "action-secondary-rest",
-      "foreground": "color.action.secondary.foreground.default",
-      "background": "color.action.secondary.background.default",
-      "min": 4.5,
-      "measured": 6.41
-    },
-    {
-      "id": "action-secondary-border",
-      "foreground": "color.action.secondary.border.default",
-      "background": "color.surface.default",
-      "min": 3,
-      "measured": 6.41
+      "measured": 13.8
     },
     {
       "id": "action-danger-rest",
@@ -133,6 +119,69 @@
       "background": "color.feedback.info.surface",
       "min": 4.5,
       "measured": 9.33
+    },
+    {
+      "id": "brand-accent",
+      "foreground": "color.brand.accent-ink",
+      "background": "color.brand.accent",
+      "min": 4.5,
+      "measured": 13.24
+    },
+    {
+      "id": "brand-strong",
+      "foreground": "color.brand.strong",
+      "background": "color.surface.default",
+      "min": 4.5,
+      "measured": 9.52
+    },
+    {
+      "id": "action-secondary-rest",
+      "foreground": "color.action.secondary.foreground.default",
+      "background": "color.action.secondary.background.default",
+      "min": 4.5,
+      "measured": 12.09
+    },
+    {
+      "id": "action-secondary-hover",
+      "foreground": "color.action.secondary.foreground.default",
+      "background": "color.action.secondary.background.hover",
+      "min": 4.5,
+      "measured": 10.52
+    },
+    {
+      "id": "action-outline-rest",
+      "foreground": "color.action.outline.foreground.default",
+      "background": "color.action.outline.background.default",
+      "min": 4.5,
+      "measured": 14.16
+    },
+    {
+      "id": "action-outline-border",
+      "foreground": "color.action.outline.border.default",
+      "background": "color.surface.default",
+      "min": 3,
+      "measured": 3.23
+    },
+    {
+      "id": "action-ghost-hover",
+      "foreground": "color.action.ghost.foreground.default",
+      "background": "color.action.ghost.background.hover",
+      "min": 4.5,
+      "measured": 12.09
+    },
+    {
+      "id": "action-link-rest",
+      "foreground": "color.action.link.foreground.default",
+      "background": "color.surface.default",
+      "min": 4.5,
+      "measured": 6.41
+    },
+    {
+      "id": "action-link-hover",
+      "foreground": "color.action.link.foreground.hover",
+      "background": "color.surface.default",
+      "min": 4.5,
+      "measured": 9.52
     }
   ],
   "forbidden": [
@@ -141,7 +190,7 @@
       "foreground": "base.color.white",
       "background": "base.color.brand.500",
       "measured": 2.2,
-      "reason": "Texto branco sobre o verde de marca. É a combinação que todo mundo tenta primeiro e a que mais reprova. Nenhum degrau da marca de 50 a 700 chega a 4,5:1 com branco. Use color.action.primary.foreground (preto)."
+      "reason": "Texto branco sobre o verde do símbolo. É a combinação que todo mundo tenta primeiro e a que mais reprova — e é o defeito que está no ar hoje no parking-new-front, cujo --primary aponta para a cor de marca e dá 3,51:1. Use color.action.primary.background, que é um tom escuro (6,41:1)."
     },
     {
       "id": "white-on-brand-700",
@@ -156,6 +205,13 @@
       "background": "color.surface.default",
       "measured": 2.2,
       "reason": "A cor de marca pura como texto ou ícone sobre fundo claro. Use color.text.link (brand.800)."
+    },
+    {
+      "id": "gold-as-border",
+      "foreground": "base.color.gold.brand",
+      "background": "color.surface.default",
+      "measured": 1.4,
+      "reason": "Dourado como borda, ícone ou texto sobre fundo claro. Reprova até o mínimo de 3:1 de componente de interface (1.4.11). É cor de preenchimento, com color.brand.accent-ink por cima."
     }
   ]
 }

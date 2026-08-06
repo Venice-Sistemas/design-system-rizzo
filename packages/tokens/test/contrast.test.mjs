@@ -96,15 +96,19 @@ describe('contrato de contraste', () => {
   });
 
   it('a cor de marca não foi alterada por acidente', () => {
-    // #02cb03 é o valor de referência de toda a identidade. Toda a escala é derivada
-    // dele, e o teste inteiro acima muda de significado se ele mudar.
+    // #02cb03 é o valor de referência de toda a identidade, e toda a escala é
+    // derivada dele. Note que a marca NÃO é a superfície de ação — são coisas
+    // diferentes, e confundi-las é o erro que este teste separa do próximo.
     expect(resolve('base.color.brand.500')).toBe('#02cb03');
-    expect(resolve('color.action.primary.background.default')).toBe('#02cb03');
+    expect(resolve('color.brand.default')).toBe('#02cb03');
   });
 
-  it('a frente do botão primário é preta, não branca', () => {
-    // Regra que existe por causa desta marca especificamente: branco sobre #02cb03
-    // dá 2,20:1. Se alguém "corrigir" para branco, isto pega.
-    expect(resolve('color.action.primary.foreground.default')).toBe('#000000');
+  it('a superfície de ação primária não é o verde do símbolo', () => {
+    // O verde puro com texto branco dá 2,20:1. A ação usa um tom escuro (6,41:1).
+    // Se alguém "simplificar" apontando a ação para a cor de marca, isto pega —
+    // é justamente o defeito que existe hoje no parking-new-front.
+    const surface = resolve('color.action.primary.background.default');
+    expect(surface).not.toBe(resolve('color.brand.default'));
+    expect(resolve('color.action.primary.foreground.default')).toBe('#ffffff');
   });
 });

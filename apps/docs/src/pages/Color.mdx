@@ -15,17 +15,23 @@ que decide o desenho de metade dos componentes:
 | --- | --- | --- |
 | Texto **branco** sobre `#02cb03` | **2,20:1** | reprova (mínimo 4,5:1) |
 | `#02cb03` como **texto** sobre branco | **2,20:1** | reprova |
-| Texto **preto** sobre `#02cb03` | **9,55:1** | passa com folga |
 
 <Note tone="danger">
   Nenhum degrau da marca, de <code>50</code> a <code>700</code>, atinge 4,5:1 com texto branco. O botão primário verde
-  com texto branco — que é o que todo mundo desenha primeiro — é inacessível no nosso verde.
+  com texto branco — que é o que todo mundo desenha primeiro — é inacessível com o verde do símbolo.
 </Note>
 
-**A solução:** o botão primário usa **frente preta** sobre a marca pura. A cor aparece em
-toda a sua intensidade, o contraste vai a 9,55:1, e os estados escurecem o fundo mantendo a
-frente preta. Onde o verde precisa ser *texto* — link, ícone, botão contornado, anel de
+**A solução é separar marca de ação.** `color.brand.default` é o `#02cb03` e serve à
+identidade: símbolo, destaque institucional. A superfície de ação é um tom escuro do mesmo
+verde, com texto branco — `brand.800` em repouso (6,41:1), escurecendo no hover e no
+pressionado. Onde o verde precisa ser *texto* — link, ícone, botão contornado, anel de
 foco — usa-se `brand.800`, nunca a marca pura.
+
+<Note tone="warning">
+  O <code>parking-new-front</code> chega à mesma conclusão no comentário do <code>globals.css</code>, mas aponta{' '}
+  <code>--primary</code> para a cor de marca, o que dá 3,51:1 e reprova. Adotar estes tokens corrige isso sem mudança
+  visual perceptível.
+</Note>
 
 ## Escalas primitivas
 

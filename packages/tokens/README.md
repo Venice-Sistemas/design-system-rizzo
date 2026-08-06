@@ -19,8 +19,34 @@ pnpm add @rizzopark/tokens
 ```
 @rizzopark/tokens/css        variáveis CSS + @font-face da Poppins
 @rizzopark/tokens/tailwind   camada @theme do Tailwind v4 (opcional, importar DEPOIS do css)
+@rizzopark/tokens/shadcn     ponte para apps que já são shadcn — ver abaixo
 @rizzopark/tokens            objetos tipados, quando precisar do valor em JS
 ```
+
+### Adotando num app que já é shadcn
+
+`@rizzopark/tokens/shadcn` declara as 41 variáveis do contrato do shadcn com os nossos
+valores. Importe depois do `@import 'tailwindcss'`, remova essas declarações do seu `:root`,
+e **não mexa no seu `@theme inline`** — ele mapeia exatamente as mesmas variáveis.
+
+O que continua sendo seu:
+
+| | Por quê |
+|---|---|
+| Bloco `.dark` inteiro | O tema escuro ainda não é emitido daqui. Sem ele o app fica claro no modo escuro. Ele sobrepõe a ponte normalmente. |
+| Paleta crua (`--rizzo-*`) | Equivale à nossa camada primitiva, que não é emitida. Ainda é referenciada pelo seu `.dark`, então fica até o tema escuro sair daqui. |
+| `--stat-*` | São composições suas via `color-mix` sobre variáveis que a ponte fornece. Seguem funcionando, e passam a refletir a paleta verificada. |
+| `--font-poppins`, `--auth-*`, `--shadow-card` | Específicas do app. |
+
+Duas coisas mudam de aparência, e as duas são correções:
+
+- **`--primary`** sai de `#0b9e42` para `#006f00`. Com texto branco, de 3,51:1 (reprova AA)
+  para 6,41:1.
+- **`--chart-2`** sai do dourado da marca para um dourado escuro. Como marca de dado em
+  fundo claro, `#ffd700` dá 1,40:1 e some.
+
+A ponte é um alias de saída, não uma segunda fonte de verdade: os valores vêm dos tokens, e
+o build **falha** se o mapa apontar para um token que não existe.
 
 **React Native:**
 
@@ -103,19 +129,28 @@ metade dos componentes:
 |---|---|---|
 | Texto **branco** sobre `#02cb03` | **2,20:1** | ❌ reprova (mínimo 4,5:1) |
 | `#02cb03` como **texto** sobre branco | **2,20:1** | ❌ reprova |
-| Texto **preto** sobre `#02cb03` | **9,55:1** | ✅ passa com folga |
 
 Nenhum degrau da marca de `50` a `700` atinge 4,5:1 com texto branco. O botão primário
-verde com texto branco — que é o que todo mundo desenha primeiro — é inacessível nesta
-marca.
+verde com texto branco — que é o que todo mundo desenha primeiro — é inacessível com o verde
+do símbolo.
 
-**A solução:** o botão primário usa **frente preta** sobre a marca pura. A cor institucional
-aparece em toda a sua intensidade, o contraste vai a 9,55:1, e os estados escurecem o fundo
-mantendo a frente preta (`hover` 7,05:1 · `active` 4,87:1).
+**A solução: separar marca de ação.** `color.brand.default` é o `#02cb03`, e serve à
+identidade — símbolo, destaque institucional. A superfície de ação é um tom escuro do mesmo
+verde, com texto branco:
+
+| Estado | Token | Contraste com branco |
+|---|---|---|
+| repouso | `brand.800` `#006f00` | 6,41:1 |
+| hover | `brand.900` `#005200` | 9,52:1 |
+| pressionado | `brand.950` `#11340f` | 13,80:1 |
 
 Onde o verde precisa ser *texto* — link, ícone, botão contornado, anel de foco — usa-se
-`base.color.brand.800` (`#006f00`, 6,41:1) via `color.text.link` ou `color.border.focus`,
-nunca a marca pura.
+`brand.800` via `color.text.link` ou `color.border.focus`, nunca a marca pura.
+
+> **Isto corrige um defeito que está no ar.** O `parking-new-front` documenta a mesma
+> conclusão no cabeçalho do `globals.css` — *"Ação primária usa o tom 700 (…) Sobre o 700 dá
+> ~5,4:1"* — mas o código faz `--primary: var(--rizzo-green)`, que dá **3,51:1** e reprova.
+> A análise deles estava certa; só não foi ligada no token.
 
 **Não use modificador de opacidade para estados** (`hover:bg-primary/90`). Valor gerado por
 opacidade não é medido, não está no contrato e muda conforme o fundo atrás. Os estados têm

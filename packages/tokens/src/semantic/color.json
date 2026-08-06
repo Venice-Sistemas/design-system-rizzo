@@ -2,8 +2,12 @@
   "color": {
     "$description": "SEMÂNTICOS DE COR — esta é a INTERFACE PÚBLICA do sistema de cor (AD-06). Componentes e aplicações consomem daqui e só daqui; o build não emite nada sob `base`. Convenção de nome: categoria.papel.variante.estado (chaves omitidas de propósito — o Style Dictionary resolve chaves dentro de descrição como referência). Todo par de frente/fundo listado aqui tem contraste verificado — a lista vive em ../../contrast-pairs.json e é teste de CI (AD-07).",
     "brand": {
-      "$description": "Identidade, não ação. Use apenas onde a marca aparece como marca — tingimento de logo, superfície de destaque institucional. NUNCA como texto nem como fundo de controle: para isso existe color.action.*.",
-      "default": { "$value": "{base.color.brand.500}", "$type": "color", "$description": "#02cb03. Contraste 2,20:1 contra branco — decorativo apenas." }
+      "$description": "Identidade, não ação. Use onde a marca aparece COMO marca — símbolo, superfície de destaque institucional. NUNCA como texto nem como fundo de controle: para isso existe color.action.*.",
+      "default":  { "$value": "{base.color.brand.500}", "$type": "color", "$description": "#02cb03, o verde do símbolo. 2,20:1 contra branco — decorativo apenas." },
+      "ink":      { "$value": "{base.color.brand.950}", "$type": "color", "$description": "Texto sobre o verde do símbolo." },
+      "strong":   { "$value": "{base.color.brand.900}", "$type": "color", "$description": "Marca em texto — assinatura, título institucional. 9,52:1." },
+      "accent":   { "$value": "{base.color.gold.brand}", "$type": "color", "$description": "Dourado secundário. Preenchimento apenas — como borda dá 1,40:1." },
+      "accent-ink": { "$value": "{base.color.gold.ink}", "$type": "color", "$description": "Texto sobre o dourado. 13,24:1." }
     },
 
     "surface": {
@@ -40,33 +44,54 @@
     "action": {
       "$description": "Cores de controle acionável. A distinção entre primário e secundário vem da FORMA (preenchido vs contornado), não só da cor.",
       "primary": {
-        "$description": "DECISÃO CENTRAL: a frente é PRETA, não branca. Texto branco sobre a marca dá 2,20:1 e reprova em qualquer degrau até o 700. Com preto por cima, a marca aparece pura e o contraste vai a 9,55:1. Os estados escurecem o fundo, mantendo a frente preta. NÃO usar modificador de opacidade para hover — valor gerado por opacidade não é medido e fura o contrato de contraste.",
+        "$description": "Superfície verde escura com TEXTO BRANCO. O verde de marca puro (#02cb03) não serve de fundo de botão: com branco dá 2,20:1 e reprova em todo degrau até o 700. O tom 800 resolve com 6,41:1 e mantém a leitura de marca. Os estados escurecem, e a frente segue branca. NÃO usar modificador de opacidade no hover — valor gerado por opacidade não é medido e fura o contrato.",
         "background": {
-          "default":  { "$value": "{base.color.brand.500}",   "$type": "color", "$description": "A cor de marca, pura. 9,55:1 com a frente." },
-          "hover":    { "$value": "{base.color.brand.600}",   "$type": "color", "$description": "7,05:1" },
-          "active":   { "$value": "{base.color.brand.700}",   "$type": "color", "$description": "4,87:1 — último degrau que ainda passa AA com frente preta." },
+          "default":  { "$value": "{base.color.brand.800}",   "$type": "color", "$description": "6,41:1 com branco." },
+          "hover":    { "$value": "{base.color.brand.900}",   "$type": "color", "$description": "9,52:1" },
+          "active":   { "$value": "{base.color.brand.950}",   "$type": "color", "$description": "13,80:1" },
           "disabled": { "$value": "{base.color.neutral.200}", "$type": "color" }
         },
         "foreground": {
-          "default":  { "$value": "{base.color.black}",       "$type": "color" },
+          "default":  { "$value": "{base.color.white}",       "$type": "color" },
           "disabled": { "$value": "{base.color.neutral.600}", "$type": "color" }
         }
       },
       "secondary": {
-        "$description": "Contornado. Usa o verde escuro, não a marca pura, porque aqui o verde é texto e borda.",
+        "$description": "Preenchido neutro, para ação de apoio ao lado de uma primária. Corresponde à variante `secondary` do shadcn.",
         "background": {
-          "default":  { "$value": "{base.color.white}",      "$type": "color" },
-          "hover":    { "$value": "{base.color.brand.50}",   "$type": "color" },
-          "active":   { "$value": "{base.color.brand.100}",  "$type": "color" },
-          "disabled": { "$value": "{base.color.neutral.50}", "$type": "color" }
+          "default":  { "$value": "{base.color.neutral.100}", "$type": "color" },
+          "hover":    { "$value": "{base.color.neutral.200}", "$type": "color" },
+          "active":   { "$value": "{base.color.neutral.300}", "$type": "color" },
+          "disabled": { "$value": "{base.color.neutral.50}",  "$type": "color" }
         },
         "foreground": {
-          "default":  { "$value": "{base.color.brand.800}",   "$type": "color", "$description": "6,41:1" },
+          "default":  { "$value": "{base.color.neutral.950}", "$type": "color", "$description": "12,08:1 sobre o fundo em repouso." },
+          "disabled": { "$value": "{base.color.neutral.600}", "$type": "color" }
+        }
+      },
+      "outline": {
+        "$description": "Contornado sobre a superfície. Corresponde à variante `outline` do shadcn — com uma diferença deliberada: a borda usa border.strong (3,23:1) e não border.default (1,63:1). Num botão contornado a BORDA é o que identifica o controle, e a WCAG 1.4.11 exige 3:1 para isso. O padrão do shadcn reprova esse critério.",
+        "background": {
+          "default":  { "$value": "{base.color.white}",       "$type": "color" },
+          "hover":    { "$value": "{base.color.neutral.100}", "$type": "color" },
+          "active":   { "$value": "{base.color.neutral.200}", "$type": "color" },
+          "disabled": { "$value": "{base.color.neutral.50}",  "$type": "color" }
+        },
+        "foreground": {
+          "default":  { "$value": "{base.color.neutral.950}", "$type": "color" },
           "disabled": { "$value": "{base.color.neutral.600}", "$type": "color" }
         },
         "border": {
-          "default":  { "$value": "{base.color.brand.800}",   "$type": "color" },
+          "default":  { "$value": "{base.color.neutral.600}", "$type": "color", "$description": "3,23:1 — o mínimo de componente de interface." },
           "disabled": { "$value": "{base.color.neutral.200}", "$type": "color" }
+        }
+      },
+      "link": {
+        "$description": "Só texto, com sublinhado no hover. Corresponde à variante `link` do shadcn. Atenção: é um BOTÃO com aparência de link — se o clique muda a URL, use um link de verdade.",
+        "foreground": {
+          "default":  { "$value": "{base.color.brand.800}",   "$type": "color", "$description": "6,41:1" },
+          "hover":    { "$value": "{base.color.brand.900}",   "$type": "color" },
+          "disabled": { "$value": "{base.color.neutral.600}", "$type": "color" }
         }
       },
       "danger": {
@@ -95,6 +120,15 @@
           "disabled": { "$value": "{base.color.neutral.600}", "$type": "color" }
         }
       }
+    },
+
+    "chart": {
+      "$description": "Séries de gráfico. Distinguem-se por MATIZ, não por luminosidade — várias têm contraste parecido entre si, então cor sozinha nunca deve carregar o dado: sempre acompanha rótulo direto, padrão de traço ou forma de marcador. Todas atingem ao menos 3:1 sobre a superfície, o mínimo de objeto gráfico da WCAG 1.4.11.",
+      "1": { "$value": "{base.color.brand.800}",     "$type": "color", "$description": "Verde. 6,41:1" },
+      "2": { "$value": "{base.color.gold.deep}",     "$type": "color", "$description": "Dourado escuro, 4,65:1. NÃO é o dourado da marca: aquele dá 1,40:1 e some num gráfico de fundo claro." },
+      "3": { "$value": "{base.color.data-blue.brand}", "$type": "color", "$description": "Azul. 7,68:1" },
+      "4": { "$value": "{base.color.teal.brand}",    "$type": "color", "$description": "Teal. 4,24:1 — serve de marca, não de texto." },
+      "5": { "$value": "{base.color.danger.700}",    "$type": "color", "$description": "Vermelho. 5,05:1" }
     },
 
     "feedback": {

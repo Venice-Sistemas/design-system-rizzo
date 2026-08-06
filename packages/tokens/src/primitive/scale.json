@@ -65,7 +65,11 @@
         "$type": "dimension"
       },
       "lg": {
-        "$value": "10px",
+        "$value": "8px",
+        "$type": "dimension"
+      },
+      "xl": {
+        "$value": "12px",
         "$type": "dimension"
       },
       "full": {
