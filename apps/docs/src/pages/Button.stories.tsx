@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Button, type ButtonSize, type ButtonVariant } from '@rizzopark/react';
 
-const VARIANTS: ButtonVariant[] = ['primary', 'secondary', 'danger', 'ghost'];
-const SIZES: ButtonSize[] = ['sm', 'md', 'lg'];
+const VARIANTS: ButtonVariant[] = ['default', 'destructive', 'outline', 'secondary', 'ghost', 'link'];
+const SIZES: ButtonSize[] = ['default', 'sm', 'lg', 'icon'];
 
 const meta = {
   title: 'Componentes/Button',
@@ -35,8 +35,9 @@ export const Padrao: Story = {
     docs: {
       description: {
         story:
-          'O padrão é `secondary`, não `primary`. Uma tela deve ter um botão primário, não seis — ' +
-          'se o padrão fosse `primary`, o caminho preguiçoso seria o errado.',
+          'A variante padrão é `default`, que é a cor primária da marca — a nomenclatura vem do shadcn, ' +
+          'onde `default` é justamente o botão de ação principal. Uma tela deve ter **um** botão primário: ' +
+          'para as ações de apoio ao lado dele, use `outline`, `secondary` ou `ghost`.',
       },
     },
   },
@@ -50,7 +51,10 @@ export const Variantes: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'A distinção entre primário e secundário vem da **forma** — preenchido contra contornado — não só da cor.',
+        story:
+          'Mesmo conjunto do shadcn. Dois desvios deliberados: hover e pressionado vêm de token medido em vez de ' +
+          '`bg-primary/90`, e a borda de `outline` tem 3,23:1 em vez da borda decorativa de 1,63:1 — num botão ' +
+          'contornado a borda é o que identifica o controle, e a WCAG 1.4.11 exige 3:1 para isso.',
       },
     },
   },
@@ -137,7 +141,7 @@ export const ComIcone: Story = {
   },
   render: (args) => (
     <Grid>
-      <Button {...args} variant="primary">
+      <Button {...args} variant="default">
         <span aria-hidden="true">✓</span> Confirmar
       </Button>
       <Button {...args} variant="ghost" aria-label="Fechar">

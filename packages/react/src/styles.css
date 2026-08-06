@@ -42,42 +42,55 @@
  * na superfície pública.
  */
 @theme inline {
-  --color-surface: var(--rp-color-surface-default);
-  --color-surface-subtle: var(--rp-color-surface-subtle);
-  --color-text: var(--rp-color-text-primary);
-  --color-text-secondary: var(--rp-color-text-secondary);
-  --color-text-disabled: var(--rp-color-text-disabled);
-  --color-border-subtle: var(--rp-color-border-subtle);
-  --color-border-default: var(--rp-color-border-default);
-  --color-border-strong: var(--rp-color-border-strong);
-  --color-border-focus: var(--rp-color-border-focus);
+  /* Núcleo do contrato shadcn. Usar os nomes deles aqui dentro faz as classes dos
+   * nossos componentes ficarem idênticas às do shadcn — quem conhece a biblioteca
+   * lê o nosso código sem tradução, e adaptar um componente novo vira colar e
+   * ajustar, não reescrever. */
+  --color-background: var(--rp-color-surface-page);
+  --color-foreground: var(--rp-color-text-primary);
+  --color-card: var(--rp-color-surface-default);
+  --color-card-foreground: var(--rp-color-text-primary);
+  --color-popover: var(--rp-color-surface-raised);
+  --color-popover-foreground: var(--rp-color-text-primary);
+  --color-muted: var(--rp-color-surface-subtle);
+  --color-muted-foreground: var(--rp-color-text-secondary);
+  --color-border: var(--rp-color-border-default);
+  --color-input: var(--rp-color-border-strong);
+  --color-ring: var(--rp-color-border-focus);
 
-  --color-action-primary: var(--rp-color-action-primary-background-default);
-  --color-action-primary-hover: var(--rp-color-action-primary-background-hover);
-  --color-action-primary-active: var(--rp-color-action-primary-background-active);
-  --color-action-primary-fg: var(--rp-color-action-primary-foreground-default);
+  --color-primary: var(--rp-color-action-primary-background-default);
+  --color-primary-hover: var(--rp-color-action-primary-background-hover);
+  --color-primary-active: var(--rp-color-action-primary-background-active);
+  --color-primary-foreground: var(--rp-color-action-primary-foreground-default);
 
-  --color-action-secondary: var(--rp-color-action-secondary-background-default);
-  --color-action-secondary-hover: var(--rp-color-action-secondary-background-hover);
-  --color-action-secondary-active: var(--rp-color-action-secondary-background-active);
-  --color-action-secondary-fg: var(--rp-color-action-secondary-foreground-default);
-  --color-action-secondary-border: var(--rp-color-action-secondary-border-default);
+  --color-secondary: var(--rp-color-action-secondary-background-default);
+  --color-secondary-hover: var(--rp-color-action-secondary-background-hover);
+  --color-secondary-active: var(--rp-color-action-secondary-background-active);
+  --color-secondary-foreground: var(--rp-color-action-secondary-foreground-default);
 
-  --color-action-danger: var(--rp-color-action-danger-background-default);
-  --color-action-danger-hover: var(--rp-color-action-danger-background-hover);
-  --color-action-danger-active: var(--rp-color-action-danger-background-active);
-  --color-action-danger-fg: var(--rp-color-action-danger-foreground-default);
+  --color-destructive: var(--rp-color-action-danger-background-default);
+  --color-destructive-hover: var(--rp-color-action-danger-background-hover);
+  --color-destructive-active: var(--rp-color-action-danger-background-active);
+  --color-destructive-foreground: var(--rp-color-action-danger-foreground-default);
 
-  --color-action-ghost-hover: var(--rp-color-action-ghost-background-hover);
-  --color-action-ghost-active: var(--rp-color-action-ghost-background-active);
-  --color-action-ghost-fg: var(--rp-color-action-ghost-foreground-default);
+  --color-outline-border: var(--rp-color-action-outline-border-default);
+  --color-accent: var(--rp-color-action-ghost-background-hover);
+  --color-accent-active: var(--rp-color-action-ghost-background-active);
+  --color-accent-foreground: var(--rp-color-action-ghost-foreground-default);
 
-  --color-disabled-bg: var(--rp-color-action-primary-background-disabled);
-  --color-disabled-fg: var(--rp-color-action-primary-foreground-disabled);
+  --color-link: var(--rp-color-action-link-foreground-default);
+  --color-link-hover: var(--rp-color-action-link-foreground-hover);
 
-  --radius-control: var(--rp-radius-control);
-  --radius-container: var(--rp-radius-container);
-  --radius-pill: var(--rp-radius-pill);
+  /* Desabilitado tem token medido em vez do `opacity-50` do shadcn: opacidade
+   * sobre um verde escuro com texto branco derruba a leitura para ~2:1. Texto
+   * desabilitado é isento de contraste pela WCAG, mas ilegível continua sendo
+   * ilegível. Aqui dá 3,23:1 e continua claramente inativo. */
+  --color-disabled: var(--rp-color-action-primary-background-disabled);
+  --color-disabled-foreground: var(--rp-color-action-primary-foreground-disabled);
+
+  --radius-md: var(--rp-radius-control);
+  --radius-xl: var(--rp-radius-container);
+  --radius-full: var(--rp-radius-pill);
 
   --spacing-2xs: var(--rp-space-2xs);
   --spacing-xs: var(--rp-space-xs);
@@ -85,6 +98,6 @@
   --spacing-md: var(--rp-space-md);
   --spacing-lg: var(--rp-space-lg);
 
-  --text-label: var(--rp-typography-label-md-size);
-  --font-default: var(--rp-typography-family-default);
+  --text-sm: var(--rp-typography-label-md-size);
+  --font-sans: var(--rp-typography-family-default);
 }

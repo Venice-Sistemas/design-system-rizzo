@@ -1,137 +1,180 @@
 'use client';
 
-import { forwardRef, useEffect, useRef, type ButtonHTMLAttributes, type ReactNode } from 'react';
+import type * as React from 'react';
+import { Slot } from '@radix-ui/react-slot';
 import { cva } from 'class-variance-authority';
 import { cn } from '../lib/cn';
 import { isDev } from '../lib/dev';
+import { useAccessibleName } from '../lib/use-accessible-name';
 
 /**
  * Button — implementa docs/contracts/button.md.
  *
- * Elemento `<button>` nativo, sem biblioteca headless: não há comportamento
- * complexo a delegar, e o nativo já entrega papel, Enter, Espaço e foco de graça.
- * Recriar isso à mão só introduziria bugs.
+ * Segue os padrões do shadcn/ui: mesma nomenclatura de variante e tamanho, mesmo
+ * `data-slot`, mesmo `asChild`, `buttonVariants` exportado. Não é imitação
+ * gratuita — é o que permite trocar o import num app shadcn sem refatorar, e faz
+ * quem conhece a biblioteca ler este código sem tradução.
+ *
+ * Três desvios deliberados, todos registrados no contrato:
+ *
+ *   1. Hover e active vêm de TOKEN MEDIDO, não de `bg-primary/90`. Valor gerado
+ *      por opacidade não está no contrato de contraste e muda conforme o fundo.
+ *   2. Desabilitado usa token medido em vez de `opacity-50`: opacidade sobre um
+ *      verde escuro com texto branco derruba a leitura para perto de 2:1.
+ *   3. A borda de `outline` tem 3,23:1, não a borda decorativa de 1,63:1. Num
+ *      botão contornado a borda é o que identifica o controle, e a WCAG 1.4.11
+ *      exige 3:1 para isso.
  */
 
-const button = cva(
+export const buttonVariants = cva(
   [
-    'ds:relative ds:inline-flex ds:items-center ds:justify-center ds:gap-xs',
-    'ds:font-default ds:text-label ds:font-medium ds:whitespace-nowrap',
-    'ds:rounded-control ds:border ds:border-transparent',
-    'ds:cursor-pointer ds:select-none',
-    'ds:transition-colors ds:duration-150',
-    // Foco só por teclado. Em clique de mouse o anel não aparece, o que evita o
-    // reflexo de removê-lo com outline:none e cegar quem navega por teclado.
-    'ds:outline-none ds:focus-visible:outline-2 ds:focus-visible:outline-offset-2 ds:focus-visible:outline-border-focus',
-    // O alvo clicável nunca é menor que o mínimo, mesmo com size="sm". O
-    // pseudo-elemento expande a área sem alterar o desenho nem o layout.
+    'ds:relative ds:inline-flex ds:shrink-0 ds:items-center ds:justify-center ds:gap-2 ds:whitespace-nowrap',
+    'ds:font-sans ds:text-sm ds:font-medium',
+    'ds:rounded-md ds:border ds:border-transparent',
+    'ds:cursor-pointer ds:select-none ds:transition-all',
+    'ds:outline-none ds:focus-visible:ring-[3px] ds:focus-visible:ring-ring/50 ds:focus-visible:border-ring',
+    'ds:aria-invalid:border-destructive ds:aria-invalid:ring-destructive/20',
+    'ds:disabled:pointer-events-none',
+    // Ícone acompanha o texto sem precisar de prop: dimensiona sozinho e não
+    // rouba o clique. É o que torna `<Icon /> Salvar` suficiente.
+    "ds:[&_svg]:pointer-events-none ds:[&_svg]:shrink-0 ds:[&_svg:not([class*='size-'])]:size-4",
+    // Descendente, não filho direto: o conteúdo vive dentro de um wrapper (ver
+    // abaixo), então `>svg` nunca casaria e o padding não se ajustaria ao ícone.
+    // A área clicável nunca fica abaixo do mínimo de toque, nem em size="sm".
     'ds:after:absolute ds:after:left-1/2 ds:after:top-1/2 ds:after:-translate-x-1/2 ds:after:-translate-y-1/2',
     'ds:after:h-[max(100%,var(--rp-size-target-min))] ds:after:w-[max(100%,var(--rp-size-target-min))]',
-    'ds:disabled:cursor-not-allowed',
     'ds:motion-reduce:transition-none',
   ],
   {
     variants: {
       variant: {
-        primary: [
-          'ds:bg-action-primary ds:text-action-primary-fg',
-          'ds:not-disabled:hover:bg-action-primary-hover',
-          'ds:not-disabled:active:bg-action-primary-active',
+        default: [
+          'ds:bg-primary ds:text-primary-foreground ds:shadow-xs',
+          'ds:not-disabled:hover:bg-primary-hover ds:not-disabled:active:bg-primary-active',
+        ],
+        destructive: [
+          'ds:bg-destructive ds:text-destructive-foreground ds:shadow-xs',
+          'ds:not-disabled:hover:bg-destructive-hover ds:not-disabled:active:bg-destructive-active',
+        ],
+        outline: [
+          'ds:bg-card ds:text-foreground ds:border-outline-border ds:shadow-xs',
+          'ds:not-disabled:hover:bg-accent ds:not-disabled:active:bg-accent-active',
         ],
         secondary: [
-          'ds:bg-action-secondary ds:text-action-secondary-fg ds:border-action-secondary-border',
-          'ds:not-disabled:hover:bg-action-secondary-hover',
-          'ds:not-disabled:active:bg-action-secondary-active',
-        ],
-        danger: [
-          'ds:bg-action-danger ds:text-action-danger-fg',
-          'ds:not-disabled:hover:bg-action-danger-hover',
-          'ds:not-disabled:active:bg-action-danger-active',
+          'ds:bg-secondary ds:text-secondary-foreground ds:shadow-xs',
+          'ds:not-disabled:hover:bg-secondary-hover ds:not-disabled:active:bg-secondary-active',
         ],
         ghost: [
-          'ds:bg-transparent ds:text-action-ghost-fg',
-          'ds:not-disabled:hover:bg-action-ghost-hover',
-          'ds:not-disabled:active:bg-action-ghost-active',
+          'ds:bg-transparent ds:text-accent-foreground',
+          'ds:not-disabled:hover:bg-accent ds:not-disabled:active:bg-accent-active',
+        ],
+        link: [
+          'ds:bg-transparent ds:text-link ds:underline-offset-4',
+          'ds:not-disabled:hover:text-link-hover ds:not-disabled:hover:underline',
         ],
       },
       size: {
-        sm: 'ds:h-[var(--rp-size-control-sm)] ds:px-sm',
-        md: 'ds:h-[var(--rp-size-control-md)] ds:px-md',
-        lg: 'ds:h-[var(--rp-size-control-lg)] ds:px-md',
+        default: 'ds:h-9 ds:px-4 ds:py-2 ds:has-[svg]:px-3',
+        sm: 'ds:h-8 ds:gap-1.5 ds:px-3 ds:has-[svg]:px-2.5',
+        lg: 'ds:h-11 ds:px-6 ds:has-[svg]:px-4',
+        icon: 'ds:size-9',
       },
     },
     compoundVariants: [
       {
-        // Desabilitado é o mesmo em toda variante: some a identidade da ação.
-        variant: ['primary', 'secondary', 'danger'],
-        class: 'ds:disabled:bg-disabled-bg ds:disabled:text-disabled-fg ds:disabled:border-transparent',
+        variant: ['default', 'destructive', 'outline', 'secondary'],
+        class: 'ds:disabled:bg-disabled ds:disabled:text-disabled-foreground ds:disabled:border-transparent ds:disabled:shadow-none',
       },
-      { variant: 'ghost', class: 'ds:disabled:bg-transparent ds:disabled:text-disabled-fg' },
+      { variant: ['ghost', 'link'], class: 'ds:disabled:text-disabled-foreground ds:disabled:no-underline' },
     ],
-    defaultVariants: { variant: 'secondary', size: 'md' },
+    defaultVariants: { variant: 'default', size: 'default' },
   },
 );
 
 /**
- * Os tipos públicos são DECLARADOS, não inferidos do cva.
+ * Tipos públicos DECLARADOS, não inferidos do cva.
  *
- * `VariantProps<typeof button>` parece elegante e arrasta
- * `class-variance-authority/types` para dentro do .d.ts publicado. A partir daí,
- * trocar o cva por qualquer outra coisa vira breaking change para quem consome —
- * que é exatamente o acoplamento que PA-9 existe para impedir. O contrato em
- * docs/contracts/button.md é a fonte destes nomes; o cva é detalhe interno.
+ * `VariantProps<typeof buttonVariants>` arrastaria `class-variance-authority/types`
+ * para o .d.ts publicado, e trocar o cva viraria breaking change para quem
+ * consome. O contrato é a fonte destes nomes; o cva é detalhe interno.
  */
-export type ButtonVariant = 'primary' | 'secondary' | 'danger' | 'ghost';
-export type ButtonSize = 'sm' | 'md' | 'lg';
+export type ButtonVariant = 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link';
+export type ButtonSize = 'default' | 'sm' | 'lg' | 'icon';
 
-export interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className' | 'color'> {
-  /** Peso visual da ação. O padrão é `secondary`: uma tela tem um botão primário, não seis. */
+export interface ButtonProps extends Omit<React.ComponentProps<'button'>, 'color'> {
+  /** Peso visual da ação. `default` é a cor primária da marca. */
   variant?: ButtonVariant;
-  /** Altura do controle. O alvo clicável nunca encolhe abaixo do mínimo. */
+  /** Altura do controle. A área clicável nunca encolhe abaixo do mínimo de toque. */
   size?: ButtonSize;
   /** Ação em andamento. Diferente de `disabled`: o botão continua focável. */
   loading?: boolean;
-  children?: ReactNode;
-  /** Escape hatch. Use com parcimônia — se você precisa sempre, falta uma variante. */
-  className?: string;
+  /** Renderiza o filho no lugar do `<button>`, herdando o estilo. Para envolver um link. */
+  asChild?: boolean;
 }
 
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
-  { variant, size, loading = false, disabled = false, type = 'button', children, className, onClick, ...rest },
-  forwardedRef,
-) {
-  const localRef = useRef<HTMLButtonElement>(null);
-  const ref = (forwardedRef ?? localRef) as React.RefObject<HTMLButtonElement>;
-
-  useAccessibleNameWarning(ref, children);
+export function Button({
+  className,
+  variant,
+  size,
+  loading = false,
+  disabled = false,
+  asChild = false,
+  type = 'button',
+  children,
+  onClick,
+  ref,
+  ...props
+}: ButtonProps) {
+  const Component = asChild ? Slot : 'button';
+  // Com asChild não checamos o nome: quem manda no elemento é o filho, e o aviso
+  // apontaria para um nó que não controlamos.
+  const composedRef = useAccessibleName<HTMLButtonElement>(ref, isDev && !asChild);
 
   return (
-    <button
-      {...rest}
-      ref={ref}
-      type={type}
-      disabled={disabled}
-      // Carregando NÃO usa `disabled`: isso tiraria o botão da ordem de tabulação
-      // e o foco cairia no body no meio da ação. `aria-busy` anuncia o estado sem
-      // sequestrar o foco de quem navega por teclado.
+    <Component
+      data-slot="button"
+      // Gancho de estilo para o consumidor sem precisar de prop nem de classe
+      // interna nossa — mesma ideia do data-slot.
+      data-loading={loading || undefined}
+      ref={composedRef}
+      // Com asChild, `type` e `disabled` não se aplicam: um <a> não tem nenhum dos
+      // dois, e emiti-los produz HTML inválido.
+      {...(asChild ? {} : { type, disabled })}
       aria-busy={loading || undefined}
-      onClick={loading ? preventWhileLoading : onClick}
-      className={cn(button({ variant, size }), className)}
+      onClick={loading ? swallow : onClick}
+      className={cn(buttonVariants({ variant, size }), className)}
+      {...props}
     >
-      {/*
-        `opacity-0`, e não `invisible` nem `aria-hidden`. Os dois últimos tiram o
-        rótulo da árvore de acessibilidade, e o botão ficaria SEM NOME justamente
-        enquanto carrega — o leitor de tela anunciaria "botão, ocupado" e nada mais.
-        Com opacidade o conteúdo some da vista, continua ocupando o mesmo espaço
-        (botão que encolhe move o layout) e o nome acessível permanece.
-      */}
-      <span className={loading ? 'ds:opacity-0' : undefined}>{children}</span>
-      {loading && <Spinner />}
-    </button>
-  );
-});
+      {asChild ? (
+        children
+      ) : (
+        <>
+          {/*
+            `opacity-0`, não `invisible` nem `aria-hidden`: os dois últimos tiram o
+            rótulo da árvore de acessibilidade, e o botão ficaria SEM NOME enquanto
+            carrega — o leitor de tela anunciaria só "botão, ocupado". Com
+            opacidade o conteúdo some da vista, segura o mesmo espaço (botão que
+            encolhe move o layout) e o nome permanece.
 
-function preventWhileLoading(event: React.MouseEvent<HTMLButtonElement>) {
+            O wrapper é `inline-flex`, NUNCA `display: contents`. Elemento com
+            `contents` não gera caixa, e sem caixa `opacity` não se aplica — o
+            rótulo continuaria visível com o spinner desenhado por cima.
+
+            `gap-[inherit]` puxa o gap do botão em vez de repetir o valor por
+            tamanho: `sm` usa 1.5 e os demais 2, e duplicar isso aqui garantiria
+            divergência na primeira vez que alguém mexesse em um dos dois.
+          */}
+          <span className={cn('ds:inline-flex ds:items-center ds:gap-[inherit]', loading && 'ds:opacity-0')}>
+            {children}
+          </span>
+          {loading && <Spinner />}
+        </>
+      )}
+    </Component>
+  );
+}
+
+function swallow(event: React.MouseEvent<HTMLButtonElement>) {
   event.preventDefault();
   event.stopPropagation();
 }
@@ -140,37 +183,7 @@ function Spinner() {
   return (
     <span
       aria-hidden="true"
-      className={cn(
-        'ds:absolute ds:h-[1em] ds:w-[1em] ds:rounded-pill',
-        'ds:border-2 ds:border-current ds:border-t-transparent',
-        'ds:animate-spin ds:motion-reduce:animate-none',
-      )}
+      className="ds:absolute ds:size-[1em] ds:rounded-full ds:border-2 ds:border-current ds:border-t-transparent ds:animate-spin ds:motion-reduce:animate-none"
     />
   );
-}
-
-/**
- * Avisa, em desenvolvimento, quando o botão não tem nome acessível.
- *
- * O caso comum é botão só de ícone sem `aria-label` — invisível para quem enxerga
- * e completamente mudo no leitor de tela. Tornar o caminho inacessível barulhento
- * é o que faz PA-3 valer na prática: acessibilidade é propriedade do componente,
- * não responsabilidade de quem consome lembrar.
- */
-function useAccessibleNameWarning(ref: React.RefObject<HTMLButtonElement>, children: ReactNode) {
-  useEffect(() => {
-    if (!isDev) return;
-    const node = ref.current;
-    if (!node) return;
-    const hasName = Boolean(
-      node.textContent?.trim() || node.getAttribute('aria-label') || node.getAttribute('aria-labelledby'),
-    );
-    if (!hasName) {
-      console.warn(
-        '[@rizzopark/react] Button sem nome acessível. Um botão só de ícone precisa de `aria-label` — ' +
-          'sem ele, o leitor de tela anuncia apenas "botão" e o usuário não tem como saber o que ele faz.',
-        node,
-      );
-    }
-  }, [ref, children]);
 }

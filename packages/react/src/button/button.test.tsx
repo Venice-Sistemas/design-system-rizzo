@@ -109,6 +109,25 @@ describe('Button', () => {
       expect(screen.getByRole('button')).toHaveAccessibleName('Registrar');
     });
 
+    it('esconde o rótulo por opacidade, num elemento que gera caixa', () => {
+      // Regressão: o wrapper já usou `display: contents`, que não gera caixa —
+      // e sem caixa `opacity` não se aplica. O rótulo ficava visível com o
+      // spinner desenhado por cima. jsdom não calcula layout, então o que dá
+      // para travar aqui é a classe; o visual é conferido no sandbox.
+      const { container } = render(<Button loading>Registrar</Button>);
+      const wrapper = container.querySelector('button > span:not([aria-hidden])');
+      expect(wrapper?.className).toContain('opacity-0');
+      expect(wrapper?.className).not.toContain('contents');
+    });
+
+    it('renderiza o indicador só quando carregando', () => {
+      const { container } = render(<Button loading>Registrar</Button>);
+      expect(container.querySelector('button > span[aria-hidden="true"]')).not.toBeNull();
+      cleanup();
+      const { container: parado } = render(<Button>Registrar</Button>);
+      expect(parado.querySelector('button > span[aria-hidden="true"]')).toBeNull();
+    });
+
     it('ignora o clique', async () => {
       const user = userEvent.setup();
       const onClick = vi.fn();
@@ -157,7 +176,7 @@ describe('Button', () => {
     // O que sobra aqui é violação estrutural. Continua não pegando ordem de foco
     // sem sentido nem rótulo que mente — isso exige auditoria manual antes de
     // o componente ser considerado `estável`.
-    for (const variant of ['primary', 'secondary', 'danger', 'ghost'] as const) {
+    for (const variant of ['default', 'destructive', 'outline', 'secondary', 'ghost', 'link'] as const) {
       it(`variante ${variant} sem violações`, async () => {
         const { container } = render(<Button variant={variant}>Registrar</Button>);
         expect((await run(container)).violations).toEqual([]);
@@ -187,6 +206,59 @@ describe('Button', () => {
       const ref = { current: null } as React.RefObject<HTMLButtonElement | null>;
       render(<Button ref={ref as React.RefObject<HTMLButtonElement>}>Registrar</Button>);
       expect(ref.current).toBeInstanceOf(HTMLButtonElement);
+    });
+  });
+
+  describe('asChild', () => {
+    it('renderiza o filho no lugar do button, herdando o estilo', () => {
+      render(
+        <Button asChild variant="link">
+          <a href="/areas">Ver áreas</a>
+        </Button>,
+      );
+      const link = screen.getByRole('link', { name: 'Ver áreas' });
+      expect(link.tagName).toBe('A');
+      expect(link).toHaveAttribute('data-slot', 'button');
+      expect(link.className).toContain('ds:');
+    });
+
+    it('não emite type nem disabled no elemento delegado', () => {
+      // Um <a> não tem nenhum dos dois. Emiti-los produz HTML inválido, e
+      // `disabled` num link não faz nada além de confundir quem inspeciona.
+      render(
+        <Button asChild>
+          <a href="/areas">Ver áreas</a>
+        </Button>,
+      );
+      const link = screen.getByRole('link');
+      expect(link).not.toHaveAttribute('type');
+      expect(link).not.toHaveAttribute('disabled');
+    });
+  });
+
+  describe('padrões do shadcn', () => {
+    it('marca o elemento com data-slot', () => {
+      render(<Button>Registrar</Button>);
+      expect(screen.getByRole('button')).toHaveAttribute('data-slot', 'button');
+    });
+
+    it('expõe data-loading como gancho de estilo', () => {
+      render(<Button loading>Registrar</Button>);
+      expect(screen.getByRole('button')).toHaveAttribute('data-loading', 'true');
+    });
+
+    it('a variante padrão é a cor primária', () => {
+      // Pedido explícito: o botão nasce com a cor da marca. Como `default` é o
+      // valor omitido, isto trava que ele e `variant="default"` são a mesma coisa.
+      render(<Button>Registrar</Button>);
+      const semVariante = screen.getByRole('button').className;
+      cleanup();
+
+      render(<Button variant="default">Registrar</Button>);
+      const comDefault = screen.getByRole('button').className;
+
+      expect(semVariante).toBe(comDefault);
+      expect(semVariante).toContain('bg-primary');
     });
   });
 });

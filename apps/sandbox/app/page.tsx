@@ -7,8 +7,8 @@ import { Button, type ButtonSize, type ButtonVariant } from '@rizzopark/react';
  * bundle do pacote.
  */
 
-const VARIANTS: ButtonVariant[] = ['primary', 'secondary', 'danger', 'ghost'];
-const SIZES: ButtonSize[] = ['sm', 'md', 'lg'];
+const VARIANTS: ButtonVariant[] = ['default', 'destructive', 'outline', 'secondary', 'ghost', 'link'];
+const SIZES: ButtonSize[] = ['default', 'sm', 'lg'];
 
 function Row({ label, children }: { label: string; children: React.ReactNode }) {
   return (
@@ -45,6 +45,9 @@ export default function Page() {
               Registrar
             </Button>
           ))}
+          <Button variant={variant} size='icon'>
+            Icon
+          </Button>
           <Button variant={variant} disabled>
             Desabilitado
           </Button>

@@ -25,8 +25,8 @@ Espaço), e quebra abrir em nova aba. Se o clique muda a URL, use um link.
 
 | Prop | Valores | Padrão | Descrição |
 |---|---|---|---|
-| `variant` | `primary` · `secondary` · `danger` · `ghost` | `secondary` | Peso visual da ação |
-| `size` | `sm` · `md` · `lg` | `md` | Altura do controle |
+| `variant` | `default` · `destructive` · `outline` · `secondary` · `ghost` · `link` | `default` | Peso visual da ação. Nomenclatura do shadcn |
+| `size` | `default` · `sm` · `lg` · `icon` | `default` | Altura do controle |
 | `loading` | `boolean` | `false` | Ação em andamento |
 | `disabled` | `boolean` | `false` | Indisponível |
 | `type` | `button` · `submit` · `reset` | `button` | Igual ao HTML |
@@ -34,9 +34,13 @@ Espaço), e quebra abrir em nova aba. Se o clique muda a URL, use um link.
 
 Mais os atributos nativos de `<button>`. Nenhum tipo vindo de biblioteca externa.
 
-**O padrão é `secondary`, não `primary`, de propósito.** Uma tela deve ter um botão primário,
-não seis. Se o padrão fosse `primary`, o caminho preguiçoso seria o errado — e o caminho
-preguiçoso é o que acontece.
+**O padrão é `default`, que é a cor primária da marca.** A nomenclatura vem do shadcn, onde
+`default` é o botão de ação principal. Uma tela deve ter **um** primário — para as ações de
+apoio ao lado dele existem `outline`, `secondary` e `ghost`.
+
+Mais duas props vindas do shadcn: `asChild`, que delega o elemento ao filho (para envolver um
+link mantendo o estilo), e `buttonVariants`, exportado para quem precisa das classes sem o
+componente.
 
 **Ícone não tem prop.** `<Button><IconSave /> Salvar</Button>` funciona: o botão aplica o
 gap por token. Prop de ícone existiria só para controlar posição, e composição já resolve
@@ -44,9 +48,8 @@ isso sem inventar API.
 
 ### Deliberadamente fora, por ora
 
-`asChild` / polimorfismo (renderizar como outro elemento) e `fullWidth`. Nenhum dos dois tem
-consumidor real ainda, e `asChild` é idioma de biblioteca — entra só se uma tela exigir, e
-com nome nosso.
+Os tamanhos `xs`, `icon-xs`, `icon-sm` e `icon-lg` que o shadcn passou a documentar. São
+aditivos e entram quando houver consumidor — hoje o parking-new-front usa só os quatro acima.
 
 ## Anatomia
 
@@ -68,7 +71,7 @@ que encolhe ao carregar move o layout inteiro e faz o usuário errar o clique se
 |---|---|
 | repouso | — |
 | hover | Fundo escurece um degrau. Só em dispositivo com ponteiro |
-| foco visível | Anel de 2px com offset. Aparece com teclado; não aparece em clique de mouse |
+| foco visível | Anel de 3px. Aparece com teclado; não aparece em clique de mouse |
 | pressionado | Fundo escurece mais um degrau |
 | desabilitado | Sem interação, sem foco, cursor padrão |
 | carregando | **Continua focável.** Clique e submit são ignorados |
@@ -88,13 +91,18 @@ perde. Além disso leitores de tela não anunciam mudanças em elemento desabili
 | fundo · desabilitado | `color.action.{variant}.background.disabled` |
 | frente | `color.action.{variant}.foreground.default` |
 | frente · desabilitado | `color.action.{variant}.foreground.disabled` |
-| borda (`secondary`) | `color.action.secondary.border.default` |
-| anel de foco | `color.border.focus`, `border.focus.width`, `border.focus.offset` |
+| borda (`outline`) | `color.action.outline.border.default` — 3,23:1, e não a borda decorativa |
+| texto (`link`) | `color.action.link.foreground.default` |
+| anel de foco | `color.border.focus`, 3px com 50% de opacidade, no padrão do shadcn |
 | altura | `size.control.{size}` |
 | alvo clicável | `size.target.min` |
 | raio | `radius.control` |
 | espaçamento interno | `space.md` lateral, `space.xs` entre ícone e rótulo |
 | tipografia | `typography.label.md` |
+
+A superfície primária é um tom escuro do verde com texto branco (6,41:1), **não** o verde do
+símbolo. `#02cb03` com branco dá 2,20:1 — marca e ação são coisas separadas, e `color.brand`
+existe justamente para a primeira.
 
 **Estados vêm de tokens, nunca de opacidade.** Um valor gerado por `opacity` não é medido,
 não está no contrato de contraste e muda conforme o fundo atrás. Todos os pares acima estão
