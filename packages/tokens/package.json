@@ -20,6 +20,7 @@
     },
     "./css": "./dist/tokens.css",
     "./tailwind": "./dist/tailwind.css",
+    "./shadcn": "./dist/shadcn.css",
     "./fonts/*": "./dist/fonts/*",
     "./contrast-pairs.json": "./contrast-pairs.json",
     "./primitives.json": "./dist/primitives.json",

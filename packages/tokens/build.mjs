@@ -219,6 +219,130 @@ StyleDictionary.registerFormat({
   format: ({ dictionary }) => `${HEADER('Design tokens da Rizzo Park (web).')}export const tokens = ${serialize(nest(dictionary.allTokens))};\n\nexport default tokens;\n`,
 });
 
+/* ------------------------------------------------------------------------ *
+ * Ponte para o contrato de variáveis do shadcn/ui.
+ *
+ * Nossos nomes continuam canônicos — este é um ALIAS de saída, não uma segunda
+ * fonte de verdade. A direção importa: os valores vêm dos nossos tokens, então a
+ * ponte não pode divergir. Se um token muda, ela muda junto.
+ *
+ * Existe por um motivo prático: o parking-new-front já é shadcn. Sem a ponte,
+ * adotar o Design System exigiria refatorar componente por componente, e a
+ * adoção simplesmente não aconteceria — o maior risco do projeto (R-4) não é o
+ * DS estar errado, é ninguém usar.
+ *
+ * O que NÃO está aqui, de propósito: `--auth-canvas-top`, `--auth-grid-line` e
+ * `--brand-subtle`. São da tela de autenticação de um app específico, não da
+ * linguagem visual compartilhada.
+ * ------------------------------------------------------------------------ */
+const SHADCN_MAP = {
+  background: 'color.surface.page',
+  foreground: 'color.text.primary',
+  card: 'color.surface.default',
+  'card-foreground': 'color.text.primary',
+  popover: 'color.surface.raised',
+  'popover-foreground': 'color.text.primary',
+
+  primary: 'color.action.primary.background.default',
+  'primary-foreground': 'color.action.primary.foreground.default',
+  secondary: 'color.surface.subtle',
+  'secondary-foreground': 'color.text.primary',
+  muted: 'color.surface.subtle',
+  'muted-foreground': 'color.text.secondary',
+  accent: 'color.action.ghost.background.hover',
+  'accent-foreground': 'color.text.primary',
+  destructive: 'color.action.danger.background.default',
+  'destructive-foreground': 'color.action.danger.foreground.default',
+
+  border: 'color.border.default',
+  input: 'color.border.strong',
+  ring: 'color.border.focus',
+  radius: 'radius.base',
+
+  brand: 'color.brand.default',
+  'brand-foreground': 'color.brand.ink',
+  'brand-mark': 'color.brand.default',
+  'brand-strong': 'color.brand.strong',
+  'brand-link': 'color.text.link',
+  'brand-hover': 'color.action.primary.background.hover',
+  'brand-accent': 'color.brand.accent',
+  'brand-accent-foreground': 'color.brand.accent-ink',
+
+  'chart-1': 'color.chart.1',
+  'chart-2': 'color.chart.2',
+  'chart-3': 'color.chart.3',
+  'chart-4': 'color.chart.4',
+  'chart-5': 'color.chart.5',
+
+  sidebar: 'color.surface.subtle',
+  'sidebar-foreground': 'color.text.primary',
+  'sidebar-primary': 'color.action.primary.background.default',
+  'sidebar-primary-foreground': 'color.action.primary.foreground.default',
+  'sidebar-accent': 'color.action.ghost.background.hover',
+  'sidebar-accent-foreground': 'color.text.primary',
+  'sidebar-border': 'color.border.default',
+  'sidebar-ring': 'color.border.focus',
+};
+
+StyleDictionary.registerFormat({
+  name: 'rp/shadcn',
+  format: ({ dictionary }) => {
+    const byPath = new Map(dictionary.allTokens.map((token) => [token.path.join('.'), val(token)]));
+
+    const missing = Object.entries(SHADCN_MAP).filter(([, path]) => !byPath.has(path));
+    if (missing.length) {
+      // Falha o build em vez de emitir uma ponte com buracos: variável ausente
+      // vira `--primary: undefined`, o componente perde a cor e ninguém liga o
+      // sintoma à causa.
+      throw new Error(
+        `Ponte shadcn aponta para tokens que não existem:\n${missing.map(([n, p]) => `  --${n} -> ${p}`).join('\n')}`,
+      );
+    }
+
+    const lines = Object.entries(SHADCN_MAP).map(([name, path]) => `  --${name}: ${byPath.get(path)};`);
+
+    return `${HEADER('Ponte para o contrato de variáveis do shadcn/ui.')}/**
+ * COMO ADOTAR num app shadcn existente
+ *
+ *   1. Importe este arquivo depois do \`@import 'tailwindcss'\`.
+ *   2. Remova do seu \`:root\` as ${Object.keys(SHADCN_MAP).length} variáveis declaradas abaixo — passam a vir daqui.
+ *   3. Seu \`@theme inline\` NÃO muda: ele mapeia exatamente estas variáveis.
+ *
+ * O QUE VOCÊ CONTINUA MANTENDO
+ *
+ *   Camada de paleta crua (\`--rizzo-green\`, \`--rizzo-gold\`, …)
+ *     Equivale à nossa camada primitiva, que o build não emite de propósito. Ela
+ *     ainda é referenciada pelo seu bloco \`.dark\`, então precisa ficar até o
+ *     tema escuro sair daqui. Depois disso, pode ser apagada.
+ *
+ *   Bloco \`.dark\` inteiro
+ *     O tema escuro ainda não é emitido. Sem o seu bloco, o app fica claro no
+ *     modo escuro. Ele sobrepõe esta ponte normalmente — nada a fazer.
+ *
+ *   \`--stat-neutral\`, \`--stat-positive\`, \`--stat-negative\`
+ *     São composições suas via \`color-mix\` sobre \`--muted-foreground\`,
+ *     \`--primary\`, \`--destructive\` e \`--card\` — todas fornecidas aqui. Seguem
+ *     funcionando sem alteração, e passam a refletir a paleta verificada.
+ *
+ *   \`--font-poppins\`, \`--auth-*\`, \`--brand-subtle\`, \`--shadow-card\`
+ *     Específicas do seu app. O Design System não as conhece nem deveria.
+ *
+ * O QUE MUDA DE APARÊNCIA
+ *
+ *   \`--primary\` sai de #0b9e42 para #006f00. Com texto branco isso vai de
+ *   3,51:1 (reprova AA) para 6,41:1. É a correção que o comentário do seu
+ *   globals.css já prescrevia e o código não aplicava.
+ *
+ *   \`--chart-2\` sai do dourado da marca para um dourado escuro: como marca de
+ *   dado em fundo claro, o #ffd700 dá 1,40:1 e some.
+ */
+:root {
+${lines.join('\n')}
+}
+`;
+  },
+});
+
 /**
  * Artefato SOMENTE PARA DOCUMENTAÇÃO com a camada primitiva.
  *
@@ -284,6 +408,13 @@ const sd = new StyleDictionary({
         { destination: 'native.mjs', format: 'rp/esm', filter: isPublic },
         { destination: 'native.d.ts', format: 'rp/dts', filter: isPublic },
       ],
+    },
+    shadcn: {
+      // Sem transform de valor: a ponte precisa dos valores CRUS, não de rem nem
+      // de conversão. O consumidor é o CSS de um app shadcn, que espera cor e px.
+      transforms: shared,
+      buildPath: `${posix(DIST)}/`,
+      files: [{ destination: 'shadcn.css', format: 'rp/shadcn', filter: isPublic }],
     },
     docs: {
       transforms: shared,
