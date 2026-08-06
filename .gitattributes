@@ -1,0 +1,16 @@
+# Normaliza fim de linha: o repositório guarda LF e o checkout entrega LF em
+# qualquer sistema. Sem isto, um arquivo tocado no Windows e outro no macOS geram
+# diffs de arquivo inteiro, e o histórico fica ilegível.
+* text=auto eol=lf
+
+# Gerados: não interessa revisar diff, e conflito neles se resolve regerando.
+pnpm-lock.yaml linguist-generated=true
+
+# Binários — nunca normalizar.
+*.woff  binary
+*.woff2 binary
+*.ttf   binary
+*.otf   binary
+*.png   binary
+*.jpg   binary
+*.ico   binary

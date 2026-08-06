@@ -1,0 +1,9 @@
+{
+  "extends": "@rizzopark/ts-config/react-library.json",
+  "compilerOptions": {
+    "types": ["vite/client"],
+    "resolveJsonModule": true,
+    "allowJs": true
+  },
+  "include": ["src", ".storybook"]
+}

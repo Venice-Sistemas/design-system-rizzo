@@ -1,0 +1,255 @@
+{
+  "base": {
+    "color": {
+      "$description": "PRIMITIVOS DE COR — camada privada, não emitida pelo build. Nunca consumir direto em componente ou aplicação; use os semânticos em ../semantic/color.json (AD-06). Escalas derivadas em OKLCH a partir de #02cb03: mesma lightness por degrau em todas as escalas, então brand.700 e danger.700 são intercambiáveis no mesmo contexto sem quebrar a hierarquia visual.",
+      "white": {
+        "$value": "#ffffff",
+        "$type": "color"
+      },
+      "black": {
+        "$value": "#000000",
+        "$type": "color"
+      },
+      "brand": {
+        "50": {
+          "$value": "#e6ffe4",
+          "$type": "color"
+        },
+        "100": {
+          "$value": "#c5ffc0",
+          "$type": "color"
+        },
+        "200": {
+          "$value": "#94fb8d",
+          "$type": "color"
+        },
+        "300": {
+          "$value": "#6eeb66",
+          "$type": "color"
+        },
+        "400": {
+          "$value": "#4cdc46",
+          "$type": "color"
+        },
+        "500": {
+          "$value": "#02cb03",
+          "$type": "color",
+          "$description": "Cor de marca. Não alterar sem aprovação — é o valor de referência de toda a identidade."
+        },
+        "600": {
+          "$value": "#00ae01",
+          "$type": "color"
+        },
+        "700": {
+          "$value": "#008e01",
+          "$type": "color"
+        },
+        "800": {
+          "$value": "#006f00",
+          "$type": "color",
+          "$description": "Degrau mais claro que passa AA como texto sobre branco (6,41:1)."
+        },
+        "900": {
+          "$value": "#005200",
+          "$type": "color"
+        },
+        "950": {
+          "$value": "#11340f",
+          "$type": "color"
+        },
+        "$description": "Nosso verde institucional. O degrau 500 é a cor de marca EXATA (#02cb03). ATENÇÃO: nenhum degrau de 50 a 700 atinge 4,5:1 contra branco — texto branco sobre a marca é proibido. Use preto por cima (9,55:1) ou o degrau 800+ para texto verde sobre fundo claro."
+      },
+      "neutral": {
+        "50": {
+          "$value": "#f7f7f7",
+          "$type": "color"
+        },
+        "100": {
+          "$value": "#ededed",
+          "$type": "color"
+        },
+        "200": {
+          "$value": "#dedede",
+          "$type": "color"
+        },
+        "300": {
+          "$value": "#cacaca",
+          "$type": "color"
+        },
+        "400": {
+          "$value": "#b9b9b9",
+          "$type": "color"
+        },
+        "500": {
+          "$value": "#a7a7a7",
+          "$type": "color"
+        },
+        "600": {
+          "$value": "#8f8f8f",
+          "$type": "color",
+          "$description": "Piso para borda de componente interativo e texto desabilitado (3,23:1 — atende 1.4.11)."
+        },
+        "700": {
+          "$value": "#747474",
+          "$type": "color",
+          "$description": "Degrau mais claro que passa AA como texto sobre branco (4,67:1)."
+        },
+        "800": {
+          "$value": "#5b5b5b",
+          "$type": "color"
+        },
+        "900": {
+          "$value": "#424242",
+          "$type": "color"
+        },
+        "950": {
+          "$value": "#2b2b2b",
+          "$type": "color"
+        },
+        "$description": "Cinza puro (croma zero). Escolha deliberada: com uma marca tão saturada, um cinza tingido de verde competiria com os estados de status do domínio (pago/regular). Se o time de design preferir um cinza levemente esverdeado, é uma alteração de uma linha na geração."
+      },
+      "danger": {
+        "50": {
+          "$value": "#fff4f2",
+          "$type": "color"
+        },
+        "100": {
+          "$value": "#ffe6e3",
+          "$type": "color"
+        },
+        "200": {
+          "$value": "#ffd2cc",
+          "$type": "color"
+        },
+        "300": {
+          "$value": "#ffb5ac",
+          "$type": "color"
+        },
+        "400": {
+          "$value": "#ff9a8e",
+          "$type": "color"
+        },
+        "500": {
+          "$value": "#fe796e",
+          "$type": "color"
+        },
+        "600": {
+          "$value": "#e45d53",
+          "$type": "color"
+        },
+        "700": {
+          "$value": "#c3423a",
+          "$type": "color",
+          "$description": "Fundo de botão destrutivo — texto branco atinge 5,05:1."
+        },
+        "800": {
+          "$value": "#9f2b27",
+          "$type": "color"
+        },
+        "900": {
+          "$value": "#771c19",
+          "$type": "color"
+        },
+        "950": {
+          "$value": "#41211d",
+          "$type": "color"
+        },
+        "$description": "Vermelho de erro e ação destrutiva."
+      },
+      "warning": {
+        "50": {
+          "$value": "#fff5e8",
+          "$type": "color"
+        },
+        "100": {
+          "$value": "#ffe9cc",
+          "$type": "color"
+        },
+        "200": {
+          "$value": "#ffd7a0",
+          "$type": "color"
+        },
+        "300": {
+          "$value": "#fdbd5e",
+          "$type": "color"
+        },
+        "400": {
+          "$value": "#efaa3b",
+          "$type": "color"
+        },
+        "500": {
+          "$value": "#df9700",
+          "$type": "color"
+        },
+        "600": {
+          "$value": "#bf8100",
+          "$type": "color"
+        },
+        "700": {
+          "$value": "#9c6900",
+          "$type": "color"
+        },
+        "800": {
+          "$value": "#7b5100",
+          "$type": "color"
+        },
+        "900": {
+          "$value": "#5b3b00",
+          "$type": "color"
+        },
+        "950": {
+          "$value": "#39280d",
+          "$type": "color"
+        },
+        "$description": "Âmbar de atenção. No domínio, é a cor natural de 'em tolerância'."
+      },
+      "info": {
+        "50": {
+          "$value": "#f1f8ff",
+          "$type": "color"
+        },
+        "100": {
+          "$value": "#e0efff",
+          "$type": "color"
+        },
+        "200": {
+          "$value": "#c5e1ff",
+          "$type": "color"
+        },
+        "300": {
+          "$value": "#a2cfff",
+          "$type": "color"
+        },
+        "400": {
+          "$value": "#80bfff",
+          "$type": "color"
+        },
+        "500": {
+          "$value": "#59adff",
+          "$type": "color"
+        },
+        "600": {
+          "$value": "#3a93e6",
+          "$type": "color"
+        },
+        "700": {
+          "$value": "#1a77c6",
+          "$type": "color"
+        },
+        "800": {
+          "$value": "#005da2",
+          "$type": "color"
+        },
+        "900": {
+          "$value": "#004479",
+          "$type": "color"
+        },
+        "950": {
+          "$value": "#192d41",
+          "$type": "color"
+        },
+        "$description": "Azul informativo e neutro-de-marca. Também é a única cor forte do sistema que não colide com nenhum status do domínio."
+      }
+    }
+  }
+}

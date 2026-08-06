@@ -1,0 +1,70 @@
+{
+  "space": {
+    "$description": "SEMÂNTICOS DE LAYOUT — interface pública. DECISÃO: uma única escala t-shirt de espaçamento, e não três árvores separadas (inset/stack/inline). A distinção inset vs stack vs inline é orientação de USO e vive em Foundations; triplicar a árvore de tokens triplicaria a manutenção sem acrescentar informação — os valores seriam os mesmos (PA-2).",
+    "none": { "$value": "{base.space.0}",  "$type": "dimension" },
+    "2xs":  { "$value": "{base.space.1}",  "$type": "dimension", "$description": "4px — separação entre ícone e rótulo." },
+    "xs":   { "$value": "{base.space.2}",  "$type": "dimension", "$description": "8px — dentro de um controle." },
+    "sm":   { "$value": "{base.space.3}",  "$type": "dimension", "$description": "12px — entre elementos irmãos próximos." },
+    "md":   { "$value": "{base.space.4}",  "$type": "dimension", "$description": "16px — padrão. Padding de card, gap de formulário." },
+    "lg":   { "$value": "{base.space.6}",  "$type": "dimension", "$description": "24px — entre grupos." },
+    "xl":   { "$value": "{base.space.8}",  "$type": "dimension", "$description": "32px — entre seções." },
+    "2xl":  { "$value": "{base.space.12}", "$type": "dimension", "$description": "48px — entre blocos maiores de página." },
+    "3xl":  { "$value": "{base.space.16}", "$type": "dimension", "$description": "64px — respiro de topo de página." }
+  },
+
+  "radius": {
+    "control":   { "$value": "{base.radius.md}",   "$type": "dimension", "$description": "Botão, input, select." },
+    "container": { "$value": "{base.radius.lg}",   "$type": "dimension", "$description": "Card, modal, popover." },
+    "pill":      { "$value": "{base.radius.full}", "$type": "dimension", "$description": "Badge, tag, avatar." },
+    "flush":     { "$value": "{base.radius.none}", "$type": "dimension", "$description": "Tabela e listas coladas à borda." }
+  },
+
+  "border": {
+    "width": {
+      "default": { "$value": "{base.border-width.1}", "$type": "dimension" },
+      "strong":  { "$value": "{base.border-width.2}", "$type": "dimension", "$description": "Estado de erro e borda enfatizada." }
+    },
+    "focus": {
+      "width":  { "$value": "{base.border-width.2}", "$type": "dimension" },
+      "offset": { "$value": "{base.space.1}",        "$type": "dimension", "$description": "Afastamento do anel de foco. Sem offset, o anel encosta no controle e some visualmente." }
+    }
+  },
+
+  "size": {
+    "control": {
+      "sm": { "$value": "{base.size.control.sm}", "$type": "dimension" },
+      "md": { "$value": "{base.size.control.md}", "$type": "dimension" },
+      "lg": { "$value": "{base.size.control.lg}", "$type": "dimension" }
+    },
+    "target": {
+      "min": { "$value": "{base.size.touch.min}", "$type": "dimension", "$description": "Área CLICÁVEL mínima. Pode ser maior que o desenho visível do controle — um ícone de 20px pode ter alvo de 44px." }
+    },
+    "icon": {
+      "sm": { "$value": "{base.size.icon.sm}", "$type": "dimension" },
+      "md": { "$value": "{base.size.icon.md}", "$type": "dimension" },
+      "lg": { "$value": "{base.size.icon.lg}", "$type": "dimension" }
+    }
+  },
+
+  "elevation": {
+    "$description": "SEMÂNTICA de elevação, nunca valor de sombra. Motivo: React Native não tem box-shadow — iOS usa shadowOffset/Opacity/Radius e Android usa 'elevation', que nem é configurável. Um token com valor de sombra literal seria intraduzível. A tabela de tradução por plataforma vive em build.mjs.",
+    "flat":    { "$value": 0, "$type": "number", "$description": "No plano. Card dentro de página." },
+    "raised":  { "$value": 1, "$type": "number", "$description": "Acima do plano. Dropdown, popover, card flutuante." },
+    "overlay": { "$value": 2, "$type": "number", "$description": "Sobre todo o conteúdo. Modal, drawer, toast." }
+  },
+
+  "z-index": {
+    "dropdown": { "$value": "{base.z-index.dropdown}", "$type": "number" },
+    "sticky":   { "$value": "{base.z-index.sticky}",   "$type": "number" },
+    "overlay":  { "$value": "{base.z-index.overlay}",  "$type": "number" },
+    "modal":    { "$value": "{base.z-index.modal}",    "$type": "number" },
+    "popover":  { "$value": "{base.z-index.popover}",  "$type": "number" },
+    "toast":    { "$value": "{base.z-index.toast}",    "$type": "number" }
+  },
+
+  "breakpoint": {
+    "md": { "$value": "{base.breakpoint.md}", "$type": "dimension" },
+    "lg": { "$value": "{base.breakpoint.lg}", "$type": "dimension" },
+    "xl": { "$value": "{base.breakpoint.xl}", "$type": "dimension" }
+  }
+}

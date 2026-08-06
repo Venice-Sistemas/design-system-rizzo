@@ -1,0 +1,79 @@
+{
+  "base": {
+    "font-family": {
+      "$description": "PRIMITIVOS DE TIPOGRAFIA — camada privada, não emitida pelo build. Poppins é a família principal (SIL Open Font License 1.1, que cobre tanto uso web quanto empacotamento no app React Native — são licenças distintas). Auto-hospedada, não CDN do Google: melhor para nossos dispositivos de campo, sem dependência externa em produção e mais defensável em LGPD.",
+      "sans": {
+        "$value": "Poppins, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
+        "$type": "fontFamily",
+        "$description": "Poppins primeiro; o stack de sistema atrás cobre o intervalo até a fonte carregar e o caso de falha. No React Native o build reduz isto a 'Poppins' — RN não aceita stack."
+      },
+      "mono": {
+        "$value": "ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, 'Liberation Mono', monospace",
+        "$type": "fontFamily",
+        "$description": "Números, identificadores e códigos. Monoespaçado alinha dígitos em coluna e reduz ambiguidade na leitura rápida."
+      }
+    },
+    "font-size": {
+      "$description": "Sete degraus. Origem em px; o build converte para rem no web (escala com a preferência do usuário) e para número no React Native (não escala — ver §7.4).",
+      "xs": {
+        "$value": "12px",
+        "$type": "dimension"
+      },
+      "sm": {
+        "$value": "14px",
+        "$type": "dimension"
+      },
+      "md": {
+        "$value": "16px",
+        "$type": "dimension"
+      },
+      "lg": {
+        "$value": "18px",
+        "$type": "dimension"
+      },
+      "xl": {
+        "$value": "20px",
+        "$type": "dimension"
+      },
+      "2xl": {
+        "$value": "24px",
+        "$type": "dimension"
+      },
+      "3xl": {
+        "$value": "32px",
+        "$type": "dimension"
+      }
+    },
+    "font-weight": {
+      "regular": {
+        "$value": 400,
+        "$type": "number"
+      },
+      "medium": {
+        "$value": 500,
+        "$type": "number"
+      },
+      "bold": {
+        "$value": 700,
+        "$type": "number"
+      }
+    },
+    "line-height": {
+      "tight": {
+        "$value": 1.2,
+        "$type": "number",
+        "$description": "Títulos."
+      },
+      "normal": {
+        "$value": 1.5,
+        "$type": "number",
+        "$description": "Corpo. Mínimo confortável de leitura."
+      },
+      "relaxed": {
+        "$value": 1.7,
+        "$type": "number",
+        "$description": "Texto longo."
+      }
+    }
+  }
+}

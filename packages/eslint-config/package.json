@@ -1,0 +1,16 @@
+{
+  "name": "@rizzopark/eslint-config",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Configuração ESLint compartilhada pelos pacotes do Design System",
+  "license": "UNLICENSED",
+  "type": "module",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "react.js"
+  ],
+  "peerDependencies": {
+    "eslint": "^9.0.0"
+  }
+}

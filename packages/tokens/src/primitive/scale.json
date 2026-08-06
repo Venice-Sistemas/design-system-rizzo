@@ -1,0 +1,178 @@
+{
+  "base": {
+    "space": {
+      "0": {
+        "$value": "0px",
+        "$type": "dimension"
+      },
+      "1": {
+        "$value": "4px",
+        "$type": "dimension"
+      },
+      "2": {
+        "$value": "8px",
+        "$type": "dimension"
+      },
+      "3": {
+        "$value": "12px",
+        "$type": "dimension"
+      },
+      "4": {
+        "$value": "16px",
+        "$type": "dimension"
+      },
+      "5": {
+        "$value": "20px",
+        "$type": "dimension"
+      },
+      "6": {
+        "$value": "24px",
+        "$type": "dimension"
+      },
+      "8": {
+        "$value": "32px",
+        "$type": "dimension"
+      },
+      "10": {
+        "$value": "40px",
+        "$type": "dimension"
+      },
+      "12": {
+        "$value": "48px",
+        "$type": "dimension"
+      },
+      "16": {
+        "$value": "64px",
+        "$type": "dimension"
+      },
+      "24": {
+        "$value": "96px",
+        "$type": "dimension"
+      },
+      "$description": "PRIMITIVOS DIMENSIONAIS — camada privada, não emitida pelo build. Valores em px na origem; a conversão para rem (web) e número sem unidade (React Native) acontece no build (§7.4). Escala base-4, generosa de propósito: o que restringe o uso é a camada semântica."
+    },
+    "radius": {
+      "none": {
+        "$value": "0px",
+        "$type": "dimension"
+      },
+      "sm": {
+        "$value": "4px",
+        "$type": "dimension"
+      },
+      "md": {
+        "$value": "6px",
+        "$type": "dimension"
+      },
+      "lg": {
+        "$value": "10px",
+        "$type": "dimension"
+      },
+      "full": {
+        "$value": "9999px",
+        "$type": "dimension"
+      }
+    },
+    "border-width": {
+      "0": {
+        "$value": "0px",
+        "$type": "dimension"
+      },
+      "1": {
+        "$value": "1px",
+        "$type": "dimension"
+      },
+      "2": {
+        "$value": "2px",
+        "$type": "dimension"
+      }
+    },
+    "size": {
+      "$description": "Alturas de controle e tamanhos de ícone. É a categoria mais sensível ao contexto de campo — ver 'touch' abaixo.",
+      "control": {
+        "sm": {
+          "$value": "32px",
+          "$type": "dimension",
+          "$description": "Denso. Apenas em tabela e barra de ferramentas de desktop."
+        },
+        "md": {
+          "$value": "40px",
+          "$type": "dimension",
+          "$description": "Padrão do back-office."
+        },
+        "lg": {
+          "$value": "48px",
+          "$type": "dimension",
+          "$description": "Padrão de qualquer superfície tocável."
+        }
+      },
+      "touch": {
+        "min": {
+          "$value": "44px",
+          "$type": "dimension",
+          "$description": "Alvo de toque mínimo em interface de campo e mobile. A WCAG 2.2 (2.5.8) exige 24px; adotamos 44px porque nossa operação de rua acontece ao sol, muitas vezes com luva, em terminal de tela pequena."
+        }
+      },
+      "icon": {
+        "sm": {
+          "$value": "16px",
+          "$type": "dimension"
+        },
+        "md": {
+          "$value": "20px",
+          "$type": "dimension"
+        },
+        "lg": {
+          "$value": "24px",
+          "$type": "dimension"
+        }
+      }
+    },
+    "z-index": {
+      "$description": "Escala fechada. Nenhum valor fora desta lista é aceito em revisão — é o que evita a guerra do 9999.",
+      "base": {
+        "$value": 0,
+        "$type": "number"
+      },
+      "dropdown": {
+        "$value": 1000,
+        "$type": "number"
+      },
+      "sticky": {
+        "$value": 1100,
+        "$type": "number"
+      },
+      "overlay": {
+        "$value": 1200,
+        "$type": "number"
+      },
+      "modal": {
+        "$value": 1300,
+        "$type": "number"
+      },
+      "popover": {
+        "$value": 1400,
+        "$type": "number"
+      },
+      "toast": {
+        "$value": 1500,
+        "$type": "number"
+      }
+    },
+    "breakpoint": {
+      "$description": "Três breakpoints, mobile-first. Deliberadamente poucos: os serviços ao cidadão são majoritariamente mobile e o back-office é desktop — o meio é raro.",
+      "md": {
+        "$value": "768px",
+        "$type": "dimension"
+      },
+      "lg": {
+        "$value": "1024px",
+        "$type": "dimension"
+      },
+      "xl": {
+        "$value": "1280px",
+        "$type": "dimension"
+      }
+    }
+  }
+}

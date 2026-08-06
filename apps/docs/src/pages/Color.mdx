@@ -1,0 +1,95 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { Ramp, TokenTable, Note } from '../components/ui';
+import { colorRamps, group, semanticTokens } from '../lib/tokens';
+
+<Meta title="Foundations/Cor" />
+
+# Cor
+
+## Nosso verde e o contraste
+
+Nossa cor institucional é **`#02cb03`** — um verde muito luminoso. Isso tem uma consequência
+que decide o desenho de metade dos componentes:
+
+| Combinação | Contraste | Veredito |
+| --- | --- | --- |
+| Texto **branco** sobre `#02cb03` | **2,20:1** | reprova (mínimo 4,5:1) |
+| `#02cb03` como **texto** sobre branco | **2,20:1** | reprova |
+| Texto **preto** sobre `#02cb03` | **9,55:1** | passa com folga |
+
+<Note tone="danger">
+  Nenhum degrau da marca, de <code>50</code> a <code>700</code>, atinge 4,5:1 com texto branco. O botão primário verde
+  com texto branco — que é o que todo mundo desenha primeiro — é inacessível no nosso verde.
+</Note>
+
+**A solução:** o botão primário usa **frente preta** sobre a marca pura. A cor aparece em
+toda a sua intensidade, o contraste vai a 9,55:1, e os estados escurecem o fundo mantendo a
+frente preta. Onde o verde precisa ser *texto* — link, ícone, botão contornado, anel de
+foco — usa-se `brand.800`, nunca a marca pura.
+
+## Escalas primitivas
+
+<Note tone="info">
+  Estas escalas <strong>não são consumíveis</strong>. Estão aqui para conferência visual. O build não as emite; o que
+  você usa é a camada semântica, mais abaixo. O número sob cada degrau é o contraste contra branco.
+</Note>
+
+Derivadas em OKLCH — espaço perceptualmente uniforme, então os degraus têm distância visual
+constante, o que não acontece mexendo em HSL. Todas as escalas compartilham as mesmas
+lightness por degrau, então `brand.700` e `danger.700` são intercambiáveis no mesmo contexto
+sem quebrar a hierarquia.
+
+{Object.entries(colorRamps()).map(([family, steps]) => (
+  <Ramp key={family} name={`base.color.${family}`} steps={steps} anchor={family === 'brand' ? '#02cb03' : undefined} />
+))}
+
+O degrau contornado é `#02cb03` exato — a cor institucional existe literalmente no sistema,
+para que design e marketing não usem um verde diferente do código.
+
+**Os cinzas são puros, sem tingimento verde.** Com uma marca tão saturada, um cinza
+esverdeado competiria com os estados de status do domínio em baixa saturação.
+
+## Semânticos — a interface pública
+
+### Superfícies
+
+<TokenTable tokens={group(semanticTokens, 'color.surface')} />
+
+### Texto
+
+Todo token aqui atinge no mínimo 4,5:1 sobre `surface.default`, exceto `disabled`, que é
+intencionalmente 3,23:1 — texto desabilitado é isento pela WCAG 1.4.3, mas nunca deve
+carregar informação que exista só ali.
+
+<TokenTable tokens={group(semanticTokens, 'color.text')} />
+
+### Bordas
+
+<TokenTable tokens={group(semanticTokens, 'color.border')} />
+
+### Ação
+
+A distinção entre primário e secundário vem da **forma** (preenchido vs contornado), não só
+da cor.
+
+<Note tone="warning">
+  Não use modificador de opacidade para estados (<code>hover:bg-primary/90</code>). Valor gerado por opacidade não é
+  medido, não está no contrato de contraste e muda conforme o fundo atrás. Os estados têm tokens próprios.
+</Note>
+
+<TokenTable tokens={group(semanticTokens, 'color.action')} />
+
+### Feedback
+
+`success` reaproveita a escala da marca em vez de ter um verde próprio: dois verdes quase
+iguais no mesmo sistema leem como bug, não como intenção. A distinção entre "ação" e
+"sucesso" vem da forma — botão preenchido vs badge tingido.
+
+<TokenTable tokens={group(semanticTokens, 'color.feedback')} />
+
+### Marca
+
+Identidade, não ação. Use apenas onde a marca aparece como marca. Nunca como texto nem como
+fundo de controle.
+
+<TokenTable tokens={group(semanticTokens, 'color.brand')} />

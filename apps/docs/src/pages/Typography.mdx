@@ -1,0 +1,39 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { TokenTable, Note } from '../components/ui';
+import { group, semanticTokens } from '../lib/tokens';
+import { Specimen } from '../components/Specimen';
+
+<Meta title="Foundations/Tipografia" />
+
+# Tipografia
+
+**Poppins**, SIL Open Font License 1.1 — cobre uso web **e** empacotamento no app React
+Native, que são licenças distintas. Auto-hospedada, não CDN do Google: melhor para nossos
+dispositivos de campo, sem dependência externa em produção e mais defensável em LGPD.
+
+Três pesos (400 / 500 / 700), subset `latin`, que cobre todos os diacríticos do português —
+`ã õ ç á é í ó ú â ê ô à` estão em U+00C0–U+00FF.
+
+## Espécime
+
+Cada papel é renderizado com os valores reais do build.
+
+<Specimen />
+
+## Papéis
+
+Peça o papel, não o tamanho: `typography.body.md`, nunca `16px`. É o que permite ajustar a
+escala inteira em um lugar.
+
+<TokenTable tokens={group(semanticTokens, 'typography')} preview={false} />
+
+## Duas famílias
+
+`typography.family.default` é a Poppins, para tudo. `typography.family.mono` existe para
+números, identificadores e códigos: monoespaçado alinha dígitos em coluna, o que torna
+listas e tabelas de valores muito mais fáceis de varrer.
+
+<Note tone="info">
+  Rótulo é sempre visível. Placeholder não substitui rótulo — quando o campo é preenchido, o placeholder some e o
+  usuário perde a referência do que está preenchendo.
+</Note>

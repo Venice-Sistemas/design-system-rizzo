@@ -1,0 +1,78 @@
+{
+  "typography": {
+    "$description": "SEMÂNTICOS DE TIPOGRAFIA — interface pública. Papéis, não tamanhos: a aplicação pede 'heading.section', não '24px'. Os estilos COMPOSTOS (família + tamanho + peso + altura de linha juntos) não são tokens — nascem dentro do componente Text/Heading, porque a composição varia por plataforma.",
+    "family": {
+      "default": { "$value": "{base.font-family.sans}", "$type": "fontFamily" },
+      "mono":    { "$value": "{base.font-family.mono}", "$type": "fontFamily", "$description": "Números, identificadores e códigos." }
+    },
+
+    "heading": {
+      "page": {
+        "size":        { "$value": "{base.font-size.3xl}",    "$type": "dimension" },
+        "weight":      { "$value": "{base.font-weight.bold}", "$type": "number" },
+        "line-height": { "$value": "{base.line-height.tight}", "$type": "number" }
+      },
+      "section": {
+        "size":        { "$value": "{base.font-size.2xl}",    "$type": "dimension" },
+        "weight":      { "$value": "{base.font-weight.bold}", "$type": "number" },
+        "line-height": { "$value": "{base.line-height.tight}", "$type": "number" }
+      },
+      "sub": {
+        "size":        { "$value": "{base.font-size.xl}",       "$type": "dimension" },
+        "weight":      { "$value": "{base.font-weight.medium}", "$type": "number" },
+        "line-height": { "$value": "{base.line-height.tight}",  "$type": "number" }
+      }
+    },
+
+    "body": {
+      "lg": {
+        "size":        { "$value": "{base.font-size.lg}",        "$type": "dimension" },
+        "weight":      { "$value": "{base.font-weight.regular}", "$type": "number" },
+        "line-height": { "$value": "{base.line-height.normal}",  "$type": "number" }
+      },
+      "md": {
+        "$description": "Padrão de leitura.",
+        "size":        { "$value": "{base.font-size.md}",        "$type": "dimension" },
+        "weight":      { "$value": "{base.font-weight.regular}", "$type": "number" },
+        "line-height": { "$value": "{base.line-height.normal}",  "$type": "number" }
+      },
+      "sm": {
+        "size":        { "$value": "{base.font-size.sm}",        "$type": "dimension" },
+        "weight":      { "$value": "{base.font-weight.regular}", "$type": "number" },
+        "line-height": { "$value": "{base.line-height.normal}",  "$type": "number" }
+      }
+    },
+
+    "label": {
+      "$description": "Rótulo de campo e de controle. Sempre visível — placeholder nunca substitui rótulo (§11.2).",
+      "md": {
+        "size":        { "$value": "{base.font-size.sm}",       "$type": "dimension" },
+        "weight":      { "$value": "{base.font-weight.medium}", "$type": "number" },
+        "line-height": { "$value": "{base.line-height.normal}", "$type": "number" }
+      },
+      "sm": {
+        "size":        { "$value": "{base.font-size.xs}",       "$type": "dimension" },
+        "weight":      { "$value": "{base.font-weight.medium}", "$type": "number" },
+        "line-height": { "$value": "{base.line-height.normal}", "$type": "number" }
+      }
+    },
+
+    "caption": {
+      "$description": "Texto de apoio, dica de campo e mensagem de erro.",
+      "md": {
+        "size":        { "$value": "{base.font-size.xs}",        "$type": "dimension" },
+        "weight":      { "$value": "{base.font-weight.regular}", "$type": "number" },
+        "line-height": { "$value": "{base.line-height.normal}",  "$type": "number" }
+      }
+    },
+
+    "code": {
+      "$description": "Identificadores e códigos. Usa typography.family.mono.",
+      "md": {
+        "size":        { "$value": "{base.font-size.sm}",       "$type": "dimension" },
+        "weight":      { "$value": "{base.font-weight.medium}", "$type": "number" },
+        "line-height": { "$value": "{base.line-height.normal}", "$type": "number" }
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "@rizzopark/sandbox",
+  "version": "0.0.0",
+  "private": true,
+  "description": "App Next.js de fumaça — verifica o pacote como um consumidor real o consumiria",
+  "license": "UNLICENSED",
+  "scripts": {
+    "dev": "next dev -p 3100",
+    "build": "next build",
+    "start": "next start -p 3100"
+  },
+  "dependencies": {
+    "@rizzopark/react": "workspace:*",
+    "@rizzopark/tokens": "workspace:*",
+    "next": "^15.1.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "typescript": "^5.6.3"
+  }
+}

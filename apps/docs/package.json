@@ -1,0 +1,30 @@
+{
+  "name": "@rizzopark/docs",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Galeria e documentação do Design System da Rizzo Park",
+  "license": "UNLICENSED",
+  "type": "module",
+  "scripts": {
+    "dev": "storybook dev -p 6006 --no-open",
+    "build": "storybook build",
+    "preview": "vite preview --outDir storybook-static"
+  },
+  "dependencies": {
+    "@rizzopark/react": "workspace:^",
+    "@rizzopark/tokens": "workspace:*"
+  },
+  "devDependencies": {
+    "@storybook/addon-a11y": "^9.1.20",
+    "@storybook/addon-docs": "^9.0.0",
+    "@storybook/react-vite": "^9.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "remark-gfm": "^4.0.1",
+    "storybook": "^9.0.0",
+    "typescript": "^5.6.3",
+    "vite": "^6.0.0"
+  }
+}

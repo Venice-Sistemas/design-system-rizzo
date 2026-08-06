@@ -1,0 +1,90 @@
+/**
+ * Folha de estilo do pacote de componentes.
+ *
+ * O Tailwind é FERRAMENTA DE BUILD, não requisito de quem consome. Este arquivo é
+ * compilado para dist/styles.css; a aplicação importa o CSS pronto e pronto. Quem
+ * já usa Tailwind pode adicionalmente consumir @rizzopark/tokens/tailwind, mas isso
+ * é conveniência, não dependência (PA-9).
+ *
+ * O prefixo `ds` isola as nossas utilitárias das de um consumidor que também use
+ * Tailwind. Sem ele, se o consumidor customizar a escala de espaçamento dele, o
+ * padding dos NOSSOS componentes mudaria junto — um acoplamento invisível e
+ * péssimo de diagnosticar.
+ */
+
+@import 'tailwindcss' prefix(ds);
+
+/* Onde procurar classes: só o nosso código-fonte. */
+@source './**/*.{ts,tsx}';
+
+/**
+ * Este arquivo NÃO importa @rizzopark/tokens/css, de propósito.
+ *
+ * `@theme inline` emite `var(--rp-…)` direto nas utilitárias, então a variável não
+ * precisa estar definida em build time — quem a define é o consumidor, importando
+ * o CSS de tokens. Inlinear aqui traria dois problemas: os arquivos de fonte
+ * seriam duplicados, e pior, os `url()` do @font-face apontam para `./fonts/`
+ * relativo ao pacote de TOKENS — inlineados aqui, apontariam para um diretório
+ * que não existe e a Poppins voltaria em 404 silencioso.
+ *
+ * O consumidor importa os dois, nesta ordem:
+ *
+ *   import '@rizzopark/tokens/css';
+ *   import '@rizzopark/react/styles.css';
+ */
+
+/**
+ * Ponte entre o nosso vocabulário e o do Tailwind.
+ *
+ * A direção importa: os nomes canônicos são os NOSSOS (--rp-*). O que está aqui é
+ * um alias interno para o Tailwind conseguir gerar utilitárias. Quem consome o
+ * pacote nunca vê estes nomes, e trocar o Tailwind por outra coisa não muda nada
+ * na superfície pública.
+ */
+@theme inline {
+  --color-surface: var(--rp-color-surface-default);
+  --color-surface-subtle: var(--rp-color-surface-subtle);
+  --color-text: var(--rp-color-text-primary);
+  --color-text-secondary: var(--rp-color-text-secondary);
+  --color-text-disabled: var(--rp-color-text-disabled);
+  --color-border-subtle: var(--rp-color-border-subtle);
+  --color-border-default: var(--rp-color-border-default);
+  --color-border-strong: var(--rp-color-border-strong);
+  --color-border-focus: var(--rp-color-border-focus);
+
+  --color-action-primary: var(--rp-color-action-primary-background-default);
+  --color-action-primary-hover: var(--rp-color-action-primary-background-hover);
+  --color-action-primary-active: var(--rp-color-action-primary-background-active);
+  --color-action-primary-fg: var(--rp-color-action-primary-foreground-default);
+
+  --color-action-secondary: var(--rp-color-action-secondary-background-default);
+  --color-action-secondary-hover: var(--rp-color-action-secondary-background-hover);
+  --color-action-secondary-active: var(--rp-color-action-secondary-background-active);
+  --color-action-secondary-fg: var(--rp-color-action-secondary-foreground-default);
+  --color-action-secondary-border: var(--rp-color-action-secondary-border-default);
+
+  --color-action-danger: var(--rp-color-action-danger-background-default);
+  --color-action-danger-hover: var(--rp-color-action-danger-background-hover);
+  --color-action-danger-active: var(--rp-color-action-danger-background-active);
+  --color-action-danger-fg: var(--rp-color-action-danger-foreground-default);
+
+  --color-action-ghost-hover: var(--rp-color-action-ghost-background-hover);
+  --color-action-ghost-active: var(--rp-color-action-ghost-background-active);
+  --color-action-ghost-fg: var(--rp-color-action-ghost-foreground-default);
+
+  --color-disabled-bg: var(--rp-color-action-primary-background-disabled);
+  --color-disabled-fg: var(--rp-color-action-primary-foreground-disabled);
+
+  --radius-control: var(--rp-radius-control);
+  --radius-container: var(--rp-radius-container);
+  --radius-pill: var(--rp-radius-pill);
+
+  --spacing-2xs: var(--rp-space-2xs);
+  --spacing-xs: var(--rp-space-xs);
+  --spacing-sm: var(--rp-space-sm);
+  --spacing-md: var(--rp-space-md);
+  --spacing-lg: var(--rp-space-lg);
+
+  --text-label: var(--rp-typography-label-md-size);
+  --font-default: var(--rp-typography-family-default);
+}

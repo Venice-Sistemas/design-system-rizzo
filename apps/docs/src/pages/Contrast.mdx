@@ -1,0 +1,60 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { Note } from '../components/ui';
+import { ContrastContract, ContrastSummary } from '../components/ContrastContract';
+
+<Meta title="Foundations/Contraste" />
+
+# Contraste
+
+Esta página é o contrato de acessibilidade do sistema, em forma conferível.
+
+Contraste é a única regra de acessibilidade totalmente automatizável. Não automatizá-la
+seria desperdício — então ela **quebra o build**. O que você vê aqui é o mesmo arquivo
+(`contrast-pairs.json`), resolvido contra a mesma saída de build, com a mesma função de
+cálculo que o teste do CI usa.
+
+<ContrastSummary />
+
+<Note tone="info">
+  Se os números desta página divergirem dos do CI, uma das duas está lendo a fonte errada — e isso é um defeito, não
+  uma curiosidade. As duas importam <code>@rizzopark/tokens/contrast</code>, justamente para que não haja duas fórmulas
+  arredondando diferente.
+</Note>
+
+## Mínimos aplicados
+
+| Mínimo | Quando |
+| --- | --- |
+| **4,5:1** | Texto normal — WCAG 1.4.3 |
+| **3:1** | Texto grande (≥18pt, ou ≥14pt negrito) e componentes de interface — WCAG 1.4.11 |
+| **1:1** | Puramente decorativo, sem exigência |
+
+Além disso adotamos um requisito que não vem da WCAG: **alvo de toque de 44×44** nas
+interfaces de campo e mobile, contra os 24×24 do mínimo da WCAG 2.2 (2.5.8). Nossa operação
+de rua acontece ao sol, muitas vezes com luva, em terminal de tela pequena — o mínimo legal
+é piso, não meta.
+
+## Pares permitidos
+
+Cada linha é uma combinação que o sistema autoriza, com o veredito calculado agora.
+
+<ContrastContract kind="allowed" />
+
+## Combinações proibidas
+
+Estas existem no contrato justamente para **continuarem reprovando**. O teste assere que
+elas seguem abaixo de 4,5:1 — se alguma passar a atingir o mínimo, a proibição virou mentira
+e a documentação precisa mudar, não ser silenciosamente ignorada.
+
+O veredito verde abaixo significa "corretamente proibida".
+
+<ContrastContract kind="forbidden" />
+
+## O que este contrato não cobre
+
+Ferramentas automatizadas detectam apenas uma fração minoritária dos problemas reais de
+acessibilidade. Elas pegam "contraste insuficiente" e "imagem sem alt" — não pegam "a ordem
+de foco não faz sentido" nem "o leitor de tela anuncia a coluna errada".
+
+As camadas que faltam chegam junto com os componentes: teste de teclado escrito à mão e
+auditoria manual com leitor de tela antes de qualquer componente ser considerado estável.

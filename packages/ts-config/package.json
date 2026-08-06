@@ -1,0 +1,11 @@
+{
+  "name": "@rizzopark/ts-config",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Configurações TypeScript compartilhadas pelos pacotes do Design System",
+  "license": "UNLICENSED",
+  "files": [
+    "base.json",
+    "react-library.json"
+  ]
+}

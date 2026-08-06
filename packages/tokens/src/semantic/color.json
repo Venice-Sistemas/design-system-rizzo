@@ -1,0 +1,128 @@
+{
+  "color": {
+    "$description": "SEMÂNTICOS DE COR — esta é a INTERFACE PÚBLICA do sistema de cor (AD-06). Componentes e aplicações consomem daqui e só daqui; o build não emite nada sob `base`. Convenção de nome: categoria.papel.variante.estado (chaves omitidas de propósito — o Style Dictionary resolve chaves dentro de descrição como referência). Todo par de frente/fundo listado aqui tem contraste verificado — a lista vive em ../../contrast-pairs.json e é teste de CI (AD-07).",
+    "brand": {
+      "$description": "Identidade, não ação. Use apenas onde a marca aparece como marca — tingimento de logo, superfície de destaque institucional. NUNCA como texto nem como fundo de controle: para isso existe color.action.*.",
+      "default": { "$value": "{base.color.brand.500}", "$type": "color", "$description": "#02cb03. Contraste 2,20:1 contra branco — decorativo apenas." }
+    },
+
+    "surface": {
+      "$description": "Fundos. 'page' é o fundo do documento; 'default' é o plano em que o conteúdo vive.",
+      "page":     { "$value": "{base.color.neutral.50}",  "$type": "color", "$description": "Fundo da janela/documento." },
+      "default":  { "$value": "{base.color.white}",       "$type": "color", "$description": "Card, painel, linha de tabela." },
+      "subtle":   { "$value": "{base.color.neutral.50}",  "$type": "color", "$description": "Cabeçalho de tabela, zebra, área secundária." },
+      "sunken":   { "$value": "{base.color.neutral.100}", "$type": "color", "$description": "Poço — campo de busca embutido, área rebaixada." },
+      "raised":   { "$value": "{base.color.white}",       "$type": "color", "$description": "Elevado sobre a página — dropdown, popover, modal. A separação vem da elevação, não da cor." },
+      "inverse":  { "$value": "{base.color.neutral.950}", "$type": "color", "$description": "Fundo escuro para tooltip e barra de contexto." },
+      "disabled": { "$value": "{base.color.neutral.100}", "$type": "color" },
+      "selected": { "$value": "{base.color.brand.50}",    "$type": "color", "$description": "Linha ou item selecionado. Nunca é o único indicador de seleção — sempre acompanha ícone ou borda." }
+    },
+
+    "text": {
+      "$description": "Todo token daqui atinge no mínimo 4,5:1 sobre surface.default, exceto 'disabled', que é intencionalmente 3,23:1.",
+      "primary":     { "$value": "{base.color.neutral.950}", "$type": "color", "$description": "Corpo e títulos. 14,16:1 sobre branco." },
+      "secondary":   { "$value": "{base.color.neutral.700}", "$type": "color", "$description": "Apoio, legenda, descrição de campo. 4,67:1 — é o cinza mais claro que ainda passa AA." },
+      "placeholder": { "$value": "{base.color.neutral.700}", "$type": "color", "$description": "Placeholder é texto e precisa passar AA. Nunca use placeholder como substituto de rótulo." },
+      "disabled":    { "$value": "{base.color.neutral.600}", "$type": "color", "$description": "3,23:1. Abaixo de AA por definição — texto desabilitado é isento (WCAG 1.4.3), mas nunca deve carregar informação que exista só ali." },
+      "inverse":     { "$value": "{base.color.white}",       "$type": "color", "$description": "Sobre surface.inverse." },
+      "link":        { "$value": "{base.color.brand.800}",   "$type": "color", "$description": "6,41:1. NÃO é brand.500 — a cor de marca pura reprova como texto (2,20:1)." },
+      "link-hover":  { "$value": "{base.color.brand.900}",   "$type": "color" }
+    },
+
+    "border": {
+      "subtle":   { "$value": "{base.color.neutral.200}", "$type": "color", "$description": "Divisor puramente decorativo. Sem exigência de contraste." },
+      "default":  { "$value": "{base.color.neutral.300}", "$type": "color", "$description": "Contorno de card e agrupamento." },
+      "strong":   { "$value": "{base.color.neutral.600}", "$type": "color", "$description": "Borda de componente INTERATIVO (input, select, checkbox). 3,23:1 — exigido por WCAG 1.4.11." },
+      "disabled": { "$value": "{base.color.neutral.200}", "$type": "color" },
+      "focus":    { "$value": "{base.color.brand.800}",   "$type": "color", "$description": "Anel de foco. 6,41:1 sobre branco, bem acima dos 3:1 exigidos." }
+    },
+
+    "action": {
+      "$description": "Cores de controle acionável. A distinção entre primário e secundário vem da FORMA (preenchido vs contornado), não só da cor.",
+      "primary": {
+        "$description": "DECISÃO CENTRAL: a frente é PRETA, não branca. Texto branco sobre a marca dá 2,20:1 e reprova em qualquer degrau até o 700. Com preto por cima, a marca aparece pura e o contraste vai a 9,55:1. Os estados escurecem o fundo, mantendo a frente preta. NÃO usar modificador de opacidade para hover — valor gerado por opacidade não é medido e fura o contrato de contraste.",
+        "background": {
+          "default":  { "$value": "{base.color.brand.500}",   "$type": "color", "$description": "A cor de marca, pura. 9,55:1 com a frente." },
+          "hover":    { "$value": "{base.color.brand.600}",   "$type": "color", "$description": "7,05:1" },
+          "active":   { "$value": "{base.color.brand.700}",   "$type": "color", "$description": "4,87:1 — último degrau que ainda passa AA com frente preta." },
+          "disabled": { "$value": "{base.color.neutral.200}", "$type": "color" }
+        },
+        "foreground": {
+          "default":  { "$value": "{base.color.black}",       "$type": "color" },
+          "disabled": { "$value": "{base.color.neutral.600}", "$type": "color" }
+        }
+      },
+      "secondary": {
+        "$description": "Contornado. Usa o verde escuro, não a marca pura, porque aqui o verde é texto e borda.",
+        "background": {
+          "default":  { "$value": "{base.color.white}",      "$type": "color" },
+          "hover":    { "$value": "{base.color.brand.50}",   "$type": "color" },
+          "active":   { "$value": "{base.color.brand.100}",  "$type": "color" },
+          "disabled": { "$value": "{base.color.neutral.50}", "$type": "color" }
+        },
+        "foreground": {
+          "default":  { "$value": "{base.color.brand.800}",   "$type": "color", "$description": "6,41:1" },
+          "disabled": { "$value": "{base.color.neutral.600}", "$type": "color" }
+        },
+        "border": {
+          "default":  { "$value": "{base.color.brand.800}",   "$type": "color" },
+          "disabled": { "$value": "{base.color.neutral.200}", "$type": "color" }
+        }
+      },
+      "danger": {
+        "$description": "Ação destrutiva. Aqui a frente É branca — o vermelho é escuro o bastante.",
+        "background": {
+          "default":  { "$value": "{base.color.danger.700}",  "$type": "color", "$description": "5,05:1 com branco." },
+          "hover":    { "$value": "{base.color.danger.800}",  "$type": "color" },
+          "active":   { "$value": "{base.color.danger.900}",  "$type": "color" },
+          "disabled": { "$value": "{base.color.neutral.200}", "$type": "color" }
+        },
+        "foreground": {
+          "default":  { "$value": "{base.color.white}",       "$type": "color" },
+          "disabled": { "$value": "{base.color.neutral.600}", "$type": "color" }
+        }
+      },
+      "ghost": {
+        "$description": "Sem fundo nem borda em repouso. Para ações terciárias e barras de ferramentas densas.",
+        "background": {
+          "default":  { "$value": "transparent",              "$type": "color" },
+          "hover":    { "$value": "{base.color.neutral.100}", "$type": "color" },
+          "active":   { "$value": "{base.color.neutral.200}", "$type": "color" },
+          "disabled": { "$value": "transparent",              "$type": "color" }
+        },
+        "foreground": {
+          "default":  { "$value": "{base.color.neutral.950}", "$type": "color" },
+          "disabled": { "$value": "{base.color.neutral.600}", "$type": "color" }
+        }
+      }
+    },
+
+    "feedback": {
+      "$description": "Estados de sistema. Quatro papéis cada: surface (fundo tingido), border, text e icon. DECISÃO: 'success' reaproveita a escala da marca em vez de ter um verde próprio — dois verdes quase iguais no mesmo sistema leem como bug. A distinção entre 'ação' e 'sucesso' vem da forma (botão preenchido vs badge tingido), não do matiz.",
+      "success": {
+        "surface": { "$value": "{base.color.brand.50}",  "$type": "color" },
+        "border":  { "$value": "{base.color.brand.700}", "$type": "color" },
+        "text":    { "$value": "{base.color.brand.900}", "$type": "color", "$description": "8,97:1 sobre feedback.success.surface." },
+        "icon":    { "$value": "{base.color.brand.800}", "$type": "color" }
+      },
+      "danger": {
+        "surface": { "$value": "{base.color.danger.50}",  "$type": "color" },
+        "border":  { "$value": "{base.color.danger.700}", "$type": "color" },
+        "text":    { "$value": "{base.color.danger.900}", "$type": "color", "$description": "9,91:1 sobre feedback.danger.surface." },
+        "icon":    { "$value": "{base.color.danger.800}", "$type": "color" }
+      },
+      "warning": {
+        "surface": { "$value": "{base.color.warning.50}",  "$type": "color" },
+        "border":  { "$value": "{base.color.warning.700}", "$type": "color" },
+        "text":    { "$value": "{base.color.warning.900}", "$type": "color", "$description": "9,41:1 sobre feedback.warning.surface." },
+        "icon":    { "$value": "{base.color.warning.800}", "$type": "color" }
+      },
+      "info": {
+        "surface": { "$value": "{base.color.info.50}",  "$type": "color" },
+        "border":  { "$value": "{base.color.info.700}", "$type": "color" },
+        "text":    { "$value": "{base.color.info.900}", "$type": "color", "$description": "9,33:1 sobre feedback.info.surface." },
+        "icon":    { "$value": "{base.color.info.800}", "$type": "color" }
+      }
+    }
+  }
+}

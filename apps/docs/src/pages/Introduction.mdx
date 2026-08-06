@@ -1,0 +1,56 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { Note } from '../components/ui';
+
+<Meta title="Introdução" />
+
+# Rizzo Park Design System
+
+Linguagem visual compartilhada entre as superfícies web e React Native do ecossistema.
+
+<Note tone="warning">
+  Por enquanto só existem tokens. Os componentes só nascem quando houver uma tela real para ancorá-los — construímos o
+  Design System a reboque de produto, nunca por antecipação.
+</Note>
+
+## O que existe hoje
+
+Um pacote: `@rizzopark/tokens`. É a única camada compartilhada por **todas** as seis
+superfícies do ecossistema — os serviços Next.js, os dois apps React Native e o S2Way em
+CakePHP, que nunca vai consumir componente React. É onde a unificação realmente acontece.
+
+## As duas camadas
+
+```
+base.color.brand.500 = #02cb03            primitivo — que valores existem
+        ↓
+color.action.primary.background.default   semântico — o que o valor significa
+```
+
+**Você só consome a camada semântica.** Os primitivos vivem sob a raiz `base` e o build não
+os emite — a fronteira é estrutural, não convencional. Não existe como consumir um por
+acidente, porque ele não chega ao pacote publicado.
+
+Isso não é purismo: é o que permite trocar a paleta, introduzir tema por município ou um
+modo de alto contraste sem tocar em nenhum componente. Com seis superfícies em repositórios
+separados, um `find & replace` coordenado seria impossível.
+
+## Como consumir
+
+```
+@rizzopark/tokens/css        variáveis CSS + @font-face da Poppins
+@rizzopark/tokens/tailwind   camada @theme do Tailwind v4 (opcional)
+@rizzopark/tokens            objetos tipados, quando precisar do valor em JS
+@rizzopark/tokens/native     mesma árvore no formato React Native
+```
+
+Tailwind é **opcional**. O pacote entrega CSS pronto; quem não usa Tailwind importa o CSS e
+pronto. Nenhuma ferramenta nossa vira requisito de quem consome.
+
+## Sobre esta galeria
+
+Todo valor exibido aqui é lido da saída do build. Nada é escrito à mão — uma folha de
+swatches mantida manualmente desatualiza em uma semana e passa a mentir com aparência de
+documentação.
+
+O teste dessa propriedade: altere um valor em `packages/tokens/src/primitive/color.json`,
+rode `pnpm build`, e esta galeria muda sem nenhuma edição em `apps/docs`.

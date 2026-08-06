@@ -1,0 +1,63 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { TokenTable, Note } from '../components/ui';
+import { group, semanticTokens } from '../lib/tokens';
+import { SpaceScale, RadiusSamples, ElevationSamples, SizeSamples } from '../components/Layout';
+
+<Meta title="Foundations/Layout" />
+
+# Layout
+
+## Espaçamento
+
+Uma única escala t-shirt, não três árvores separadas (inset / stack / inline). A distinção
+entre elas é orientação de **uso**, não de valor: triplicar a árvore triplicaria a
+manutenção sem acrescentar informação, porque os valores seriam os mesmos.
+
+<SpaceScale />
+
+<TokenTable tokens={group(semanticTokens, 'space')} preview={false} />
+
+## Raio
+
+<RadiusSamples />
+
+<TokenTable tokens={group(semanticTokens, 'radius')} preview={false} />
+
+## Tamanho e alvo de toque
+
+`size.target.min` é a área **clicável** mínima, que pode ser maior que o desenho visível do
+controle — um ícone de 20px pode e deve ter alvo de 44px.
+
+<Note tone="warning">
+  Os 44px são decisão <strong>nossa</strong>, não da WCAG — ela exige 24×24 (2.5.8). Nossa operação de rua acontece ao
+  sol, muitas vezes com luva, em terminal de tela pequena. O mínimo legal é piso, não meta.
+</Note>
+
+<SizeSamples />
+
+<TokenTable tokens={group(semanticTokens, 'size')} preview={false} />
+
+## Elevação
+
+<Note tone="info">
+  Elevação é modelada como <strong>nível semântico</strong> (<code>flat</code>, <code>raised</code>,{' '}
+  <code>overlay</code>), nunca como valor de sombra. React Native não tem <code>box-shadow</code>: iOS usa
+  shadowOffset/Opacity/Radius e Android usa <code>elevation</code>, que nem é configurável. Um valor literal de sombra
+  seria intraduzível. A tabela de tradução por plataforma vive em <code>build.mjs</code>.
+</Note>
+
+<ElevationSamples />
+
+## Z-index
+
+Escala fechada. Nenhum valor fora desta lista é aceito em revisão — é o que evita a guerra
+do 9999.
+
+<TokenTable tokens={group(semanticTokens, 'z-index')} preview={false} />
+
+## Breakpoints
+
+Três, mobile-first. Deliberadamente poucos: os serviços ao cidadão são majoritariamente
+mobile e o back-office é desktop — o meio é raro.
+
+<TokenTable tokens={group(semanticTokens, 'breakpoint')} preview={false} />
