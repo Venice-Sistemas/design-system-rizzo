@@ -73,11 +73,14 @@ export const buttonVariants = cva(
           'ds:not-disabled:hover:text-link-hover ds:not-disabled:hover:underline',
         ],
       },
+      // Altura vem de TOKEN, não de `h-9`. Os valores coincidem com os do shadcn,
+      // mas quem manda é o token: se a implementação hardcoda o número, os tokens
+      // viram decoração e uma segunda plataforma não tem de onde derivar a medida.
       size: {
-        default: 'ds:h-9 ds:px-4 ds:py-2 ds:has-[svg]:px-3',
-        sm: 'ds:h-8 ds:gap-1.5 ds:px-3 ds:has-[svg]:px-2.5',
-        lg: 'ds:h-11 ds:px-6 ds:has-[svg]:px-4',
-        icon: 'ds:size-9',
+        default: 'ds:h-[var(--rp-size-control-md)] ds:px-4 ds:py-2 ds:has-[svg]:px-3',
+        sm: 'ds:h-[var(--rp-size-control-sm)] ds:gap-1.5 ds:px-3 ds:has-[svg]:px-2.5',
+        lg: 'ds:h-[var(--rp-size-control-lg)] ds:px-6 ds:has-[svg]:px-4',
+        icon: 'ds:size-[var(--rp-size-control-md)]',
       },
     },
     compoundVariants: [

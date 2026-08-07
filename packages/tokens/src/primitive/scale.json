@@ -100,14 +100,14 @@
           "$description": "Denso. Apenas em tabela e barra de ferramentas de desktop."
         },
         "md": {
-          "$value": "40px",
+          "$value": "36px",
           "$type": "dimension",
-          "$description": "Padrão do back-office."
+          "$description": "Padrão. Equivale ao h-9 do shadcn."
         },
         "lg": {
-          "$value": "48px",
+          "$value": "44px",
           "$type": "dimension",
-          "$description": "Padrão de qualquer superfície tocável."
+          "$description": "Equivale ao h-11 do shadcn, e coincide com o alvo de toque mínimo."
         }
       },
       "touch": {
