@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@rizzopark/react": "workspace:^",
+    "@rizzopark/styles": "workspace:*",
     "@rizzopark/tokens": "workspace:*"
   },
   "devDependencies": {

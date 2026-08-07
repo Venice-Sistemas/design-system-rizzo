@@ -1,0 +1,36 @@
+{
+  "name": "@rizzopark/styles",
+  "version": "0.0.0",
+  "description": "Receitas de classe e CSS compilado — a definição visual, sem framework",
+  "license": "UNLICENSED",
+  "type": "module",
+  "sideEffects": ["*.css"],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./styles.css": "./dist/styles.css",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --dts --clean && pnpm build:css",
+    "build:css": "tailwindcss -i src/styles.css -o dist/styles.css --minify"
+  },
+  "dependencies": {
+    "@rizzopark/tokens": "workspace:*",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.0.0"
+  },
+  "devDependencies": {
+    "@rizzopark/ts-config": "workspace:*",
+    "@tailwindcss/cli": "^4.0.0",
+    "tailwindcss": "^4.0.0",
+    "tsup": "^8.3.5",
+    "typescript": "^5.6.3"
+  }
+}

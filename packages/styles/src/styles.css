@@ -15,7 +15,7 @@
 @import 'tailwindcss' prefix(ds);
 
 /* Onde procurar classes: só o nosso código-fonte. */
-@source './**/*.{ts,tsx}';
+@source './**/*.ts';
 
 /**
  * Este arquivo NÃO importa @rizzopark/tokens/css, de propósito.

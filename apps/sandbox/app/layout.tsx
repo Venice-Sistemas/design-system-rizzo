@@ -4,7 +4,7 @@ import type { ReactNode } from 'react';
 // renderizar certo assim, o Tailwind é ferramenta nossa e não requisito de quem
 // consome (PA-9).
 import '@rizzopark/tokens/css';
-import '@rizzopark/react/styles.css';
+import '@rizzopark/styles/styles.css';
 
 export const metadata = { title: 'Sandbox — Rizzo Park Design System' };
 

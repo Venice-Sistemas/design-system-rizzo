@@ -7,4 +7,11 @@
  * vira não.
  */
 
-export { Button, buttonVariants, type ButtonProps, type ButtonVariant, type ButtonSize } from './button/button';
+export { Button, type ButtonProps, type ButtonVariant, type ButtonSize } from './button/button';
+
+/**
+ * Reexportado de @rizzopark/styles por conveniência: quem precisa das classes sem
+ * o componente — para estilizar um <a> como botão, por exemplo — não precisa
+ * instalar um segundo pacote. A definição vive lá, e é a mesma que o Angular usa.
+ */
+export { buttonVariants } from '@rizzopark/styles';

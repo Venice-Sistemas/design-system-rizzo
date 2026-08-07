@@ -3,7 +3,7 @@ import type { Preview } from '@storybook/react-vite';
 // A galeria consome tokens e componentes do jeito que uma aplicação consumiria:
 // pelo CSS gerado. Se o build quebrar, a própria galeria quebra — é o canário.
 import '@rizzopark/tokens/css';
-import '@rizzopark/react/styles.css';
+import '@rizzopark/styles/styles.css';
 
 const preview: Preview = {
   parameters: {
