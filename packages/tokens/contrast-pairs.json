@@ -55,7 +55,21 @@
       "foreground": "color.text.secondary",
       "background": "color.surface.default",
       "min": 4.5,
-      "measured": 4.67
+      "measured": 6.79
+    },
+    {
+      "id": "text-secondary-page",
+      "foreground": "color.text.secondary",
+      "background": "color.surface.page",
+      "min": 4.5,
+      "measured": 6.34
+    },
+    {
+      "id": "text-secondary-subtle",
+      "foreground": "color.text.secondary",
+      "background": "color.surface.subtle",
+      "min": 4.5,
+      "measured": 6.34
     },
     {
       "id": "text-placeholder",

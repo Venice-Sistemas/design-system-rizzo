@@ -25,7 +25,7 @@
     "text": {
       "$description": "Todo token daqui atinge no mínimo 4,5:1 sobre surface.default, exceto 'disabled', que é intencionalmente 3,23:1.",
       "primary":     { "$value": "{base.color.neutral.950}", "$type": "color", "$description": "Corpo e títulos. 14,16:1 sobre branco." },
-      "secondary":   { "$value": "{base.color.neutral.700}", "$type": "color", "$description": "Apoio, legenda, descrição de campo. 4,67:1 — é o cinza mais claro que ainda passa AA." },
+      "secondary":   { "$value": "{base.color.neutral.800}", "$type": "color", "$description": "Apoio, legenda, descrição de campo. 6,79:1 sobre branco e 6,34:1 sobre surface.page. Foi neutral.700 até este texto aparecer sobre o fundo da página em 4,36:1 — o 700 só passa AA sobre branco, e legenda quase nunca cai sobre branco." },
       "placeholder": { "$value": "{base.color.neutral.700}", "$type": "color", "$description": "Placeholder é texto e precisa passar AA. Nunca use placeholder como substituto de rótulo." },
       "disabled":    { "$value": "{base.color.neutral.600}", "$type": "color", "$description": "3,23:1. Abaixo de AA por definição — texto desabilitado é isento (WCAG 1.4.3), mas nunca deve carregar informação que exista só ali." },
       "inverse":     { "$value": "{base.color.white}",       "$type": "color", "$description": "Sobre surface.inverse." },

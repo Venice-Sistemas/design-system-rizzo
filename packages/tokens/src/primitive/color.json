@@ -92,7 +92,7 @@
         "700": {
           "$value": "#747474",
           "$type": "color",
-          "$description": "Degrau mais claro que passa AA como texto sobre branco (4,67:1)."
+          "$description": "Degrau mais claro que passa AA como texto sobre BRANCO (4,67:1) — e só sobre branco: sobre neutral.50, que é a superfície da página, cai para 4,36:1 e reprova. Texto de apoio usa o 800."
         },
         "800": {
           "$value": "#5b5b5b",
