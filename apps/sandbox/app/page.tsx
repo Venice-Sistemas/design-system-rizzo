@@ -45,9 +45,6 @@ export default function Page() {
               Registrar
             </Button>
           ))}
-          <Button variant={variant} size='icon'>
-            Icon
-          </Button>
           <Button variant={variant} disabled>
             Desabilitado
           </Button>

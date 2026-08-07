@@ -1,0 +1,30 @@
+{
+  "name": "@rizzopark/sandbox-angular",
+  "version": "0.0.0",
+  "private": true,
+  "description": "App Angular mínimo — mostra o mesmo Button do sandbox Next, para comparação lado a lado",
+  "license": "UNLICENSED",
+  "type": "module",
+  "scripts": {
+    "dev": "ng serve",
+    "build": "ng build",
+    "preview": "ng serve --port 4200"
+  },
+  "dependencies": {
+    "@angular/common": "^20.3.27",
+    "@angular/compiler": "^20.3.27",
+    "@angular/core": "^20.3.27",
+    "@angular/platform-browser": "^20.3.27",
+    "@rizzopark/angular": "workspace:*",
+    "@rizzopark/styles": "workspace:*",
+    "@rizzopark/tokens": "workspace:*",
+    "rxjs": "^7.8.1",
+    "zone.js": "^0.15.0"
+  },
+  "devDependencies": {
+    "@angular/build": "^20.3.33",
+    "@angular/cli": "^20.3.0",
+    "@angular/compiler-cli": "^20.3.27",
+    "typescript": "^5.6.3"
+  }
+}

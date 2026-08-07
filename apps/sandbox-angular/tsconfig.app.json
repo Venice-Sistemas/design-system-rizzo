@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.json",
+  "files": ["src/main.ts"],
+  "include": [
+    "src/**/*.ts",
+    // O pacote de componentes é consumido como CÓDIGO-FONTE — ele ainda não tem
+    // build próprio. O compilador do Angular precisa dele no mesmo programa.
+    "../../packages/angular/src/**/*.ts"
+  ]
+}
