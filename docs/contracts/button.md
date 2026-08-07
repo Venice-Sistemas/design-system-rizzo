@@ -83,22 +83,49 @@ perde. Além disso leitores de tela não anunciam mudanças em elemento desabili
 
 ## Tokens consumidos
 
+Esta seção é **normativa e completa**: uma implementação nova se constrói a partir dela, sem
+consultar nenhuma implementação existente. Se faltar aqui um valor que uma plataforma
+precisou inventar, o defeito é do contrato — corrige-se aqui, não no código.
+
+### Por variante
+
+| variante | fundo | frente | borda |
+|---|---|---|---|
+| `default` | `color.action.primary.background.*` | `color.action.primary.foreground.*` | — |
+| `destructive` | `color.action.danger.background.*` | `color.action.danger.foreground.*` | — |
+| `outline` | `color.action.outline.background.*` | `color.action.outline.foreground.*` | `color.action.outline.border.default` |
+| `secondary` | `color.action.secondary.background.*` | `color.action.secondary.foreground.*` | — |
+| `ghost` | `color.action.ghost.background.*` | `color.action.ghost.foreground.*` | — |
+| `link` | transparente | `color.action.link.foreground.*` | — |
+
+O `*` resolve por estado: `default`, `hover`, `active`, `disabled`. Onde a variante não
+define um estado, ele herda o `default`.
+
+A borda de `outline` usa `border.default` da própria variante (3,23:1) e **não**
+`color.border.default` (1,63:1): num botão contornado a borda é o que identifica o controle,
+e a WCAG 1.4.11 exige 3:1 para isso.
+
+### Por tamanho
+
+| tamanho | altura | padding lateral | gap |
+|---|---|---|---|
+| `default` | `size.control.md` | `space.md` | `space.xs` |
+| `sm` | `size.control.sm` | `space.sm` | 6px |
+| `lg` | `size.control.lg` | `space.lg` | `space.xs` |
+| `icon` | `size.control.md`, quadrado | — | — |
+
+Com ícone presente, o padding lateral cai um degrau — o ícone já traz margem óptica.
+
+### Comuns a todas
+
 | Papel | Token |
 |---|---|
-| fundo | `color.action.{variant}.background.default` |
-| fundo · hover | `color.action.{variant}.background.hover` |
-| fundo · pressionado | `color.action.{variant}.background.active` |
-| fundo · desabilitado | `color.action.{variant}.background.disabled` |
-| frente | `color.action.{variant}.foreground.default` |
-| frente · desabilitado | `color.action.{variant}.foreground.disabled` |
-| borda (`outline`) | `color.action.outline.border.default` — 3,23:1, e não a borda decorativa |
-| texto (`link`) | `color.action.link.foreground.default` |
-| anel de foco | `color.border.focus`, 3px com 50% de opacidade, no padrão do shadcn |
-| altura | `size.control.{size}` |
-| alvo clicável | `size.target.min` |
 | raio | `radius.control` |
-| espaçamento interno | `space.md` lateral, `space.xs` entre ícone e rótulo |
+| anel de foco | `color.border.focus`, 3px, 50% de opacidade |
+| borda em `aria-invalid` | `color.action.danger.background.default` |
+| alvo clicável | nunca menor que `size.target.min`, mesmo em `sm` |
 | tipografia | `typography.label.md` |
+| ícone | `size.icon.sm` quando não vier dimensionado |
 
 A superfície primária é um tom escuro do verde com texto branco (6,41:1), **não** o verde do
 símbolo. `#02cb03` com branco dá 2,20:1 — marca e ação são coisas separadas, e `color.brand`
@@ -131,9 +158,35 @@ usando o elemento errado.
 - **Foco:** sempre visível. `:focus-visible`, para não aparecer em clique de mouse.
 - **Auditoria manual:** pendente — obrigatória antes de passar para `estável`.
 
+## Conformidade
+
+Este documento é verificado por `@rizzopark/contracts/button` — 27 asserções que rodam
+contra **cada** implementação. Uma plataforma nova passa a suíte implementando o contrato,
+nunca lendo outra implementação.
+
+A suíte usa `@testing-library/dom`, que trabalha sobre o DOM já montado. A plataforma
+fornece só uma função de montar:
+
+```js
+import { runButtonContract } from '@rizzopark/contracts/button';
+
+runButtonContract({
+  nome: 'Button (angular)',
+  render: (props) => { /* monta no document.body */ },
+  cleanup: () => { /* desmonta */ },
+});
+```
+
+O que a suíte **não** cobre: aparência. Cor, altura e espaçamento vêm dos tokens e são
+verificados uma vez, no pacote de tokens, para todas as plataformas.
+
+Se um teste falhar, não conserte o teste. Ou a implementação divergiu, ou o contrato está
+errado — e no segundo caso a correção é aqui, junto com a suíte.
+
 ## Plataformas
 
 | Plataforma | Situação | Notas |
 |---|---|---|
-| web | `em construção` | `<button>` nativo; sem biblioteca headless, porque não há comportamento complexo a delegar |
+| web (react) | `em construção` | `<button>` nativo; sem biblioteca headless, porque não há comportamento complexo a delegar |
+| angular | `não implementado` | Seria `<button>` nativo também. O comportamento complexo, quando houver, vem do Angular CDK — nunca de biblioteca estilizada |
 | react native | `não implementado` | Será `Pressable`. Sem hover; o resto do contrato vale igual |

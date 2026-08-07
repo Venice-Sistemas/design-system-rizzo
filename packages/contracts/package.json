@@ -1,0 +1,20 @@
+{
+  "name": "@rizzopark/contracts",
+  "version": "0.0.0",
+  "description": "Suítes de conformidade — o contrato de cada componente em forma executável",
+  "license": "UNLICENSED",
+  "type": "module",
+  "exports": {
+    "./button": {
+      "types": "./src/button.d.ts",
+      "default": "./src/button.mjs"
+    }
+  },
+  "files": [
+    "src"
+  ],
+  "dependencies": {
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/user-event": "^14.5.2"
+  }
+}

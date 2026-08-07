@@ -36,6 +36,7 @@
     "tailwind-merge": "^3.0.0"
   },
   "devDependencies": {
+    "@rizzopark/contracts": "workspace:*",
     "@rizzopark/ts-config": "workspace:*",
     "@tailwindcss/cli": "^4.0.0",
     "@testing-library/dom": "^10.4.0",

@@ -33,6 +33,31 @@ Aplicável em revisão, a qualquer momento:
 
 Se a resposta for não, uma dependência vazou para a superfície pública.
 
+## O contrato é executável
+
+Texto pode ser lido com folga. Duas plataformas leem o mesmo parágrafo e implementam coisas
+diferentes, e ninguém percebe até um usuário reclamar que o botão do app se comporta
+diferente do da web.
+
+Por isso cada contrato tem uma suíte em **`packages/contracts`**, que roda contra todas as
+implementações. Ela é agnóstica — usa `@testing-library/dom` sobre o DOM já montado, e a
+plataforma fornece apenas uma função de montar.
+
+**Nenhuma plataforma é a fonte de outra.** O Angular não lê o React, e o React não lê o
+Angular: os dois leem o contrato e passam a mesma suíte.
+
+Duas coisas ficam de fora dela, de propósito:
+
+- **Aparência.** Cor, altura e espaçamento vêm dos tokens, verificados uma vez no pacote de
+  tokens para todas as plataformas. Duplicar aqui criaria duas fontes que discordam.
+- **O que só existe numa plataforma.** `asChild` é idioma de React e seu teste mora no
+  pacote de React. Se virar comportamento esperado em toda plataforma, sobe para o contrato
+  — e essa promoção é decisão consciente, não acidente.
+
+Quando um teste do contrato falha, não conserte o teste. Ou a implementação divergiu, ou o
+contrato está errado — e aí a correção é no documento e na suíte, num PR que todas as
+plataformas revisam.
+
 ## Template
 
 Copie `_template.md`. Um arquivo por componente, nomeado pelo componente em minúsculas.
