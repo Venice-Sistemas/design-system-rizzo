@@ -1,0 +1,16 @@
+{
+  "extends": "@rizzopark/ts-config/base.json",
+  "compilerOptions": {
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "experimentalDecorators": true,
+    "useDefineForClassFields": false,
+    "moduleResolution": "bundler",
+    "noEmit": true,
+    "types": ["vitest/globals"]
+  },
+  "angularCompilerOptions": {
+    "strictTemplates": true
+  },
+  "include": ["src", "test"],
+  "exclude": ["node_modules"]
+}
