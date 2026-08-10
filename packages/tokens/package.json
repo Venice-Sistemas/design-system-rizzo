@@ -1,8 +1,16 @@
 {
   "name": "@venice-sistemas/tokens",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Design tokens da Rizzo Park — fonte única de verdade, compartilhada por web, React Native e legado",
   "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Venice-Sistemas/design-system-rizzo.git",
+    "directory": "packages/tokens"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "type": "module",
   "sideEffects": false,
   "exports": {
@@ -28,13 +36,15 @@
   },
   "files": [
     "dist",
-    "src",
+    "src/contrast.mjs",
+    "src/contrast.d.ts",
     "contrast-pairs.json"
   ],
   "scripts": {
     "build": "node build.mjs",
     "test": "node build.mjs && vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "prepublishOnly": "pnpm test"
   },
   "devDependencies": {
     "@fontsource/poppins": "^5.1.0",

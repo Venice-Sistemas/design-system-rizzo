@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "description": "Suítes de conformidade — o contrato de cada componente em forma executável",
   "license": "UNLICENSED",
+  "private": true,
   "type": "module",
   "exports": {
     "./button": {

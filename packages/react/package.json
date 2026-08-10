@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "description": "Componentes React (web) do Design System",
   "license": "UNLICENSED",
+  "private": true,
   "type": "module",
   "sideEffects": [
     "*.css"
