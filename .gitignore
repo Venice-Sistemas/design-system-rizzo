@@ -16,3 +16,7 @@ Thumbs.db
 .idea/
 .vscode/*
 !.vscode/extensions.json
+
+# Cache de build do Angular CLI. Binario que muda a cada build --
+# versionado, gera diff enorme e conflito de merge.
+.angular/
