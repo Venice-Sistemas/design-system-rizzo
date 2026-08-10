@@ -21,6 +21,32 @@ comportamento.
 @venice-sistemas/native     (React Native, quando houver) ┘
 ```
 
+## A ordem do import decide quem vence
+
+Num app que também usa Tailwind, importe `styles.css` **antes** do Tailwind do app:
+
+```css
+@import '@venice-sistemas/styles/styles.css';  /* primeiro */
+
+@import 'tailwindcss';
+```
+
+O motivo não é estilo, é cascata. As nossas classes saem com o prefixo `ds:`
+(`ds:h-[var(--rp-size-control-md)]`) e as do app saem sem (`h-11`). As duas caem na camada
+`utilities` e têm a mesma especificidade — uma classe cada. Nada além da ordem as separa.
+
+E o `tailwind-merge` não resolve: ele reconhece `h-9` e `h-11` como conflitantes e descarta a
+primeira, mas não sabe que `ds:h-[…]` disputa a mesma propriedade, porque o prefixo muda o
+nome da classe. O `cn` só enxerga o que passa por ele; a classe do app vem de fora.
+
+Importado depois, o Design System vence e `className` para de funcionar como escape hatch —
+que é uma API que o pacote de React oferece e testa. O sintoma é silencioso: o botão fica com
+36px onde o app pediu 44px, sem erro em lugar nenhum.
+
+É a contrapartida do prefixo. Ele existe para que customizar a escala de espaçamento do app
+não mexa no padding dos nossos componentes; o preço é que o app precisa da última palavra por
+ordem, não por especificidade.
+
 ## O que entra aqui
 
 **Toda** classe do componente, incluindo as das partes internas. Se uma classe ficar na
