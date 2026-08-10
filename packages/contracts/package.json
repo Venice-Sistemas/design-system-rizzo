@@ -17,6 +17,10 @@
     "./alert": {
       "types": "./src/alert.d.ts",
       "default": "./src/alert.mjs"
+    },
+    "./checkbox": {
+      "types": "./src/checkbox.d.ts",
+      "default": "./src/checkbox.mjs"
     }
   },
   "files": [

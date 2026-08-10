@@ -21,6 +21,8 @@ export {
 } from './card/card';
 export { Input, type InputProps } from './input/input';
 export { Alert, AlertTitle, AlertDescription, type AlertProps, type AlertTone } from './alert/alert';
+export { Label, type LabelProps } from './label/label';
+export { Checkbox, type CheckboxProps } from './checkbox/checkbox';
 
 /**
  * Reexportado de @venice-sistemas/styles por conveniência: quem precisa das classes sem
