@@ -30,3 +30,27 @@ export { Checkbox, type CheckboxProps } from './checkbox/checkbox';
  * instalar um segundo pacote. A definição vive lá, e é a mesma que o Angular usa.
  */
 export { buttonVariants, badgeVariants } from '@venice-sistemas/styles';
+
+export {
+  Dialog,
+  DialogTrigger,
+  DialogClose,
+  DialogContent,
+  DialogHeader,
+  DialogFooter,
+  DialogTitle,
+  DialogDescription,
+  type DialogContentProps,
+} from './dialog/dialog';
+export {
+  AlertDialog,
+  AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogFooter,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogAction,
+  AlertDialogCancel,
+  type AlertDialogContentProps,
+} from './alert-dialog/alert-dialog';

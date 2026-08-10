@@ -132,6 +132,8 @@
   --shadow-raised: var(--rp-elevation-raised);
   --shadow-overlay: var(--rp-elevation-overlay);
 
+  --color-scrim: var(--rp-color-surface-scrim);
+
   --spacing-2xs: var(--rp-space-2xs);
   --spacing-xs: var(--rp-space-xs);
   --spacing-sm: var(--rp-space-sm);
@@ -140,4 +142,75 @@
 
   --text-sm: var(--rp-typography-label-md-size);
   --font-sans: var(--rp-typography-family-default);
+}
+
+/**
+ * Primitivas de animação de entrada e saída.
+ *
+ * Escritas aqui em vez de trazidas do `tw-animate-css`. São vinte linhas, evitam
+ * uma dependência de runtime, e — o que mais importa — o corte por
+ * `prefers-reduced-motion` fica garantido por construção, em um lugar só. Uma
+ * biblioteca de utilitárias não sabe que a nossa regra é essa.
+ *
+ * O que os overlays precisam: um véu que aparece e some, e um painel que aparece
+ * com uma leve aproximação. Nada além disso — animação de overlay que chama
+ * atenção para si atrasa quem só quer usar a tela.
+ */
+
+@utility ds-anim-fade-in {
+  animation: ds-fade-in 150ms ease-out;
+}
+
+@utility ds-anim-fade-out {
+  animation: ds-fade-out 120ms ease-in;
+}
+
+@utility ds-anim-panel-in {
+  animation: ds-fade-in 150ms ease-out, ds-zoom-in 150ms ease-out;
+}
+
+@utility ds-anim-panel-out {
+  animation: ds-fade-out 120ms ease-in, ds-zoom-out 120ms ease-in;
+}
+
+@keyframes ds-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes ds-fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes ds-zoom-in {
+  from { transform: translate(-50%, -50%) scale(0.96); }
+  to { transform: translate(-50%, -50%) scale(1); }
+}
+
+@keyframes ds-zoom-out {
+  from { transform: translate(-50%, -50%) scale(1); }
+  to { transform: translate(-50%, -50%) scale(0.96); }
+}
+
+/**
+ * O corte, num lugar só.
+ *
+ * `prefers-reduced-motion` não pede "menos animação", pede ausência de movimento
+ * para quem tem desconforto vestibular. Reduzir a duração não resolve — o
+ * movimento continua lá.
+ *
+ * A opacidade permanece: fade não é movimento, e sem ele o painel apareceria de
+ * forma abrupta, o que é pior para orientação.
+ */
+@media (prefers-reduced-motion: reduce) {
+  @keyframes ds-zoom-in {
+    from { transform: translate(-50%, -50%); }
+    to { transform: translate(-50%, -50%); }
+  }
+
+  @keyframes ds-zoom-out {
+    from { transform: translate(-50%, -50%); }
+    to { transform: translate(-50%, -50%); }
+  }
 }

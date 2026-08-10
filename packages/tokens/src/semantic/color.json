@@ -19,7 +19,8 @@
       "raised":   { "$value": "{base.color.white}",       "$type": "color", "$description": "Elevado sobre a página — dropdown, popover, modal. A separação vem da elevação, não da cor." },
       "inverse":  { "$value": "{base.color.neutral.950}", "$type": "color", "$description": "Fundo escuro para tooltip e barra de contexto." },
       "disabled": { "$value": "{base.color.neutral.100}", "$type": "color" },
-      "selected": { "$value": "{base.color.brand.50}",    "$type": "color", "$description": "Linha ou item selecionado. Nunca é o único indicador de seleção — sempre acompanha ícone ou borda." }
+      "selected": { "$value": "{base.color.brand.50}",    "$type": "color", "$description": "Linha ou item selecionado. Nunca é o único indicador de seleção — sempre acompanha ícone ou borda." },
+      "scrim":    { "$value": "#00000080",                "$type": "color", "$description": "Véu atrás de modal e gaveta. ÚNICO token com alfa no sistema, e por necessidade: um véu opaco esconderia o contexto que ele existe para manter visível. Fica fora do contrato de contraste porque não é par de leitura — nada é lido sobre ele." }
     },
 
     "text": {

@@ -18,7 +18,8 @@
       "raised": { "$value": "{base.color.neutral.950}", "$type": "color" },
       "inverse": { "$value": "{base.color.neutral.50}", "$type": "color" },
       "disabled": { "$value": "{base.color.neutral.950}", "$type": "color" },
-      "selected": { "$value": "{base.color.brand.950}", "$type": "color" }
+      "selected": { "$value": "{base.color.brand.950}", "$type": "color" },
+      "scrim": { "$value": "#000000b3", "$type": "color", "$description": "Mais opaco que no claro (70% contra 50%). Sobre um fundo já escuro, um véu de 50% quase não se distingue da página, e o modal perde a separação do que está atrás." }
     },
 
     "text": {

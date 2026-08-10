@@ -7,3 +7,5 @@ export { inputVariants } from './input';
 export { alertVariants, alertSlots, type AlertTone } from './alert';
 export { labelVariants } from './label';
 export { checkboxSlots } from './checkbox';
+export { overlayScrim, overlayPanel, overlayCentered, overlayAnchored, overlaySlots } from './overlay';
+export { dialogSlots } from './dialog';

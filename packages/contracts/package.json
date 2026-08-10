@@ -21,6 +21,10 @@
     "./checkbox": {
       "types": "./src/checkbox.d.ts",
       "default": "./src/checkbox.mjs"
+    },
+    "./modal": {
+      "types": "./src/modal.d.ts",
+      "default": "./src/modal.mjs"
     }
   },
   "files": [
