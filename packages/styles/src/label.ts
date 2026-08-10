@@ -15,7 +15,7 @@ export const labelVariants = (): string =>
     'ds:inline-flex ds:items-center ds:gap-2',
     'ds:font-sans ds:text-sm ds:leading-none ds:font-medium ds:text-foreground',
     'ds:select-none',
-    // Token medido, não `opacity-50`: opacidade sobre o texto do rótulo o leva
-    // para perto do fundo e o nome do campo é a última coisa que deve sumir.
-    'ds:peer-disabled:cursor-not-allowed ds:peer-disabled:text-disabled-foreground',
+    // O estado vem do CAMPO, não do rótulo: `peer-disabled` lê o irmão anterior.
+    // Um rótulo com prop `disabled` própria poderia dessincronizar do campo.
+    'ds:peer-disabled:cursor-not-allowed ds:peer-disabled:opacity-50',
   ].join(' ');

@@ -3,18 +3,19 @@ import { cva } from 'class-variance-authority';
 /**
  * Receita do Badge — rótulo curto de status ou categoria.
  *
- * QUATRO variantes, não seis. O shadcn traz também `ghost` e `link`, e as duas
- * foram deixadas de fora de propósito: badge não é controle. Um badge que se
- * comporta como link convida a torná-lo clicável, e aí o certo é um `<a>` ou um
- * Button — não um rótulo com aparência de link. Variante que existe acaba sendo
- * usada, e essas duas só teriam uso errado.
+ * Seis variantes, acompanhando o shadcn.
  *
- * Sem opacidade em lugar nenhum. O shadcn usa `bg-primary/90` no hover e
- * `bg-destructive/60` no escuro; valor gerado por opacidade não está no contrato
- * de contraste e muda conforme o que estiver atrás.
+ * O hover só se aplica quando o badge é renderizado COMO LINK — é o que o
+ * seletor `[a&]` faz. Um badge que é só rótulo continua sem estado de hover, e
+ * sem entrar na ordem de tabulação: badge não é controle, e um rótulo com
+ * aparência de controle esconde a ação de quem navega por teclado.
+ *
+ * O hover vem de TOKEN MEDIDO, não de `bg-primary/90`. Valor gerado por
+ * opacidade não passa pelo contrato de contraste e muda conforme o que estiver
+ * atrás — é a mesma decisão tomada no Button e no Alert.
  */
 
-export type BadgeVariant = 'default' | 'secondary' | 'destructive' | 'outline';
+export type BadgeVariant = 'default' | 'secondary' | 'destructive' | 'outline' | 'ghost' | 'link';
 
 export const badgeVariants = cva(
   [
@@ -27,12 +28,16 @@ export const badgeVariants = cva(
   {
     variants: {
       variant: {
-        default: 'ds:bg-primary ds:text-primary-foreground',
-        secondary: 'ds:bg-secondary ds:text-secondary-foreground',
-        destructive: 'ds:bg-destructive ds:text-destructive-foreground',
+        default: 'ds:bg-primary ds:text-primary-foreground ds:[a&]:hover:bg-primary-hover',
+        secondary: 'ds:bg-secondary ds:text-secondary-foreground ds:[a&]:hover:bg-secondary-hover',
+        destructive:
+          'ds:bg-destructive ds:text-destructive-foreground ds:[a&]:hover:bg-destructive-hover',
         // A borda do outline é a mesma do botão contornado: 3,23:1, não a
         // decorativa de 1,63:1. Num rótulo contornado é a borda que o delimita.
-        outline: 'ds:bg-transparent ds:text-foreground ds:border-outline-border',
+        outline:
+          'ds:bg-transparent ds:text-foreground ds:border-outline-border ds:[a&]:hover:bg-accent ds:[a&]:hover:text-accent-foreground',
+        ghost: 'ds:bg-transparent ds:text-foreground ds:[a&]:hover:bg-accent ds:[a&]:hover:text-accent-foreground',
+        link: 'ds:bg-transparent ds:text-link ds:underline-offset-4 ds:[a&]:hover:underline',
       },
     },
     defaultVariants: { variant: 'default' },

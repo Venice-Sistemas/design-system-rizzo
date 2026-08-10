@@ -81,12 +81,6 @@
   --color-link: var(--rp-color-action-link-foreground-default);
   --color-link-hover: var(--rp-color-action-link-foreground-hover);
 
-  /* Desabilitado tem token medido em vez do `opacity-50` do shadcn: opacidade
-   * sobre um verde escuro com texto branco derruba a leitura para ~2:1. Texto
-   * desabilitado é isento de contraste pela WCAG, mas ilegível continua sendo
-   * ilegível. Aqui dá 3,23:1 e continua claramente inativo. */
-  --color-disabled: var(--rp-color-action-primary-background-disabled);
-  --color-disabled-foreground: var(--rp-color-action-primary-foreground-disabled);
 
   --color-placeholder: var(--rp-color-text-placeholder);
 

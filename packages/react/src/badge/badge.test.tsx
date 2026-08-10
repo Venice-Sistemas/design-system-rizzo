@@ -43,7 +43,7 @@ describe('Badge', () => {
     expect(screen.getByText('Regular').getAttribute('data-variant')).toBe('default');
   });
 
-  it.each(['default', 'secondary', 'destructive', 'outline'] as const)(
+  it.each(['default', 'secondary', 'destructive', 'outline', 'ghost', 'link'] as const)(
     'aceita variant="%s"',
     (variant) => {
       render(<Badge variant={variant}>Status</Badge>);

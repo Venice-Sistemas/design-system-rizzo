@@ -42,7 +42,7 @@ export const menuItemVariants = cva(
     'ds:rounded-sm ds:px-2 ds:py-1.5',
     'ds:font-sans ds:text-sm ds:outline-none',
     'ds:[&>svg]:pointer-events-none ds:[&>svg]:size-4 ds:[&>svg]:shrink-0',
-    'ds:data-[disabled]:pointer-events-none ds:data-[disabled]:text-disabled-foreground',
+    'ds:data-[disabled]:pointer-events-none ds:data-[disabled]:opacity-50',
     // Altura mínima de toque sem esticar o item: menu com itens de 44px vira uma
     // lista comprida demais para caber na tela.
     'ds:min-h-[var(--rp-size-target-min)]',

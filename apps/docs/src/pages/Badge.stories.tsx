@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Badge, type BadgeVariant } from '@venice-sistemas/react';
 
-const VARIANTES: BadgeVariant[] = ['default', 'secondary', 'destructive', 'outline'];
+const VARIANTES: BadgeVariant[] = ['default', 'secondary', 'destructive', 'outline', 'ghost', 'link'];
 
 const meta = {
   title: 'Componentes/Badge',
@@ -36,8 +36,8 @@ export const Variantes: Story = {
     docs: {
       description: {
         story:
-          'Quatro, não as seis do shadcn. `ghost` e `link` ficaram de fora: variante que existe acaba ' +
-          'sendo usada, e um badge com aparência de link só teria uso errado.',
+          'O hover só se aplica quando o badge é renderizado como link — é o que o seletor `[a&]` faz. ' +
+          'Um badge que é só rótulo continua sem hover e fora da ordem de tabulação.',
       },
     },
   },

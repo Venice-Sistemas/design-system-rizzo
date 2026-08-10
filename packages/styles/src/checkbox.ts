@@ -19,7 +19,7 @@ export const checkboxSlots = {
     'ds:data-[state=checked]:bg-primary ds:data-[state=checked]:border-primary ds:data-[state=checked]:text-primary-foreground',
     'ds:data-[state=indeterminate]:bg-primary ds:data-[state=indeterminate]:border-primary ds:data-[state=indeterminate]:text-primary-foreground',
 
-    'ds:disabled:cursor-not-allowed ds:disabled:bg-disabled ds:disabled:border-disabled ds:disabled:text-disabled-foreground',
+    'ds:disabled:cursor-not-allowed ds:disabled:opacity-50',
 
     // Área de toque ampliada sem mexer na caixa visível.
     'ds:after:absolute ds:after:left-1/2 ds:after:top-1/2 ds:after:-translate-x-1/2 ds:after:-translate-y-1/2',

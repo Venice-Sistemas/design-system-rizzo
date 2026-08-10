@@ -24,13 +24,19 @@ estado de hover.
 
 | Prop | Valores | Padrão | Descrição |
 |---|---|---|---|
-| `variant` | `default` · `secondary` · `destructive` · `outline` | `default` | Peso visual do rótulo |
+| `variant` | `default` · `secondary` · `destructive` · `outline` · `ghost` · `link` | `default` | Peso visual do rótulo |
 | `asChild` | `boolean` | `false` | Renderiza o filho no lugar do `<span>`, herdando o estilo |
 | `className` | `string` | — | Escape hatch |
 
-**Quatro variantes, não seis.** O shadcn traz também `ghost` e `link`. As duas ficaram de fora
-de propósito: variante que existe acaba sendo usada, e um badge com aparência de link só teria
-uso errado — quem precisa de link deve renderizar um link.
+Seis variantes, acompanhando o shadcn.
+
+O hover só se aplica quando o badge é renderizado **como link** — é o que o seletor `[a&]` faz.
+Um badge que é só rótulo continua sem estado de hover e fora da ordem de tabulação. A distinção
+importa: um rótulo com aparência de controle esconde a ação de quem navega por teclado.
+
+O hover vem de **token medido**, não de `bg-primary/90`. Valor gerado por opacidade não passa
+pelo contrato de contraste e muda conforme o que estiver atrás — mesma decisão do Button e do
+Alert.
 
 ## Anatomia
 
@@ -41,14 +47,14 @@ Um único elemento com texto, opcionalmente precedido de um ícone de 12px. Sem 
 | Estado | Comportamento |
 |---|---|
 | repouso | única aparência |
-| hover | **nenhum** — badge não é controle |
+| hover | **nenhum** quando é rótulo; só quando renderizado como link |
 | foco visível | **não focável** |
 | pressionado | não se aplica |
 | desabilitado | não se aplica — um rótulo desabilitado não significa nada |
 | carregando | não se aplica — use `Skeleton` no lugar do badge |
 
-A ausência de estados é a decisão principal deste contrato. Adicionar hover a um badge é o
-primeiro passo para ele virar um controle acidental.
+A ausência de estados no rótulo é a decisão principal deste contrato. O hover existe apenas
+quando o badge de fato virou um link — aí ele é um controle, e um controle sem hover é pior.
 
 ## Tokens consumidos
 

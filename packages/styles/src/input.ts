@@ -33,9 +33,9 @@ export const inputVariants = (): string =>
     // Erro: borda e anel derivados do MESMO atributo que o leitor de tela lê.
     'ds:aria-invalid:border-destructive ds:aria-invalid:ring-destructive/20',
 
-    // Desabilitado usa token medido, não `opacity-50` — opacidade sobre a
-    // superfície do campo derruba a leitura do valor já digitado.
-    'ds:disabled:cursor-not-allowed ds:disabled:bg-disabled ds:disabled:text-disabled-foreground ds:disabled:border-disabled',
+    // Desabilitado por opacidade. Campo desabilitado é isento de contraste, mas
+    // note que o valor já digitado desbota junto.
+    'ds:disabled:cursor-not-allowed ds:disabled:opacity-50',
 
     // Botão de arquivo: some do fluxo normal e herda a tipografia.
     'ds:file:inline-flex ds:file:h-7 ds:file:border-0 ds:file:bg-transparent ds:file:text-sm ds:file:font-medium',

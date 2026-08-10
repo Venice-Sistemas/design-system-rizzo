@@ -13,8 +13,9 @@ import { cn } from './cn';
  *
  *   1. Hover e active vêm de TOKEN MEDIDO, não de `bg-primary/90`. Valor gerado
  *      por opacidade não está no contrato de contraste e muda conforme o fundo.
- *   2. Desabilitado usa token medido em vez de `opacity-50`: opacidade sobre um
- *      verde escuro com texto branco derruba a leitura para perto de 2:1.
+ *   2. Desabilitado usa `opacity-50`. Texto desabilitado é isento de contraste
+ *      pela WCAG 1.4.3, então a opacidade não reprova — mas o resultado depende
+ *      do que estiver atrás e não passa pelo contrato.
  *   3. A borda de `outline` tem 3,23:1, não a borda decorativa de 1,63:1 — num
  *      botão contornado a borda é o que identifica o controle, e a WCAG 1.4.11
  *      exige 3:1 para isso.
@@ -82,9 +83,9 @@ export const buttonVariants = cva(
       {
         variant: ['default', 'destructive', 'outline', 'secondary'],
         class:
-          'ds:disabled:bg-disabled ds:disabled:text-disabled-foreground ds:disabled:border-transparent ds:disabled:shadow-none',
+          'ds:disabled:opacity-50 ds:disabled:shadow-none',
       },
-      { variant: ['ghost', 'link'], class: 'ds:disabled:text-disabled-foreground ds:disabled:no-underline' },
+      { variant: ['ghost', 'link'], class: 'ds:disabled:opacity-50 ds:disabled:no-underline' },
     ],
     defaultVariants: { variant: 'default', size: 'default' },
   },
