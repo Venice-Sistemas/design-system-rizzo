@@ -1,7 +1,13 @@
 'use client';
 
 import type * as React from 'react';
-import { alertSlots, alertVariants, cn, type AlertTone } from '@venice-sistemas/styles';
+import {
+  alertIconVariants,
+  alertSlots,
+  alertVariants,
+  cn,
+  type AlertTone,
+} from '@venice-sistemas/styles';
 
 /**
  * Alert — implementa docs/contracts/alert.md.
@@ -30,9 +36,27 @@ export interface AlertProps extends Omit<React.ComponentProps<'div'>, 'role'> {
    * andamento — um erro de submissão, não um aviso de contexto.
    */
   urgent?: boolean;
+  /**
+   * Ícone opcional, à esquerda do conteúdo.
+   *
+   * É prop e não filho porque a posição dele é decisão do componente, não de
+   * quem usa. Passado como filho, ele dependeria de o conteúdo estar envolvido
+   * do jeito certo — e a composição errada quebrava o layout em silêncio.
+   *
+   * Sempre decorativo: a informação está no texto. Um ícone anunciado repete o
+   * tom que a cor já dá a quem enxerga e não acrescenta nada a quem não enxerga.
+   */
+  icon?: React.ReactNode;
 }
 
-export function Alert({ className, tone = 'info', urgent = false, ...props }: AlertProps) {
+export function Alert({
+  className,
+  tone = 'info',
+  urgent = false,
+  icon,
+  children,
+  ...props
+}: AlertProps) {
   return (
     <div
       data-slot="alert"
@@ -44,7 +68,20 @@ export function Alert({ className, tone = 'info', urgent = false, ...props }: Al
       aria-live={urgent ? 'assertive' : 'polite'}
       className={cn(alertVariants({ tone }), className)}
       {...props}
-    />
+    >
+      {icon ? (
+        <span data-slot="alert-icon" aria-hidden="true" className={alertIconVariants({ tone })}>
+          {icon}
+        </span>
+      ) : null}
+
+      {/* O conteúdo é SEMPRE envolvido, inclusive texto solto. É o que faz
+          `<Alert>uma frase</Alert>` funcionar tão bem quanto a composição com
+          título e descrição. */}
+      <div data-slot="alert-content" className={alertSlots.content}>
+        {children}
+      </div>
+    </div>
   );
 }
 

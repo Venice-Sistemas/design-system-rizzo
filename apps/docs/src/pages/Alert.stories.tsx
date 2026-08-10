@@ -127,11 +127,15 @@ export const NaoRecebeFoco: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: 'var(--rp-space-sm)', flexDirection: 'column', maxWidth: '32rem' }}>
       <Button size="sm">antes</Button>
-      <Alert tone="warning">
-        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
-          <path d="M8 5v4M8 11.5h.01" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
-          <circle cx="8" cy="8" r="6.5" stroke="currentColor" strokeWidth="1.5" />
-        </svg>
+      <Alert
+        tone="warning"
+        icon={
+          <svg viewBox="0 0 16 16" fill="none">
+            <path d="M8 5v4M8 11.5h.01" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
+            <circle cx="8" cy="8" r="6.5" stroke="currentColor" strokeWidth="1.5" />
+          </svg>
+        }
+      >
         <AlertTitle>Tolerância ativa</AlertTitle>
         <AlertDescription>O veículo está nos primeiros quinze minutos.</AlertDescription>
       </Alert>

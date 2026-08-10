@@ -4,7 +4,7 @@ export { badgeVariants, type BadgeVariant } from './badge';
 export { cardSlots } from './card';
 export { skeletonVariants } from './skeleton';
 export { inputVariants } from './input';
-export { alertVariants, alertSlots, type AlertTone } from './alert';
+export { alertVariants, alertIconVariants, alertSlots, type AlertTone } from './alert';
 export { labelVariants } from './label';
 export { checkboxSlots } from './checkbox';
 export { overlayScrim, overlayPanel, overlayCentered, overlayAnchored, overlaySlots } from './overlay';
