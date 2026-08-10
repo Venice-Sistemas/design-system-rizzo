@@ -1,6 +1,6 @@
 {
   "name": "@venice-sistemas/tokens",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Design tokens da Rizzo Park — fonte única de verdade, compartilhada por web, React Native e legado",
   "license": "UNLICENSED",
   "repository": {

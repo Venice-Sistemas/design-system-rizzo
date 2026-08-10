@@ -35,10 +35,20 @@ export const overlayPanel = [
  *
  * A largura é limitada por `max-w`, nunca fixa: numa viewport estreita um painel
  * de largura fixa vaza para fora da tela e o botão de confirmar fica inalcançável.
+ *
+ * ARMADILHA: o teto de 32rem é escrito como valor arbitrário, e NÃO como
+ * `max-w-lg`. A nossa escala de espaçamento usa nomes de camiseta
+ * (`--spacing-sm/md/lg`), e o Tailwind resolve `max-w-*` pela escala de
+ * espaçamento — então `max-w-lg` significa "espaçamento lg", 24px, e não a
+ * largura de container de 32rem. O modal saía com 24px de largura, sem erro
+ * nenhum. Vale para qualquer `max-w-`, `w-` ou `h-` com sufixo `sm`/`md`/`lg`.
+ *
+ * O `_` no `calc` também é obrigatório: valor arbitrário do Tailwind usa `_` no
+ * lugar do espaço, e `calc(100%-2rem)` sem espaços é CSS inválido.
  */
 export const overlayCentered = [
   'ds:fixed ds:top-1/2 ds:left-1/2 ds:-translate-x-1/2 ds:-translate-y-1/2',
-  'ds:grid ds:w-full ds:max-w-[calc(100%-2rem)] ds:sm:max-w-lg ds:gap-md ds:p-lg',
+  'ds:grid ds:w-full ds:max-w-[calc(100%_-_2rem)] ds:sm:max-w-[32rem] ds:gap-md ds:p-lg',
   'ds:rounded-lg ds:shadow-overlay',
   'ds:data-[state=open]:ds-anim-panel-in ds:data-[state=closed]:ds-anim-panel-out',
 ].join(' ');

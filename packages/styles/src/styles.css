@@ -179,14 +179,19 @@
   to { opacity: 0; }
 }
 
+/* Anima a propriedade `scale`, NUNCA `transform`.
+ *
+ * O Tailwind v4 posiciona o painel com a propriedade `translate`. Um keyframe
+ * que mexe em `transform` nao substitui aquilo — soma. O painel era deslocado
+ * duas vezes e saia do centro. */
 @keyframes ds-zoom-in {
-  from { transform: translate(-50%, -50%) scale(0.96); }
-  to { transform: translate(-50%, -50%) scale(1); }
+  from { scale: 0.96; }
+  to { scale: 1; }
 }
 
 @keyframes ds-zoom-out {
-  from { transform: translate(-50%, -50%) scale(1); }
-  to { transform: translate(-50%, -50%) scale(0.96); }
+  from { scale: 1; }
+  to { scale: 0.96; }
 }
 
 /**
@@ -201,13 +206,13 @@
  */
 @media (prefers-reduced-motion: reduce) {
   @keyframes ds-zoom-in {
-    from { transform: translate(-50%, -50%); }
-    to { transform: translate(-50%, -50%); }
+    from { scale: 1; }
+    to { scale: 1; }
   }
 
   @keyframes ds-zoom-out {
-    from { transform: translate(-50%, -50%); }
-    to { transform: translate(-50%, -50%); }
+    from { scale: 1; }
+    to { scale: 1; }
   }
 }
 
