@@ -54,3 +54,15 @@ export {
   AlertDialogCancel,
   type AlertDialogContentProps,
 } from './alert-dialog/alert-dialog';
+export { Popover, PopoverTrigger, PopoverAnchor, PopoverContent, type PopoverContentProps } from './popover/popover';
+export {
+  DropdownMenu,
+  DropdownMenuGroup,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  type DropdownMenuContentProps,
+  type DropdownMenuItemProps,
+} from './dropdown-menu/dropdown-menu';

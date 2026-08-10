@@ -25,6 +25,10 @@
     "./modal": {
       "types": "./src/modal.d.ts",
       "default": "./src/modal.mjs"
+    },
+    "./menu": {
+      "types": "./src/menu.d.ts",
+      "default": "./src/menu.mjs"
     }
   },
   "files": [
