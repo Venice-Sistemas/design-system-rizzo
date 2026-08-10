@@ -19,6 +19,8 @@ export {
   CardFooter,
   type CardProps,
 } from './card/card';
+export { Input, type InputProps } from './input/input';
+export { Alert, AlertTitle, AlertDescription, type AlertProps, type AlertTone } from './alert/alert';
 
 /**
  * Reexportado de @venice-sistemas/styles por conveniência: quem precisa das classes sem

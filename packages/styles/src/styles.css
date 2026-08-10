@@ -88,6 +88,33 @@
   --color-disabled: var(--rp-color-action-primary-background-disabled);
   --color-disabled-foreground: var(--rp-color-action-primary-foreground-disabled);
 
+  --color-placeholder: var(--rp-color-text-placeholder);
+
+  /* Feedback: quatro famílias, quatro papéis cada.
+   *
+   * O shadcn resolve alerta com `bg-destructive/10` e `text-destructive` — cor
+   * derivada de opacidade, num par que ninguém mediu. Estes tokens existem
+   * justamente para isso e estão no contrato de contraste, nos dois temas. */
+  --color-success-surface: var(--rp-color-feedback-success-surface);
+  --color-success-border: var(--rp-color-feedback-success-border);
+  --color-success-text: var(--rp-color-feedback-success-text);
+  --color-success-icon: var(--rp-color-feedback-success-icon);
+
+  --color-danger-surface: var(--rp-color-feedback-danger-surface);
+  --color-danger-border: var(--rp-color-feedback-danger-border);
+  --color-danger-text: var(--rp-color-feedback-danger-text);
+  --color-danger-icon: var(--rp-color-feedback-danger-icon);
+
+  --color-warning-surface: var(--rp-color-feedback-warning-surface);
+  --color-warning-border: var(--rp-color-feedback-warning-border);
+  --color-warning-text: var(--rp-color-feedback-warning-text);
+  --color-warning-icon: var(--rp-color-feedback-warning-icon);
+
+  --color-info-surface: var(--rp-color-feedback-info-surface);
+  --color-info-border: var(--rp-color-feedback-info-border);
+  --color-info-text: var(--rp-color-feedback-info-text);
+  --color-info-icon: var(--rp-color-feedback-info-icon);
+
   --radius-md: var(--rp-radius-control);
   --radius-xl: var(--rp-radius-container);
   --radius-full: var(--rp-radius-pill);

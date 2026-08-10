@@ -9,6 +9,14 @@
     "./button": {
       "types": "./src/button.d.ts",
       "default": "./src/button.mjs"
+    },
+    "./input": {
+      "types": "./src/input.d.ts",
+      "default": "./src/input.mjs"
+    },
+    "./alert": {
+      "types": "./src/alert.d.ts",
+      "default": "./src/alert.mjs"
     }
   },
   "files": [
