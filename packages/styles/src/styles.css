@@ -92,6 +92,19 @@
   --radius-xl: var(--rp-radius-container);
   --radius-full: var(--rp-radius-pill);
 
+  /* Elevação é SEMÂNTICA — `raised` e `overlay`, nunca `sm`/`md`/`lg`.
+   *
+   * O nome precisa sobreviver à travessia de plataforma: React Native não tem
+   * box-shadow, e a tabela que traduz cada nível para shadowOffset (iOS) e
+   * elevation (Android) vive no build dos tokens. Um `shadow-sm` não tem
+   * tradução, porque "pequeno" não diz o que a peça é.
+   *
+   * Sem este mapa, `ds:shadow-xs` cai na sombra PADRÃO do Tailwind e a
+   * elevação deixa de vir de token sem ninguém perceber. */
+  --shadow-flat: var(--rp-elevation-flat);
+  --shadow-raised: var(--rp-elevation-raised);
+  --shadow-overlay: var(--rp-elevation-overlay);
+
   --spacing-2xs: var(--rp-space-2xs);
   --spacing-xs: var(--rp-space-xs);
   --spacing-sm: var(--rp-space-sm);

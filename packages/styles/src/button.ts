@@ -44,19 +44,19 @@ export const buttonVariants = cva(
     variants: {
       variant: {
         default: [
-          'ds:bg-primary ds:text-primary-foreground ds:shadow-xs',
+          'ds:bg-primary ds:text-primary-foreground ds:shadow-raised',
           'ds:not-disabled:hover:bg-primary-hover ds:not-disabled:active:bg-primary-active',
         ],
         destructive: [
-          'ds:bg-destructive ds:text-destructive-foreground ds:shadow-xs',
+          'ds:bg-destructive ds:text-destructive-foreground ds:shadow-raised',
           'ds:not-disabled:hover:bg-destructive-hover ds:not-disabled:active:bg-destructive-active',
         ],
         outline: [
-          'ds:bg-card ds:text-foreground ds:border-outline-border ds:shadow-xs',
+          'ds:bg-card ds:text-foreground ds:border-outline-border ds:shadow-raised',
           'ds:not-disabled:hover:bg-accent ds:not-disabled:active:bg-accent-active',
         ],
         secondary: [
-          'ds:bg-secondary ds:text-secondary-foreground ds:shadow-xs',
+          'ds:bg-secondary ds:text-secondary-foreground ds:shadow-raised',
           'ds:not-disabled:hover:bg-secondary-hover ds:not-disabled:active:bg-secondary-active',
         ],
         ghost: [
