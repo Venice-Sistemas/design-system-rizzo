@@ -7,10 +7,10 @@ import { cn, dialogSlots } from '@venice-sistemas/styles';
 /**
  * Dialog — implementa docs/contracts/dialog.md.
  *
- * `DialogPortal` e `DialogOverlay` NÃO são exportados. O shadcn os expõe e obriga
- * quem usa a compor `<Portal><Overlay/><Content/></Portal>` — isso é detalhe de
- * implementação vazando para a tela, e a primeira pessoa que esquecer o overlay
- * ganha um modal sem véu, sem erro nenhum. `DialogContent` monta os dois.
+ * `DialogPortal` e `DialogOverlay` NÃO são exportados. Obrigar quem usa a compor
+ * `<Portal><Overlay/><Content/></Portal>` é detalhe de implementação vazando para
+ * a tela, e a primeira pessoa que esquecer o overlay ganha um modal sem véu, sem
+ * erro nenhum. `DialogContent` monta os dois.
  *
  * O botão de fechar é padrão, e desligá-lo é explícito: um modal sem saída
  * visível deixa quem usa mouse sem caminho óbvio — Escape não é descobrível.

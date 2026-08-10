@@ -14,8 +14,7 @@ import { useAccessibleName } from '../lib/use-accessible-name';
  * outra plataforma teria que recriá-la e as duas divergiriam na primeira
  * alteração.
  *
- * Segue os padrões do shadcn: nomenclatura de variante e tamanho, `data-slot`,
- * `asChild`, e `buttonVariants` reexportado.
+ * Expõe `data-slot`, `asChild` e `buttonVariants` reexportado.
  */
 
 export type { ButtonVariant, ButtonSize };

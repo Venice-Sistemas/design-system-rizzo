@@ -12,7 +12,7 @@ import { cn, menuItemVariants, menuSlots, type MenuItemVariant } from '@venice-s
  * menu — é uma lista de botões numa caixa, e quem usa leitor de tela recebe a
  * promessa de "menu" com o comportamento de outra coisa. O Radix cuida disso.
  *
- * SETE partes, não as quinze do shadcn. Ficaram de fora submenu (`Sub`,
+ * Sete partes. Ficaram de fora submenu (`Sub`,
  * `SubTrigger`, `SubContent`), item de rádio, item de checkbox e `Shortcut` —
  * dez partes que nenhuma tela chama e que são a parcela mais complexa de acertar.
  * Entram quando houver demanda, que é a regra do repositório.

@@ -26,7 +26,7 @@ export const cardSlots = {
   /** Título. Elemento de cabeçalho é responsabilidade de quem usa — o Card não
    *  sabe em que nível da hierarquia da página ele está, e chutar `<h3>` produz
    *  documentos com níveis fora de ordem. */
-  title: 'ds:font-sans ds:text-lg ds:leading-none ds:font-semibold',
+  title: 'ds:font-sans ds:text-2xl ds:leading-none ds:font-semibold ds:tracking-tight',
 
   description: 'ds:font-sans ds:text-sm ds:text-muted-foreground',
 

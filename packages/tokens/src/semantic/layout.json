@@ -14,8 +14,9 @@
 
   "radius": {
     "base":      { "$value": "{base.radius.lg}",   "$type": "dimension", "$description": "Raio de referência (8px). Existe para alimentar o `--radius` do shadcn, de onde ele deriva a própria escala por cálculo." },
-    "control":   { "$value": "{base.radius.md}",   "$type": "dimension", "$description": "Botão, input, select. Equivale ao `rounded-md` do shadcn." },
-    "container": { "$value": "{base.radius.xl}",   "$type": "dimension", "$description": "Card, modal, popover. Equivale ao `rounded-xl` do shadcn." },
+    "control":   { "$value": "{base.radius.md}",   "$type": "dimension", "$description": "Botão, input, select, popover e menu." },
+    "container": { "$value": "{base.radius.xl}",   "$type": "dimension", "$description": "Card." },
+    "modal":     { "$value": "{base.radius.lg}",   "$type": "dimension", "$description": "Diálogo. Menos arredondado que o card, mais que o controle — a hierarquia de raio acompanha a de elevação." },
     "pill":      { "$value": "{base.radius.full}", "$type": "dimension", "$description": "Badge, tag, avatar." },
     "flush":     { "$value": "{base.radius.none}", "$type": "dimension", "$description": "Tabela e listas coladas à borda." }
   },
@@ -49,9 +50,10 @@
 
   "elevation": {
     "$description": "SEMÂNTICA de elevação, nunca valor de sombra. Motivo: React Native não tem box-shadow — iOS usa shadowOffset/Opacity/Radius e Android usa 'elevation', que nem é configurável. Um token com valor de sombra literal seria intraduzível. A tabela de tradução por plataforma vive em build.mjs.",
-    "flat":    { "$value": 0, "$type": "number", "$description": "No plano. Card dentro de página." },
-    "raised":  { "$value": 1, "$type": "number", "$description": "Acima do plano. Dropdown, popover, card flutuante." },
-    "overlay": { "$value": 2, "$type": "number", "$description": "Sobre todo o conteúdo. Modal, drawer, toast." }
+    "flat":    { "$value": 0, "$type": "number", "$description": "No plano." },
+    "raised":  { "$value": 1, "$type": "number", "$description": "Levemente acima do plano. Card, botão." },
+    "floating":{ "$value": 2, "$type": "number", "$description": "Destacado do plano. Popover, menu." },
+    "overlay": { "$value": 3, "$type": "number", "$description": "Sobre todo o conteúdo. Modal, drawer." }
   },
 
   "z-index": {

@@ -15,11 +15,11 @@ import { overlayAnchored, overlayPanel } from './overlay';
  */
 
 export const popoverSlots = {
-  content: [overlayPanel, overlayAnchored, 'ds:w-72 ds:p-lg'].join(' '),
+  content: [overlayPanel, overlayAnchored, 'ds:w-72 ds:p-md'].join(' '),
 } as const;
 
 export const menuSlots = {
-  content: [overlayPanel, overlayAnchored, 'ds:max-h-(--radix-dropdown-menu-content-available-height)'].join(' '),
+  content: [overlayPanel, overlayAnchored, 'ds:p-1 ds:max-h-(--radix-dropdown-menu-content-available-height)'].join(' '),
 
   /** Rótulo de grupo. Não é item: não recebe foco e não é acionável. */
   label: 'ds:px-2 ds:py-1.5 ds:font-sans ds:text-xs ds:font-medium ds:text-muted-foreground',

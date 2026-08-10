@@ -3,14 +3,11 @@ import { cva } from 'class-variance-authority';
 /**
  * Receita do Badge — rótulo curto de status ou categoria.
  *
- * QUATRO variantes, não seis. O shadcn traz também `ghost` e `link`, e as duas
- * foram deixadas de fora de propósito: badge não é controle. Um badge que se
- * comporta como link convida a torná-lo clicável, e aí o certo é um `<a>` ou um
- * Button — não um rótulo com aparência de link. Variante que existe acaba sendo
- * usada, e essas duas só teriam uso errado.
+ * Quatro variantes. Badge não é controle: um badge que se comporta como link
+ * convida a torná-lo clicável, e aí o certo é um `<a>` ou um Button — não um
+ * rótulo com aparência de link. Variante que existe acaba sendo usada.
  *
- * Sem opacidade em lugar nenhum. O shadcn usa `bg-primary/90` no hover e
- * `bg-destructive/60` no escuro; valor gerado por opacidade não está no contrato
+ * Sem opacidade em lugar nenhum: valor gerado por opacidade não está no contrato
  * de contraste e muda conforme o que estiver atrás.
  */
 

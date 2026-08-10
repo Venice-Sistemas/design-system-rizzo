@@ -42,10 +42,9 @@
  * na superfície pública.
  */
 @theme inline {
-  /* Núcleo do contrato shadcn. Usar os nomes deles aqui dentro faz as classes dos
-   * nossos componentes ficarem idênticas às do shadcn — quem conhece a biblioteca
-   * lê o nosso código sem tradução, e adaptar um componente novo vira colar e
-   * ajustar, não reescrever. */
+  /* Núcleo dos nomes de papel. São nomes de uso corrente no ecossistema web, e
+   * usá-los aqui dentro mantém o código dos componentes legível para quem chega
+   * de fora sem precisar de tradução. */
   --color-background: var(--rp-color-surface-page);
   --color-foreground: var(--rp-color-text-primary);
   --color-card: var(--rp-color-surface-default);
@@ -81,10 +80,10 @@
   --color-link: var(--rp-color-action-link-foreground-default);
   --color-link-hover: var(--rp-color-action-link-foreground-hover);
 
-  /* Desabilitado tem token medido em vez do `opacity-50` do shadcn: opacidade
-   * sobre um verde escuro com texto branco derruba a leitura para ~2:1. Texto
-   * desabilitado é isento de contraste pela WCAG, mas ilegível continua sendo
-   * ilegível. Aqui dá 3,23:1 e continua claramente inativo. */
+  /* Desabilitado tem token medido em vez de opacidade: opacidade sobre um verde
+   * escuro com texto branco derruba a leitura para ~2:1. Texto desabilitado é
+   * isento de contraste pela WCAG, mas ilegível continua sendo ilegível. Aqui dá
+   * 3,23:1 e continua claramente inativo. */
   --color-disabled: var(--rp-color-action-primary-background-disabled);
   --color-disabled-foreground: var(--rp-color-action-primary-foreground-disabled);
 
@@ -92,9 +91,9 @@
 
   /* Feedback: quatro famílias, quatro papéis cada.
    *
-   * O shadcn resolve alerta com `bg-destructive/10` e `text-destructive` — cor
-   * derivada de opacidade, num par que ninguém mediu. Estes tokens existem
-   * justamente para isso e estão no contrato de contraste, nos dois temas. */
+   * Resolver alerta com uma superfície derivada de opacidade produz um par que
+   * ninguém mediu. Estes tokens existem justamente para isso, e estão no contrato
+   * de contraste, nos dois temas. */
   --color-success-surface: var(--rp-color-feedback-success-surface);
   --color-success-border: var(--rp-color-feedback-success-border);
   --color-success-text: var(--rp-color-feedback-success-text);
@@ -116,6 +115,7 @@
   --color-info-icon: var(--rp-color-feedback-info-icon);
 
   --radius-md: var(--rp-radius-control);
+  --radius-lg: var(--rp-radius-modal);
   --radius-xl: var(--rp-radius-container);
   --radius-full: var(--rp-radius-pill);
 
@@ -130,6 +130,7 @@
    * elevação deixa de vir de token sem ninguém perceber. */
   --shadow-flat: var(--rp-elevation-flat);
   --shadow-raised: var(--rp-elevation-raised);
+  --shadow-floating: var(--rp-elevation-floating);
   --shadow-overlay: var(--rp-elevation-overlay);
 
   --color-scrim: var(--rp-color-surface-scrim);
@@ -213,4 +214,32 @@
     from { transform: translate(-50%, -50%); }
     to { transform: translate(-50%, -50%); }
   }
+}
+
+/* Deslize direcional dos painéis ancorados: o painel entra vindo do lado do
+ * gatilho. Combina com o fade, então a distância é curta — 8px, o bastante para
+ * dar direção sem virar movimento. */
+@utility ds-anim-slide-from-top {
+  animation: ds-fade-in 150ms ease-out, ds-slide-from-top 150ms ease-out;
+}
+@utility ds-anim-slide-from-bottom {
+  animation: ds-fade-in 150ms ease-out, ds-slide-from-bottom 150ms ease-out;
+}
+@utility ds-anim-slide-from-left {
+  animation: ds-fade-in 150ms ease-out, ds-slide-from-left 150ms ease-out;
+}
+@utility ds-anim-slide-from-right {
+  animation: ds-fade-in 150ms ease-out, ds-slide-from-right 150ms ease-out;
+}
+
+@keyframes ds-slide-from-top { from { translate: 0 -8px; } to { translate: 0 0; } }
+@keyframes ds-slide-from-bottom { from { translate: 0 8px; } to { translate: 0 0; } }
+@keyframes ds-slide-from-left { from { translate: -8px 0; } to { translate: 0 0; } }
+@keyframes ds-slide-from-right { from { translate: 8px 0; } to { translate: 0 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  @keyframes ds-slide-from-top { from { translate: 0 0; } to { translate: 0 0; } }
+  @keyframes ds-slide-from-bottom { from { translate: 0 0; } to { translate: 0 0; } }
+  @keyframes ds-slide-from-left { from { translate: 0 0; } to { translate: 0 0; } }
+  @keyframes ds-slide-from-right { from { translate: 0 0; } to { translate: 0 0; } }
 }

@@ -18,16 +18,16 @@ export const overlayScrim = [
 ].join(' ');
 
 /**
- * Superfície flutuante — o painel em si, sem posicionamento.
+ * Superfície flutuante — o painel em si, sem posicionamento, raio nem sombra.
  *
- * `elevation.overlay`, não `raised`: o segundo é a elevação de um card, que está
- * no fluxo da página. Um painel que flutua sobre um véu precisa se separar de
- * tudo, e usar a mesma sombra do card apagaria a diferença.
+ * Raio e elevação ficam em quem usa porque não são os mesmos: o diálogo é menos
+ * arredondado e mais elevado que o popover, e a hierarquia de raio acompanha a de
+ * elevação. Unificar os dois aqui achataria essa diferença.
  */
 export const overlayPanel = [
-  'ds:z-50 ds:rounded-xl ds:border ds:border-border',
+  'ds:z-50 ds:border ds:border-border',
   'ds:bg-popover ds:text-popover-foreground',
-  'ds:shadow-overlay ds:outline-none',
+  'ds:outline-none',
 ].join(' ');
 
 /**
@@ -39,6 +39,7 @@ export const overlayPanel = [
 export const overlayCentered = [
   'ds:fixed ds:top-1/2 ds:left-1/2 ds:-translate-x-1/2 ds:-translate-y-1/2',
   'ds:grid ds:w-full ds:max-w-[calc(100%-2rem)] ds:sm:max-w-lg ds:gap-md ds:p-lg',
+  'ds:rounded-lg ds:shadow-overlay',
   'ds:data-[state=open]:ds-anim-panel-in ds:data-[state=closed]:ds-anim-panel-out',
 ].join(' ');
 
@@ -47,11 +48,19 @@ export const overlayCentered = [
  *
  * A origem da animação acompanha o lado em que o Radix decidiu abrir, senão o
  * painel cresce para o lado errado quando não cabe embaixo e ele vira para cima.
+ *
+ * O deslize também acompanha o lado: o painel entra vindo da direção do gatilho.
+ * Sem isso o movimento contradiz a posição final quando o Radix vira o painel.
  */
 export const overlayAnchored = [
-  'ds:min-w-[8rem] ds:overflow-hidden ds:p-1',
+  'ds:min-w-[8rem] ds:overflow-hidden',
+  'ds:rounded-md ds:shadow-floating',
   'ds:origin-(--radix-popper-transform-origin)',
   'ds:data-[state=open]:ds-anim-fade-in ds:data-[state=closed]:ds-anim-fade-out',
+  'ds:data-[side=bottom]:ds-anim-slide-from-top',
+  'ds:data-[side=top]:ds-anim-slide-from-bottom',
+  'ds:data-[side=left]:ds-anim-slide-from-right',
+  'ds:data-[side=right]:ds-anim-slide-from-left',
 ].join(' ');
 
 /** Cabeçalho e rodapé, iguais nos dois modais. */
