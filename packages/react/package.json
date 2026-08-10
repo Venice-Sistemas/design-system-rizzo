@@ -1,9 +1,16 @@
 {
   "name": "@venice-sistemas/react",
-  "version": "0.0.0",
+  "version": "0.2.0",
   "description": "Componentes React (web) do Design System",
   "license": "UNLICENSED",
-  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Venice-Sistemas/design-system-rizzo.git",
+    "directory": "packages/react"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "type": "module",
   "sideEffects": [
     "*.css"
@@ -20,9 +27,9 @@
   ],
   "scripts": {
     "build": "tsup && node scripts/preserve-use-client.mjs",
-    "build:css": "tailwindcss -i src/styles.css -o dist/styles.css --minify",
     "dev": "tsup --watch",
-    "test": "vitest run"
+    "test": "vitest run",
+    "prepublishOnly": "pnpm test"
   },
   "peerDependencies": {
     "react": "^18.0.0 || ^19.0.0",

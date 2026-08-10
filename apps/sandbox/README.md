@@ -9,7 +9,7 @@ de um jeito que teste unitário e Storybook não pegam.
 ## O que ele verifica
 
 **1. Tailwind não vazou como requisito.** Este app **não tem Tailwind instalado**, de
-propósito. Ele importa `@venice-sistemas/react/styles.css` e mais nada. Se os botões renderizarem
+propósito. Ele importa `@venice-sistemas/styles/styles.css` e mais nada. Se os botões renderizarem
 certos aqui, o Tailwind é ferramenta de build nossa e não dependência de quem consome —
 que é o teste prático de PA-9.
 
