@@ -38,7 +38,7 @@ export function Checkbox({ className, ...props }: CheckboxProps) {
 
 function Visto() {
   return (
-    <svg viewBox="0 0 16 16" className="ds:size-3.5" fill="none" aria-hidden="true">
+    <svg viewBox="0 0 16 16" className={checkboxSlots.glyph} fill="none" aria-hidden="true">
       <path
         d="M3.5 8.5l3 3 6-6"
         stroke="currentColor"
@@ -52,7 +52,7 @@ function Visto() {
 
 function Traco() {
   return (
-    <svg viewBox="0 0 16 16" className="ds:size-3.5" fill="none" aria-hidden="true">
+    <svg viewBox="0 0 16 16" className={checkboxSlots.glyph} fill="none" aria-hidden="true">
       <path d="M4 8h8" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
     </svg>
   );

@@ -27,4 +27,7 @@ export const checkboxSlots = {
   ].join(' '),
 
   indicator: 'ds:flex ds:items-center ds:justify-center ds:text-current',
+
+  /** O glifo — visto ou traço. */
+  glyph: 'ds:size-3.5',
 } as const;

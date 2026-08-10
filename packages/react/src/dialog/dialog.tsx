@@ -47,7 +47,7 @@ export function DialogContent({
                 `aria-label` seria equivalente para leitor de tela, mas some do
                 reconhecimento por voz — quem diz "clicar em fechar" precisa que
                 a palavra exista no acessível. */}
-            <span className="ds:sr-only">Fechar</span>
+            <span className={dialogSlots.closeLabel}>Fechar</span>
           </DialogPrimitive.Close>
         )}
       </DialogPrimitive.Content>
@@ -91,7 +91,7 @@ export function DialogDescription({
 
 function XIcon() {
   return (
-    <svg viewBox="0 0 16 16" className="ds:size-4" fill="none" aria-hidden="true">
+    <svg viewBox="0 0 16 16" className={dialogSlots.closeIcon} fill="none" aria-hidden="true">
       <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
     </svg>
   );

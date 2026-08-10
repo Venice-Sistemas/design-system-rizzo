@@ -20,6 +20,18 @@ export const dialogSlots = {
   title: overlaySlots.title,
   description: overlaySlots.description,
 
+  /** O ícone do X. */
+  closeIcon: 'ds:size-4',
+
+  /**
+   * O nome do botão de fechar, escondido visualmente.
+   *
+   * Texto de verdade em vez de `aria-label`: os dois são equivalentes para leitor
+   * de tela, mas o `aria-label` some do reconhecimento por voz — quem diz "clicar
+   * em fechar" precisa que a palavra exista no acessível.
+   */
+  closeLabel: 'ds:sr-only',
+
   /** O X do canto. Alvo ampliado até o mínimo de toque, como no Button. */
   close: [
     'ds:absolute ds:top-4 ds:right-4 ds:z-10',
