@@ -88,3 +88,12 @@ componente. Sem isso, alguém lê a documentação e tenta importar o que não e
 
 Um componente pode ser `estável` na web e `não implementado` no React Native. É o estado
 normal, não uma pendência.
+
+**A auditoria com leitor de tela é o que separa `em construção` de `estável`**, e é o único
+item obrigatório que nenhuma ferramenta substitui. O roteiro está em
+[`../auditoria-leitor-de-tela.md`](../auditoria-leitor-de-tela.md) — ele é executável por
+quem nunca usou leitor de tela, e diz o que deve acontecer em cada passo, não só o que fazer.
+
+Suíte automatizada passando **não** promove componente. O axe roda em jsdom, que não tem
+layout: ele confirma que existe um nome acessível, e não diz se o nome faz sentido, se é
+anunciado na hora certa, ou se a pessoa entende o que aconteceu.
