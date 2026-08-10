@@ -48,6 +48,16 @@ Baixe o NVDA em <https://www.nvaccess.org/download/>.
 pnpm --filter @venice-sistemas/docs dev
 ```
 
+Cada passada tem uma story dedicada, com o roteiro repetido na descrição — você não precisa
+alternar entre este documento e a tela:
+
+| Passada | Onde |
+|---|---|
+| Nome acessível e estado | `Button` · `Badge → Em contexto` · `Skeleton → Auditoria` |
+| Campos e associação | `Campo → Auditoria` · `Campo → Checkbox` · `Campo → Colar senha` |
+| Região viva | `Alert → Auditoria` |
+| Modal e foco | `Modal → Auditoria` · `Ancorado → Auditoria` |
+
 ### Teclas que bastam
 
 | Tecla | O que faz |
