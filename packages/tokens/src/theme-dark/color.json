@@ -1,0 +1,151 @@
+{
+  "color": {
+    "$description": "TEMA ESCURO — sobrepõe os semânticos de ../semantic/color.json. Mesmos caminhos, valores diferentes; nada de novo é declarado aqui, porque token que só existe num tema não pode ser consumido por componente.\n\nDerivado do tema escuro que já roda em produção no parking-new-front, mapeado sobre a nossa escala em vez de hex solto — foi o mesmo procedimento da ponte do tema claro.\n\nDuas inversões estruturais: a rampa neutra vira do avesso (superfície escura, texto claro), e as famílias cromáticas sobem para degraus CLAROS (300-500) quando servem de texto ou marca, porque degrau escuro sobre fundo escuro desaparece.",
+
+    "brand": {
+      "default": { "$value": "{base.color.brand.500}", "$type": "color", "$description": "O símbolo não muda com o tema — é a identidade, não uma cor de papel." },
+      "ink": { "$value": "{base.color.brand.950}", "$type": "color" },
+      "strong": { "$value": "{base.color.brand.300}", "$type": "color", "$description": "No claro é um verde escuro; no escuro precisa ser claro para ler." },
+      "accent": { "$value": "{base.color.gold.brand}", "$type": "color" },
+      "accent-ink": { "$value": "{base.color.gold.ink}", "$type": "color" }
+    },
+
+    "surface": {
+      "page": { "$value": "{base.color.neutral.1000}", "$type": "color" },
+      "default": { "$value": "{base.color.neutral.975}", "$type": "color", "$description": "Card. Mais CLARO que a página — no escuro a elevação sobe em luminosidade, ao contrário do claro." },
+      "subtle": { "$value": "{base.color.neutral.950}", "$type": "color" },
+      "sunken": { "$value": "{base.color.neutral.1000}", "$type": "color" },
+      "raised": { "$value": "{base.color.neutral.950}", "$type": "color" },
+      "inverse": { "$value": "{base.color.neutral.50}", "$type": "color" },
+      "disabled": { "$value": "{base.color.neutral.950}", "$type": "color" },
+      "selected": { "$value": "{base.color.brand.950}", "$type": "color" }
+    },
+
+    "text": {
+      "primary": { "$value": "{base.color.neutral.50}", "$type": "color" },
+      "secondary": { "$value": "{base.color.neutral.500}", "$type": "color" },
+      "placeholder": { "$value": "{base.color.neutral.600}", "$type": "color" },
+      "disabled": { "$value": "{base.color.neutral.700}", "$type": "color", "$description": "Isento de AA por definição, mas mantém o piso de 3:1 sobre a superfície — desabilitado precisa ser reconhecível, não invisível." },
+      "inverse": { "$value": "{base.color.neutral.1000}", "$type": "color" },
+      "link": { "$value": "{base.color.brand.400}", "$type": "color" },
+      "link-hover": { "$value": "{base.color.brand.300}", "$type": "color" }
+    },
+
+    "border": {
+      "subtle": { "$value": "{base.color.neutral.900}", "$type": "color" },
+      "default": { "$value": "{base.color.neutral.800}", "$type": "color" },
+      "strong": { "$value": "{base.color.neutral.600}", "$type": "color" },
+      "disabled": { "$value": "{base.color.neutral.900}", "$type": "color" },
+      "focus": { "$value": "{base.color.brand.400}", "$type": "color" }
+    },
+
+    "action": {
+      "primary": {
+        "background": {
+          "default": { "$value": "{base.color.brand.500}", "$type": "color", "$description": "Inverte o claro: lá a ação é um verde ESCURO com texto branco; aqui é o verde do símbolo com texto escuro. É o mesmo padrão que o shadcn usa no dark." },
+          "hover": { "$value": "{base.color.brand.400}", "$type": "color" },
+          "active": { "$value": "{base.color.brand.300}", "$type": "color" },
+          "disabled": { "$value": "{base.color.neutral.900}", "$type": "color" }
+        },
+        "foreground": {
+          "default": { "$value": "{base.color.brand.950}", "$type": "color" },
+          "disabled": { "$value": "{base.color.neutral.600}", "$type": "color" }
+        }
+      },
+      "secondary": {
+        "background": {
+          "default": { "$value": "{base.color.neutral.950}", "$type": "color" },
+          "hover": { "$value": "{base.color.neutral.900}", "$type": "color" },
+          "active": { "$value": "{base.color.neutral.800}", "$type": "color" },
+          "disabled": { "$value": "{base.color.neutral.975}", "$type": "color" }
+        },
+        "foreground": {
+          "default": { "$value": "{base.color.neutral.50}", "$type": "color" },
+          "disabled": { "$value": "{base.color.neutral.700}", "$type": "color" }
+        }
+      },
+      "outline": {
+        "background": {
+          "default": { "$value": "{base.color.neutral.975}", "$type": "color" },
+          "hover": { "$value": "{base.color.neutral.950}", "$type": "color" },
+          "active": { "$value": "{base.color.neutral.900}", "$type": "color" },
+          "disabled": { "$value": "{base.color.neutral.975}", "$type": "color" }
+        },
+        "foreground": {
+          "default": { "$value": "{base.color.neutral.50}", "$type": "color" },
+          "disabled": { "$value": "{base.color.neutral.700}", "$type": "color" }
+        },
+        "border": {
+          "default": { "$value": "{base.color.neutral.600}", "$type": "color" },
+          "disabled": { "$value": "{base.color.neutral.900}", "$type": "color" }
+        }
+      },
+      "link": {
+        "foreground": {
+          "default": { "$value": "{base.color.brand.400}", "$type": "color" },
+          "hover": { "$value": "{base.color.brand.300}", "$type": "color" },
+          "disabled": { "$value": "{base.color.neutral.700}", "$type": "color" }
+        }
+      },
+      "danger": {
+        "background": {
+          "default": { "$value": "{base.color.danger.500}", "$type": "color" },
+          "hover": { "$value": "{base.color.danger.400}", "$type": "color" },
+          "active": { "$value": "{base.color.danger.300}", "$type": "color" },
+          "disabled": { "$value": "{base.color.neutral.900}", "$type": "color" }
+        },
+        "foreground": {
+          "default": { "$value": "{base.color.danger.950}", "$type": "color" },
+          "disabled": { "$value": "{base.color.neutral.600}", "$type": "color" }
+        }
+      },
+      "ghost": {
+        "background": {
+          "default": { "$value": "transparent", "$type": "color" },
+          "hover": { "$value": "{base.color.neutral.950}", "$type": "color" },
+          "active": { "$value": "{base.color.neutral.900}", "$type": "color" },
+          "disabled": { "$value": "transparent", "$type": "color" }
+        },
+        "foreground": {
+          "default": { "$value": "{base.color.neutral.50}", "$type": "color" },
+          "disabled": { "$value": "{base.color.neutral.700}", "$type": "color" }
+        }
+      }
+    },
+
+    "chart": {
+      "1": { "$value": "{base.color.brand.400}", "$type": "color" },
+      "2": { "$value": "{base.color.gold.brand}", "$type": "color", "$description": "No claro o dourado da marca some (1,40:1) e usamos o `deep`; no escuro ele finalmente serve." },
+      "3": { "$value": "{base.color.data-blue.light}", "$type": "color" },
+      "4": { "$value": "{base.color.teal.light}", "$type": "color" },
+      "5": { "$value": "{base.color.danger.400}", "$type": "color" }
+    },
+
+    "feedback": {
+      "success": {
+        "surface": { "$value": "{base.color.brand.950}", "$type": "color" },
+        "border": { "$value": "{base.color.brand.600}", "$type": "color" },
+        "text": { "$value": "{base.color.brand.300}", "$type": "color" },
+        "icon": { "$value": "{base.color.brand.400}", "$type": "color" }
+      },
+      "danger": {
+        "surface": { "$value": "{base.color.danger.950}", "$type": "color" },
+        "border": { "$value": "{base.color.danger.600}", "$type": "color" },
+        "text": { "$value": "{base.color.danger.300}", "$type": "color" },
+        "icon": { "$value": "{base.color.danger.400}", "$type": "color" }
+      },
+      "warning": {
+        "surface": { "$value": "{base.color.warning.950}", "$type": "color" },
+        "border": { "$value": "{base.color.warning.600}", "$type": "color" },
+        "text": { "$value": "{base.color.warning.300}", "$type": "color" },
+        "icon": { "$value": "{base.color.warning.400}", "$type": "color" }
+      },
+      "info": {
+        "surface": { "$value": "{base.color.info.950}", "$type": "color" },
+        "border": { "$value": "{base.color.info.600}", "$type": "color" },
+        "text": { "$value": "{base.color.info.300}", "$type": "color" },
+        "icon": { "$value": "{base.color.info.400}", "$type": "color" }
+      }
+    }
+  }
+}

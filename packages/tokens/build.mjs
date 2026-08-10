@@ -20,7 +20,7 @@
  *      PagSeguro. Enquanto P-06 estiver aberta, hex. Ver docs/architecture-proposal.md.
  */
 
-import { mkdirSync, copyFileSync, existsSync, rmSync } from 'node:fs';
+import { mkdirSync, copyFileSync, existsSync, rmSync, appendFileSync, readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import StyleDictionary from 'style-dictionary';
@@ -194,6 +194,25 @@ StyleDictionary.registerFormat({
  * Deliberadamente não inventamos nomes curtos aqui. Nossos nomes canônicos são
  * longos e explícitos; nomes curtos são detalhe interno de quem consome (PA-9).
  */
+/**
+ * Mesmas variáveis do `rp/css`, sob o seletor de tema escuro.
+ *
+ * DOIS seletores de propósito. `[data-theme="dark"]` é o que a AD-08 decidiu;
+ * `.dark` é o que o next-themes usa por padrão e o que o parking-new-front já
+ * tem no ar. Emitir só um obrigaria o app a se reconfigurar para adotar o tema —
+ * e o maior risco do projeto não é o DS estar errado, é ninguém usar.
+ *
+ * Sem @font-face aqui: a fonte não muda com o tema, e repetir o bloco faria o
+ * navegador reavaliar as mesmas fontes.
+ */
+StyleDictionary.registerFormat({
+  name: 'rp/css-dark',
+  format: ({ dictionary }) => {
+    const vars = dictionary.allTokens.map((token) => `  --${token.name}: ${val(token)};`).join('\n');
+    return `\n.dark,\n[data-theme='dark'] {\n${vars}\n}\n`;
+  },
+});
+
 StyleDictionary.registerFormat({
   name: 'rp/tailwind',
   format: ({ dictionary }) => {
@@ -306,18 +325,25 @@ StyleDictionary.registerFormat({
  *
  *   1. Importe este arquivo depois do \`@import 'tailwindcss'\`.
  *   2. Remova do seu \`:root\` as ${Object.keys(SHADCN_MAP).length} variáveis declaradas abaixo — passam a vir daqui.
- *   3. Seu \`@theme inline\` NÃO muda: ele mapeia exatamente estas variáveis.
+ *   3. Remova o seu bloco \`.dark\` inteiro — o tema escuro também vem daqui.
+ *   4. Seu \`@theme inline\` NÃO muda: ele mapeia exatamente estas variáveis.
+ *
+ * OS DOIS TEMAS
+ *
+ *   O tema escuro sai sob \`.dark\` E \`[data-theme='dark']\`. O primeiro é o padrão
+ *   do next-themes; o segundo é o que a AD-08 decidiu. Emitir os dois evita que
+ *   adotar o Design System exija reconfigurar o app.
+ *
+ *   Se você mantiver um \`.dark\` próprio DEPOIS deste import, ele vence — os dois
+ *   seletores têm a mesma especificidade e a ordem decide. Isso é útil para
+ *   migrar aos poucos, e é uma armadilha se você esquecer que ele está lá.
  *
  * O QUE VOCÊ CONTINUA MANTENDO
  *
  *   Camada de paleta crua (\`--rizzo-green\`, \`--rizzo-gold\`, …)
- *     Equivale à nossa camada primitiva, que o build não emite de propósito. Ela
- *     ainda é referenciada pelo seu bloco \`.dark\`, então precisa ficar até o
- *     tema escuro sair daqui. Depois disso, pode ser apagada.
- *
- *   Bloco \`.dark\` inteiro
- *     O tema escuro ainda não é emitido. Sem o seu bloco, o app fica claro no
- *     modo escuro. Ele sobrepõe esta ponte normalmente — nada a fazer.
+ *     Equivale à nossa camada primitiva, que o build não emite de propósito.
+ *     Com o tema escuro saindo daqui, ela não tem mais consumidor: se o seu
+ *     \`.dark\` foi removido, pode apagar a paleta junto.
  *
  *   \`--stat-neutral\`, \`--stat-positive\`, \`--stat-negative\`
  *     São composições suas via \`color-mix\` sobre \`--muted-foreground\`,
@@ -340,6 +366,36 @@ StyleDictionary.registerFormat({
 ${lines.join('\n')}
 }
 `;
+  },
+});
+
+/**
+ * A mesma ponte, no tema escuro.
+ *
+ * Só as variáveis de COR são reemitidas. `--radius` aponta para `radius.base`, e
+ * raio não muda com tema — reemitir seria afirmar que muda. O que não é cor fica
+ * declarado uma vez só, no `:root`.
+ *
+ * O guarda continua valendo para tudo que é cor: se um semântico de cor existir
+ * no claro e faltar no escuro, o build falha. É o que impede os dois temas de
+ * divergirem em cobertura, que é o defeito que ninguém percebe até alguém
+ * trocar de tema e uma variável cair para o valor do outro.
+ */
+StyleDictionary.registerFormat({
+  name: 'rp/shadcn-dark',
+  format: ({ dictionary }) => {
+    const byPath = new Map(dictionary.allTokens.map((token) => [token.path.join('.'), val(token)]));
+    const doTema = Object.entries(SHADCN_MAP).filter(([, path]) => path.startsWith('color.'));
+
+    const missing = doTema.filter(([, path]) => !byPath.has(path));
+    if (missing.length) {
+      throw new Error(
+        `Ponte shadcn (tema escuro) aponta para cores que o tema escuro não declara:\n${missing.map(([n, p]) => `  --${n} -> ${p}`).join('\n')}`,
+      );
+    }
+
+    const lines = doTema.map(([name, path]) => `  --${name}: ${byPath.get(path)};`);
+    return `\n.dark,\n[data-theme='dark'] {\n${lines.join('\n')}\n}\n`;
   },
 });
 
@@ -377,7 +433,10 @@ StyleDictionary.registerFormat({
 const shared = ['attribute/cti', 'name/kebab'];
 
 const sd = new StyleDictionary({
-  source: [posix(join(HERE, 'src/**/*.json'))],
+  // Glob explícito por diretório, não `src/**`: o tema escuro declara os MESMOS
+  // caminhos de token que o claro, e varrer src/ inteiro faria um sobrescrever o
+  // outro silenciosamente, na ordem em que o disco devolvesse os arquivos.
+  source: [posix(join(HERE, 'src/primitive/**/*.json')), posix(join(HERE, 'src/semantic/**/*.json'))],
   usesDtcg: true,
   log: { verbosity: 'default', warnings: 'warn' },
   platforms: {
@@ -432,6 +491,58 @@ const sd = new StyleDictionary({
 // intermitente. Vimos uma ocorrência ao rodar via `pnpm -r`, não reproduzível.
 if (existsSync(DIST)) rmSync(DIST, { recursive: true, force: true, maxRetries: 5, retryDelay: 100 });
 await sd.buildAllPlatforms();
+
+/* ------------------------------------------------------------------------ *
+ * Segundo passe: tema escuro.
+ *
+ * Instância separada porque o tema escuro redeclara os MESMOS caminhos de token
+ * do claro — na mesma instância um sobrescreveria o outro. Aqui a fonte é
+ * primitivo + tema escuro, e a saída é só o bloco de seletor, que é anexado aos
+ * arquivos do tema claro.
+ *
+ * Anexar em vez de emitir arquivo separado é deliberado: um `tokens-dark.css`
+ * que o consumidor precisasse lembrar de importar seria esquecido, e o sintoma
+ * (app claro no modo escuro) não aponta para a causa.
+ * ------------------------------------------------------------------------ */
+const dark = new StyleDictionary({
+  source: [posix(join(HERE, 'src/primitive/**/*.json')), posix(join(HERE, 'src/theme-dark/**/*.json'))],
+  usesDtcg: true,
+  log: { verbosity: 'default', warnings: 'warn' },
+  platforms: {
+    css: {
+      transforms: [...shared, 'rp/elevation-css', 'rp/px-to-rem'],
+      prefix: 'rp',
+      buildPath: `${posix(DIST)}/`,
+      files: [{ destination: 'tokens.dark.part.css', format: 'rp/css-dark', filter: isPublic }],
+    },
+    shadcn: {
+      transforms: shared,
+      buildPath: `${posix(DIST)}/`,
+      files: [{ destination: 'shadcn.dark.part.css', format: 'rp/shadcn-dark', filter: isPublic }],
+    },
+    // Existe para o contrato de contraste poder resolver o tema escuro. Sem esta
+    // saída, metade dos temas que estão no ar não passaria por verificação
+    // nenhuma — que é exatamente o defeito que o contrato existe para impedir.
+    web: {
+      transforms: [...shared, 'rp/elevation-css', 'rp/px-to-rem'],
+      buildPath: `${posix(DIST)}/`,
+      files: [
+        { destination: 'index.dark.mjs', format: 'rp/esm', filter: isPublic },
+        { destination: 'index.dark.d.ts', format: 'rp/dts', filter: isPublic },
+      ],
+    },
+  },
+});
+await dark.buildAllPlatforms();
+
+for (const [base, part] of [
+  ['tokens.css', 'tokens.dark.part.css'],
+  ['shadcn.css', 'shadcn.dark.part.css'],
+]) {
+  appendFileSync(join(DIST, base), readFileSync(join(DIST, part), 'utf8'));
+  rmSync(join(DIST, part));
+}
+console.log('\nTema escuro anexado a tokens.css e shadcn.css.');
 
 // Poppins auto-hospedada: copiamos os arquivos para dentro do dist para o pacote
 // ser autocontido. O consumidor importa tokens.css e a fonte funciona — sem

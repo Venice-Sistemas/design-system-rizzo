@@ -14,6 +14,7 @@ import { readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import semanticTokens from '../dist/index.mjs';
+import darkTokens from '../dist/index.dark.mjs';
 // Mesma implementação que a galeria do Storybook consome. Duas cópias da fórmula
 // divergiriam no arredondamento, e aí a galeria diria "passa" enquanto o CI diz
 // "reprova" — o pior resultado possível para um contrato.
@@ -26,15 +27,28 @@ const contract = readJson('../contrast-pairs.json');
 const primitives = readJson('../src/primitive/color.json');
 
 /**
- * Resolve o caminho de um token para o hex final.
+ * Os dois temas emitidos, cada um com o campo do contrato que registra a medida.
+ *
+ * Um par permitido precisa atingir o mínimo NOS DOIS. Antes disso o contrato só
+ * media o claro, e o tema escuro — que já rodava em produção no front — nunca
+ * tinha passado por verificação nenhuma.
+ */
+const TEMAS = [
+  { nome: 'claro', tokens: semanticTokens, campo: 'measured' },
+  { nome: 'escuro', tokens: darkTokens, campo: 'measuredDark' },
+];
+
+/**
+ * Resolve o caminho de um token para o hex final, no tema pedido.
  *
  * Semânticos vêm do build (valor já resolvido). Primitivos vêm da fonte, porque o
  * build deliberadamente não os emite — e as combinações PROIBIDAS precisam citá-los
- * para poderem ser proibidas.
+ * para poderem ser proibidas. Primitivo é o mesmo nos dois temas: o que muda é
+ * para qual degrau cada semântico aponta.
  */
-function resolve(path) {
+function resolve(path, tokens = semanticTokens) {
   const segments = path.split('.');
-  const root = segments[0] === 'base' ? primitives : semanticTokens;
+  const root = segments[0] === 'base' ? primitives : tokens;
   let node = root;
   for (const key of segments) {
     node = node?.[key];
@@ -55,16 +69,25 @@ describe('contrato de contraste', () => {
     expect(contract.forbidden.length).toBeGreaterThan(0);
   });
 
-  describe('pares permitidos atingem o mínimo WCAG', () => {
-    for (const pair of contract.allowed) {
-      it(`${pair.id}: ${pair.foreground} sobre ${pair.background} ≥ ${pair.min}:1`, () => {
-        const ratio = contrast(resolve(pair.foreground), resolve(pair.background));
-        expect(
-          ratio,
-          `${pair.id} caiu para ${ratio.toFixed(2)}:1, abaixo do mínimo de ${pair.min}:1`,
-        ).toBeGreaterThanOrEqual(pair.min);
-      });
-    }
+  for (const tema of TEMAS) {
+    describe(`pares permitidos atingem o mínimo WCAG — tema ${tema.nome}`, () => {
+      for (const pair of contract.allowed) {
+        it(`${pair.id}: ${pair.foreground} sobre ${pair.background} ≥ ${pair.min}:1`, () => {
+          const ratio = contrast(resolve(pair.foreground, tema.tokens), resolve(pair.background, tema.tokens));
+          expect(
+            ratio,
+            `${pair.id} caiu para ${ratio.toFixed(2)}:1 no tema ${tema.nome}, abaixo do mínimo de ${pair.min}:1`,
+          ).toBeGreaterThanOrEqual(pair.min);
+        });
+      }
+    });
+  }
+
+  it('todo par permitido declara a medida dos dois temas', () => {
+    // Sem isto, adicionar um par sem `measuredDark` passaria despercebido e o
+    // tema escuro voltaria a ficar sem registro do que foi medido.
+    const semEscuro = contract.allowed.filter((p) => typeof p.measuredDark !== 'number');
+    expect(semEscuro.map((p) => p.id), 'pares sem measuredDark').toEqual([]);
   });
 
   describe('combinações proibidas continuam reprovando', () => {
@@ -91,6 +114,18 @@ describe('contrato de contraste', () => {
           Number(ratio.toFixed(2)),
           `contrast-pairs.json diz ${pair.measured} mas o valor real é ${ratio.toFixed(2)}`,
         ).toBeCloseTo(pair.measured, 1);
+      });
+    }
+
+    // Proibidos citam primitivo, que não muda com o tema — só os permitidos têm
+    // medida por tema.
+    for (const pair of contract.allowed) {
+      it(`${pair.id}: measuredDark declarado como ${pair.measuredDark}`, () => {
+        const ratio = contrast(resolve(pair.foreground, darkTokens), resolve(pair.background, darkTokens));
+        expect(
+          Number(ratio.toFixed(2)),
+          `contrast-pairs.json diz measuredDark ${pair.measuredDark} mas o valor real é ${ratio.toFixed(2)}`,
+        ).toBeCloseTo(pair.measuredDark, 1);
       });
     }
   });

@@ -16,9 +16,24 @@ import tokens from '../dist/index.mjs';
 const HERE = dirname(fileURLToPath(import.meta.url));
 const css = readFileSync(join(HERE, '../dist/shadcn.css'), 'utf8');
 
-const declared = new Map(
-  [...css.matchAll(/^\s*--([a-z0-9-]+)\s*:\s*([^;]+);/gim)].map((m) => [m[1], m[2].trim()]),
-);
+/**
+ * Um mapa POR BLOCO, não um do arquivo inteiro.
+ *
+ * A ponte emite dois temas, e os dois declaram os mesmos nomes. Varrer o arquivo
+ * de uma vez faria o último bloco sobrescrever o primeiro, e o teste passaria a
+ * afirmar coisas sobre um tema achando que fala do outro.
+ */
+function bloco(seletor) {
+  const re = new RegExp(`${seletor}\\s*\\{([^}]*)\\}`, 'm');
+  const corpo = css.match(re);
+  if (!corpo) throw new Error(`bloco ${seletor} não encontrado em shadcn.css`);
+  return new Map(
+    [...corpo[1].matchAll(/--([a-z0-9-]+)\s*:\s*([^;]+);/gi)].map((m) => [m[1], m[2].trim()]),
+  );
+}
+
+const declared = bloco('^:root');
+const declaredDark = bloco("^\\.dark,\\s*\\n\\[data-theme='dark'\\]");
 
 /** O contrato mínimo do shadcn. Faltar qualquer um destes quebra componente. */
 const CONTRATO_SHADCN = [
@@ -53,12 +68,32 @@ describe('ponte shadcn', () => {
     }
   });
 
-  it('--primary NÃO é a cor de marca', () => {
-    // O defeito que existe hoje no parking-new-front: --primary aponta para o
-    // verde do símbolo e dá 3,51:1 com texto branco. Adotar a ponte corrige isso,
-    // e este teste impede que a correção se perca depois.
+  it('no tema claro, --primary NÃO é a cor de marca', () => {
+    // O defeito que existia no parking-new-front: --primary apontava para o verde
+    // do símbolo e dava 3,51:1 com texto branco. Adotar a ponte corrigiu isso, e
+    // este teste impede que a correção se perca depois.
     expect(declared.get('primary')).not.toBe(tokens.color.brand.default);
     expect(declared.get('primary-foreground')).toBe('#ffffff');
+  });
+
+  it('no tema escuro, --primary É a cor de marca — com tinta escura por cima', () => {
+    // A inversão é deliberada, não um descuido. Sobre fundo escuro o verde escuro
+    // da ação desaparece; quem carrega a ação é o verde do símbolo, e o texto vira
+    // escuro. É o mesmo padrão que o shadcn usa no dark.
+    //
+    // O que garante que isso é legível não é este teste, é o contrato de
+    // contraste, que mede o par nos dois temas. Aqui só travamos a INTENÇÃO, para
+    // ninguém "corrigir" o escuro achando que ele repetiu o defeito do claro.
+    expect(declaredDark.get('primary')).toBe(tokens.color.brand.default);
+    expect(declaredDark.get('primary-foreground')).not.toBe('#ffffff');
+  });
+
+  it('os dois temas declaram o mesmo conjunto de cores', () => {
+    // Cobertura desigual é o defeito que ninguém percebe até trocar de tema e uma
+    // variável cair para o valor do outro. `--radius` fica de fora dos dois lados:
+    // raio não muda com tema e é declarado uma vez só, no :root.
+    const cores = (m) => [...m.keys()].filter((k) => k !== 'radius').sort();
+    expect(cores(declaredDark)).toEqual(cores(declared));
   });
 
   it('não emite variável específica de aplicação', () => {

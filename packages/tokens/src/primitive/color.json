@@ -106,7 +106,17 @@
           "$value": "#2b2b2b",
           "$type": "color"
         },
-        "$description": "Cinza puro (croma zero). Escolha deliberada: com uma marca tão saturada, um cinza tingido de verde competiria com os estados de status do domínio (pago/regular). Se o time de design preferir um cinza levemente esverdeado, é uma alteração de uma linha na geração."
+        "975": {
+          "$value": "#171717",
+          "$type": "color",
+          "$description": "Superfície elevada do tema escuro (card, popover). Existe só no neutro — ver a nota de assimetria da escala."
+        },
+        "1000": {
+          "$value": "#0a0a0a",
+          "$type": "color",
+          "$description": "Superfície da página no tema escuro. Existe só no neutro — ver a nota de assimetria da escala."
+        },
+        "$description": "Cinza puro (croma zero). Escolha deliberada: com uma marca tão saturada, um cinza tingido de verde competiria com os estados de status do domínio (pago/regular). Se o time de design preferir um cinza levemente esverdeado, é uma alteração de uma linha na geração.\n\nASSIMETRIA DELIBERADA: esta escala tem dois degraus (975 e 1000) que as famílias cromáticas não têm, então a intercambiabilidade por degrau — brand.700 e danger.700 têm a mesma lightness — vale de 50 a 950 e não além. O motivo é de domínio: o neutro é a única família que descreve SUPERFÍCIE, e superfície escura não tem croma. Marca, perigo e feedback descrevem ação e status, que nunca chegam a essa profundidade — um brand.1000 seria um verde quase preto que nenhuma ação usaria, e degrau que existe acaba sendo usado."
       },
       "danger": {
         "50": {
@@ -260,7 +270,8 @@
 
       "teal": {
         "$description": "Quarta cor de gráfico. Existe por um consumidor só — a série 4 do parking-new-front — e por isso é um valor, não uma escala.",
-        "brand": { "$value": "#0e8a7d", "$type": "color", "$description": "4,24:1 sobre branco: serve de marca de dado, não de texto." }
+        "brand": { "$value": "#0e8a7d", "$type": "color", "$description": "4,24:1 sobre branco: serve de marca de dado, não de texto." },
+        "light": { "$value": "#2fb3a3", "$type": "color", "$description": "Versão para fundo escuro — o teal padrão some ali. Espelha o par brand/light de `data-blue`." }
       },
 
       "data-blue": {

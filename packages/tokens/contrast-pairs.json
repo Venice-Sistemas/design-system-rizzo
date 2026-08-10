@@ -1,201 +1,229 @@
 {
-  "$description": "Contrato de contraste (AD-07). Cada par declara uma combinação frente/fundo que o sistema PERMITE, com o mínimo WCAG exigido. É executado por test/contrast.test.mjs contra a saída do build, e reprovar quebra o build. Mínimos: 4.5 = texto normal (WCAG 1.4.3) · 3.0 = texto grande e componentes de interface (1.4.11) · 1.0 = puramente decorativo, sem exigência.",
+  "$description": "Contrato de contraste (AD-07). Cada par declara uma combinação frente/fundo que o sistema PERMITE, com o mínimo WCAG exigido. É executado por test/contrast.test.mjs contra a saída do build — NOS DOIS TEMAS — e reprovar quebra o build. `measured` é o tema claro, `measuredDark` o escuro; um par só é permitido se atinge o mínimo nos dois. Mínimos: 4.5 = texto normal (WCAG 1.4.3) · 3.0 = texto grande e componentes de interface (1.4.11) · 1.0 = puramente decorativo, sem exigência.",
   "allowed": [
     {
       "id": "action-primary-rest",
       "foreground": "color.action.primary.foreground.default",
       "background": "color.action.primary.background.default",
       "min": 4.5,
-      "measured": 6.41
+      "measured": 6.41,
+      "measuredDark": 6.27
     },
     {
       "id": "action-primary-hover",
       "foreground": "color.action.primary.foreground.default",
       "background": "color.action.primary.background.hover",
       "min": 4.5,
-      "measured": 9.52
+      "measured": 9.52,
+      "measuredDark": 7.64
     },
     {
       "id": "action-primary-active",
       "foreground": "color.action.primary.foreground.default",
       "background": "color.action.primary.background.active",
       "min": 4.5,
-      "measured": 13.8
+      "measured": 13.8,
+      "measuredDark": 9.03
     },
     {
       "id": "action-danger-rest",
       "foreground": "color.action.danger.foreground.default",
       "background": "color.action.danger.background.default",
       "min": 4.5,
-      "measured": 5.05
+      "measured": 5.05,
+      "measuredDark": 5.6
     },
     {
       "id": "focus-ring",
       "foreground": "color.border.focus",
       "background": "color.surface.default",
       "min": 3,
-      "measured": 6.41
+      "measured": 6.41,
+      "measuredDark": 9.93
     },
     {
       "id": "text-primary",
       "foreground": "color.text.primary",
       "background": "color.surface.default",
       "min": 4.5,
-      "measured": 14.16
+      "measured": 14.16,
+      "measuredDark": 16.73
     },
     {
       "id": "text-primary-subtle",
       "foreground": "color.text.primary",
       "background": "color.surface.subtle",
       "min": 4.5,
-      "measured": 13.22
+      "measured": 13.22,
+      "measuredDark": 13.22
     },
     {
       "id": "text-secondary",
       "foreground": "color.text.secondary",
       "background": "color.surface.default",
       "min": 4.5,
-      "measured": 6.79
+      "measured": 6.79,
+      "measuredDark": 7.45
     },
     {
       "id": "text-secondary-page",
       "foreground": "color.text.secondary",
       "background": "color.surface.page",
       "min": 4.5,
-      "measured": 6.34
+      "measured": 6.34,
+      "measuredDark": 8.23
     },
     {
       "id": "text-secondary-subtle",
       "foreground": "color.text.secondary",
       "background": "color.surface.subtle",
       "min": 4.5,
-      "measured": 6.34
+      "measured": 6.34,
+      "measuredDark": 5.89
     },
     {
       "id": "text-placeholder",
       "foreground": "color.text.placeholder",
       "background": "color.surface.default",
       "min": 4.5,
-      "measured": 4.67
+      "measured": 4.67,
+      "measuredDark": 5.54
     },
     {
       "id": "text-link",
       "foreground": "color.text.link",
       "background": "color.surface.default",
       "min": 4.5,
-      "measured": 6.41
+      "measured": 6.41,
+      "measuredDark": 9.93
     },
     {
       "id": "text-disabled",
       "foreground": "color.text.disabled",
       "background": "color.surface.default",
       "min": 3,
-      "measured": 3.23
+      "measured": 3.23,
+      "measuredDark": 3.84
     },
     {
       "id": "border-strong",
       "foreground": "color.border.strong",
       "background": "color.surface.default",
       "min": 3,
-      "measured": 3.23
+      "measured": 3.23,
+      "measuredDark": 5.54
     },
     {
       "id": "border-subtle",
       "foreground": "color.border.subtle",
       "background": "color.surface.default",
       "min": 1,
-      "measured": 1.35
+      "measured": 1.35,
+      "measuredDark": 1.78
     },
     {
       "id": "feedback-success-text",
       "foreground": "color.feedback.success.text",
       "background": "color.feedback.success.surface",
       "min": 4.5,
-      "measured": 8.97
+      "measured": 8.97,
+      "measuredDark": 9.03
     },
     {
       "id": "feedback-danger-text",
       "foreground": "color.feedback.danger.text",
       "background": "color.feedback.danger.surface",
       "min": 4.5,
-      "measured": 9.91
+      "measured": 9.91,
+      "measuredDark": 8.53
     },
     {
       "id": "feedback-warning-text",
       "foreground": "color.feedback.warning.text",
       "background": "color.feedback.warning.surface",
       "min": 4.5,
-      "measured": 9.41
+      "measured": 9.41,
+      "measuredDark": 8.51
     },
     {
       "id": "feedback-info-text",
       "foreground": "color.feedback.info.text",
       "background": "color.feedback.info.surface",
       "min": 4.5,
-      "measured": 9.33
+      "measured": 9.33,
+      "measuredDark": 8.64
     },
     {
       "id": "brand-accent",
       "foreground": "color.brand.accent-ink",
       "background": "color.brand.accent",
       "min": 4.5,
-      "measured": 13.24
+      "measured": 13.24,
+      "measuredDark": 13.24
     },
     {
       "id": "brand-strong",
       "foreground": "color.brand.strong",
       "background": "color.surface.default",
       "min": 4.5,
-      "measured": 9.52
+      "measured": 9.52,
+      "measuredDark": 11.73
     },
     {
       "id": "action-secondary-rest",
       "foreground": "color.action.secondary.foreground.default",
       "background": "color.action.secondary.background.default",
       "min": 4.5,
-      "measured": 12.09
+      "measured": 12.09,
+      "measuredDark": 13.22
     },
     {
       "id": "action-secondary-hover",
       "foreground": "color.action.secondary.foreground.default",
       "background": "color.action.secondary.background.hover",
       "min": 4.5,
-      "measured": 10.52
+      "measured": 10.52,
+      "measuredDark": 9.38
     },
     {
       "id": "action-outline-rest",
       "foreground": "color.action.outline.foreground.default",
       "background": "color.action.outline.background.default",
       "min": 4.5,
-      "measured": 14.16
+      "measured": 14.16,
+      "measuredDark": 16.73
     },
     {
       "id": "action-outline-border",
       "foreground": "color.action.outline.border.default",
       "background": "color.surface.default",
       "min": 3,
-      "measured": 3.23
+      "measured": 3.23,
+      "measuredDark": 5.54
     },
     {
       "id": "action-ghost-hover",
       "foreground": "color.action.ghost.foreground.default",
       "background": "color.action.ghost.background.hover",
       "min": 4.5,
-      "measured": 12.09
+      "measured": 12.09,
+      "measuredDark": 13.22
     },
     {
       "id": "action-link-rest",
       "foreground": "color.action.link.foreground.default",
       "background": "color.surface.default",
       "min": 4.5,
-      "measured": 6.41
+      "measured": 6.41,
+      "measuredDark": 9.93
     },
     {
       "id": "action-link-hover",
       "foreground": "color.action.link.foreground.hover",
       "background": "color.surface.default",
       "min": 4.5,
-      "measured": 9.52
+      "measured": 9.52,
+      "measuredDark": 11.73
     }
   ],
   "forbidden": [
