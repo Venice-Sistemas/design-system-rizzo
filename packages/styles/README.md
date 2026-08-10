@@ -1,4 +1,4 @@
-# @rizzopark/styles
+# @venice-sistemas/styles
 
 A definição visual dos componentes, sem framework.
 
@@ -15,10 +15,10 @@ Aqui a receita é uma só. As plataformas ficam com o que de fato é delas: marc
 comportamento.
 
 ```
-@rizzopark/styles     o que o componente PARECE     ← uma implementação
-@rizzopark/react      como React monta e reage      ┐
-@rizzopark/angular    como Angular monta e reage    ├ uma por plataforma
-@rizzopark/native     (React Native, quando houver) ┘
+@venice-sistemas/styles     o que o componente PARECE     ← uma implementação
+@venice-sistemas/react      como React monta e reage      ┐
+@venice-sistemas/angular    como Angular monta e reage    ├ uma por plataforma
+@venice-sistemas/native     (React Native, quando houver) ┘
 ```
 
 ## O que entra aqui
@@ -39,7 +39,7 @@ cada uma resolve com o que tem de melhor: `<button>` nativo, Radix, Angular CDK.
 
 ## React Native é exceção
 
-Não existe CSS nem classe lá. O RN consome `@rizzopark/tokens/native` e monta `StyleSheet` a
+Não existe CSS nem classe lá. O RN consome `@venice-sistemas/tokens/native` e monta `StyleSheet` a
 partir dos mesmos valores. A receita compartilhada é dos frameworks **web**; o que atravessa
 para o RN são os tokens e o contrato.
 

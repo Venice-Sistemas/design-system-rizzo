@@ -1,5 +1,5 @@
 {
-  "extends": "@rizzopark/ts-config/react-library.json",
+  "extends": "@venice-sistemas/ts-config/react-library.json",
   "include": ["src"],
   "exclude": ["node_modules", "dist", "**/*.test.tsx", "**/*.test.ts"]
 }

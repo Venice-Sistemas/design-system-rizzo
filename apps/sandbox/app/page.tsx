@@ -1,4 +1,4 @@
-import { Button, type ButtonSize, type ButtonVariant } from '@rizzopark/react';
+import { Button, type ButtonSize, type ButtonVariant } from '@venice-sistemas/react';
 
 /**
  * Server Component renderizando componentes client — a composição normal do App

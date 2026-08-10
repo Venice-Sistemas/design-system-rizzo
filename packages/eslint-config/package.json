@@ -1,5 +1,5 @@
 {
-  "name": "@rizzopark/eslint-config",
+  "name": "@venice-sistemas/eslint-config",
   "version": "0.0.0",
   "private": true,
   "description": "Configuração ESLint compartilhada pelos pacotes do Design System",

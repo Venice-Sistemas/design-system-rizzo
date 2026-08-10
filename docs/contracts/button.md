@@ -160,7 +160,7 @@ usando o elemento errado.
 
 ## Conformidade
 
-Este documento é verificado por `@rizzopark/contracts/button` — 27 asserções que rodam
+Este documento é verificado por `@venice-sistemas/contracts/button` — 27 asserções que rodam
 contra **cada** implementação. Uma plataforma nova passa a suíte implementando o contrato,
 nunca lendo outra implementação.
 
@@ -168,7 +168,7 @@ A suíte usa `@testing-library/dom`, que trabalha sobre o DOM já montado. A pla
 fornece só uma função de montar:
 
 ```js
-import { runButtonContract } from '@rizzopark/contracts/button';
+import { runButtonContract } from '@venice-sistemas/contracts/button';
 
 runButtonContract({
   nome: 'Button (angular)',

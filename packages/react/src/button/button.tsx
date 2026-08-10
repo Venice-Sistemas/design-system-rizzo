@@ -2,7 +2,7 @@
 
 import type * as React from 'react';
 import { Slot } from '@radix-ui/react-slot';
-import { buttonSlots, buttonVariants, cn, type ButtonSize, type ButtonVariant } from '@rizzopark/styles';
+import { buttonSlots, buttonVariants, cn, type ButtonSize, type ButtonVariant } from '@venice-sistemas/styles';
 import { isDev } from '../lib/dev';
 import { useAccessibleName } from '../lib/use-accessible-name';
 
@@ -10,7 +10,7 @@ import { useAccessibleName } from '../lib/use-accessible-name';
  * Button — implementa docs/contracts/button.md.
  *
  * Este arquivo cuida só de MARCAÇÃO e COMPORTAMENTO. Toda classe vem de
- * @rizzopark/styles, que o Angular consome igual — se a receita morasse aqui, a
+ * @venice-sistemas/styles, que o Angular consome igual — se a receita morasse aqui, a
  * outra plataforma teria que recriá-la e as duas divergiriam na primeira
  * alteração.
  *

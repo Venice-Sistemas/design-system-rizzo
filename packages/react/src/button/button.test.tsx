@@ -2,7 +2,7 @@
  * O que é ESPECÍFICO da implementação React.
  *
  * Comportamento — papel, teclado, desabilitado, carregando, nome acessível — não
- * está aqui. Está em @rizzopark/contracts/button, rodando via
+ * está aqui. Está em @venice-sistemas/contracts/button, rodando via
  * button.contract.test.tsx, e a mesma suíte vai rodar contra Angular. Duplicar
  * aqui faria este arquivo virar a fonte da verdade do comportamento, que é
  * exatamente o que o contrato existe para impedir.
@@ -107,7 +107,7 @@ describe('Button (react)', () => {
      * axe não consegue avaliar a regra — ele falha por dentro e segue. A suíte
      * passaria dando a impressão de ter verificado.
      *
-     * Contraste é verificado de verdade em @rizzopark/tokens, contra os valores
+     * Contraste é verificado de verdade em @venice-sistemas/tokens, contra os valores
      * resolvidos do build, onde quebra o CI. Um lugar só, e o certo.
      */
     const run = (container: HTMLElement) => axe.run(container, { rules: { 'color-contrast': { enabled: false } } });

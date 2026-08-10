@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RpButton, type ButtonSize, type ButtonVariant } from '@rizzopark/angular';
+import { RpButton, type ButtonSize, type ButtonVariant } from '@venice-sistemas/angular';
 
 /**
  * Espelha a página do sandbox Next, de propósito: as duas lado a lado devem ser

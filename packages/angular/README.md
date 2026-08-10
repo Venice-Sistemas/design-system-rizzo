@@ -1,4 +1,4 @@
-# @rizzopark/angular
+# @venice-sistemas/angular
 
 **Spike, não pacote publicável.** Existe para demonstrar que uma segunda plataforma se
 constrói a partir do contrato, sem ler a primeira.
@@ -7,11 +7,11 @@ constrói a partir do contrato, sem ler a primeira.
 
 `src/button/button.component.ts` é um componente Angular standalone que:
 
-- consome `@rizzopark/styles` — **a mesma receita de classe que o React usa**, não uma cópia;
+- consome `@venice-sistemas/styles` — **a mesma receita de classe que o React usa**, não uma cópia;
 - consome os tokens pelas variáveis CSS, iguais às da web;
 - implementa o comportamento descrito em `docs/contracts/button.md`.
 
-**Nenhuma linha veio de `@rizzopark/react`.** Não precisou: a aparência está na receita
+**Nenhuma linha veio de `@venice-sistemas/react`.** Não precisou: a aparência está na receita
 compartilhada e o comportamento está no contrato. Era exatamente isso que o spike ia provar.
 
 ## O que está bloqueado

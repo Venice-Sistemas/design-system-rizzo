@@ -7,5 +7,5 @@
   "updateInternalDependencies": "patch",
   "linked": [],
   "ignore": [],
-  "fixed": [["@rizzopark/*"]]
+  "fixed": [["@venice-sistemas/*"]]
 }

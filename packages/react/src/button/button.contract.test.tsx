@@ -1,7 +1,7 @@
 /**
  * Conformidade do Button de React ao contrato compartilhado.
  *
- * As asserções NÃO estão aqui — estão em @rizzopark/contracts/button, e a mesma
+ * As asserções NÃO estão aqui — estão em @venice-sistemas/contracts/button, e a mesma
  * suíte vai rodar contra Angular e React Native. Este arquivo só ensina a montar
  * o componente.
  *
@@ -11,7 +11,7 @@
 
 import { createRoot, type Root } from 'react-dom/client';
 import { act } from 'react';
-import { runButtonContract } from '@rizzopark/contracts/button';
+import { runButtonContract } from '@venice-sistemas/contracts/button';
 import { Button, type ButtonProps } from './button';
 
 let container: HTMLDivElement | null = null;

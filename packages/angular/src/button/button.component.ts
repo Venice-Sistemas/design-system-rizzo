@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, ElementRef, effect, inject, input, output } from '@angular/core';
-import { buttonSlots, buttonVariants, cn, type ButtonSize, type ButtonVariant } from '@rizzopark/styles';
+import { buttonSlots, buttonVariants, cn, type ButtonSize, type ButtonVariant } from '@venice-sistemas/styles';
 
 /**
  * Button — implementa docs/contracts/button.md.
  *
  * Escrito a partir do contrato. **Nenhuma linha foi copiada de
- * `@rizzopark/react`**, e não precisou: o que define a aparência vem de
- * `@rizzopark/styles`, e o que define o comportamento está no contrato.
+ * `@venice-sistemas/react`**, e não precisou: o que define a aparência vem de
+ * `@venice-sistemas/styles`, e o que define o comportamento está no contrato.
  *
  * A prova disso é `button.contract.spec.ts` — as mesmas 27 asserções que rodam
  * contra o React passam aqui.
@@ -95,7 +95,7 @@ export class RpButton {
         if (!temNome) {
           avisou = true;
           console.warn(
-            '[@rizzopark/angular] Controle sem nome acessível. Um botão só de ícone precisa de `aria-label` — ' +
+            '[@venice-sistemas/angular] Controle sem nome acessível. Um botão só de ícone precisa de `aria-label` — ' +
               'sem ele o leitor de tela anuncia apenas "botão", e o usuário não tem como saber o que ele faz.',
             node,
           );

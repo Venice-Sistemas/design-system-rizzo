@@ -3,8 +3,8 @@ import type { ReactNode } from 'react';
 // As duas únicas importações de estilo. Nenhum Tailwind neste app — se o botão
 // renderizar certo assim, o Tailwind é ferramenta nossa e não requisito de quem
 // consome (PA-9).
-import '@rizzopark/tokens/css';
-import '@rizzopark/styles/styles.css';
+import '@venice-sistemas/tokens/css';
+import '@venice-sistemas/styles/styles.css';
 
 export const metadata = { title: 'Sandbox — Rizzo Park Design System' };
 

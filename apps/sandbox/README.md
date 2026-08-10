@@ -1,6 +1,6 @@
-# @rizzopark/sandbox
+# @venice-sistemas/sandbox
 
-App Next.js mínimo que consome `@rizzopark/react` **exatamente como uma aplicação real
+App Next.js mínimo que consome `@venice-sistemas/react` **exatamente como uma aplicação real
 consumiria**: pelo pacote publicado, não pelo código-fonte.
 
 Não é vitrine — para isso existe a galeria. Este app existe para falhar quando algo quebra
@@ -9,7 +9,7 @@ de um jeito que teste unitário e Storybook não pegam.
 ## O que ele verifica
 
 **1. Tailwind não vazou como requisito.** Este app **não tem Tailwind instalado**, de
-propósito. Ele importa `@rizzopark/react/styles.css` e mais nada. Se os botões renderizarem
+propósito. Ele importa `@venice-sistemas/react/styles.css` e mais nada. Se os botões renderizarem
 certos aqui, o Tailwind é ferramenta de build nossa e não dependência de quem consome —
 que é o teste prático de PA-9.
 
@@ -25,8 +25,8 @@ mal empacotada.
 ## Rodar
 
 ```bash
-pnpm --filter @rizzopark/react build
-pnpm --filter @rizzopark/sandbox dev
+pnpm --filter @venice-sistemas/react build
+pnpm --filter @venice-sistemas/sandbox dev
 ```
 
 `next build` é o que roda no CI — se ele passa, o pacote é consumível.

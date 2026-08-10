@@ -30,7 +30,7 @@ pnpm test
 Para abrir a galeria em `http://localhost:6006`:
 
 ```bash
-pnpm --filter @rizzopark/docs dev
+pnpm --filter @venice-sistemas/docs dev
 ```
 
 A versão do pnpm está fixada em `packageManager` no `package.json`, então todo mundo roda a
@@ -42,8 +42,8 @@ mesma.
 
 ```
 packages/
-├── tokens/          @rizzopark/tokens   — fonte única de valores (web · RN · legado)
-├── react/           @rizzopark/react    — componentes web
+├── tokens/          @venice-sistemas/tokens   — fonte única de valores (web · RN · legado)
+├── react/           @venice-sistemas/react    — componentes web
 ├── ts-config/       config TypeScript compartilhada  (privado)
 └── eslint-config/   config ESLint compartilhada      (privado)
 

@@ -14,7 +14,7 @@ Linguagem visual compartilhada entre as superfícies web e React Native do ecoss
 
 ## O que existe hoje
 
-Um pacote: `@rizzopark/tokens`. É a única camada compartilhada por **todas** as seis
+Um pacote: `@venice-sistemas/tokens`. É a única camada compartilhada por **todas** as seis
 superfícies do ecossistema — os serviços Next.js, os dois apps React Native e o S2Way em
 CakePHP, que nunca vai consumir componente React. É onde a unificação realmente acontece.
 
@@ -37,10 +37,10 @@ separados, um `find & replace` coordenado seria impossível.
 ## Como consumir
 
 ```
-@rizzopark/tokens/css        variáveis CSS + @font-face da Poppins
-@rizzopark/tokens/tailwind   camada @theme do Tailwind v4 (opcional)
-@rizzopark/tokens            objetos tipados, quando precisar do valor em JS
-@rizzopark/tokens/native     mesma árvore no formato React Native
+@venice-sistemas/tokens/css        variáveis CSS + @font-face da Poppins
+@venice-sistemas/tokens/tailwind   camada @theme do Tailwind v4 (opcional)
+@venice-sistemas/tokens            objetos tipados, quando precisar do valor em JS
+@venice-sistemas/tokens/native     mesma árvore no formato React Native
 ```
 
 Tailwind é **opcional**. O pacote entrega CSS pronto; quem não usa Tailwind importa o CSS e

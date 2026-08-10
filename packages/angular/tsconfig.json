@@ -1,5 +1,5 @@
 {
-  "extends": "@rizzopark/ts-config/base.json",
+  "extends": "@venice-sistemas/ts-config/base.json",
   "compilerOptions": {
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "experimentalDecorators": true,

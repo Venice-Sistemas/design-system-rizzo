@@ -4,7 +4,7 @@
     {
       "name": "docs",
       "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["--filter", "@rizzopark/docs", "dev"],
+      "runtimeArgs": ["--filter", "@venice-sistemas/docs", "dev"],
       "port": 6006
     }
   ]

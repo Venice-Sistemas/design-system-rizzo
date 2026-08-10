@@ -1,3 +1,3 @@
 export { RpButton } from './button/button.component';
-export type { ButtonVariant, ButtonSize } from '@rizzopark/styles';
-export { buttonVariants } from '@rizzopark/styles';
+export type { ButtonVariant, ButtonSize } from '@venice-sistemas/styles';
+export { buttonVariants } from '@venice-sistemas/styles';

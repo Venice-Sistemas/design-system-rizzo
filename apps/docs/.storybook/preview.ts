@@ -2,8 +2,8 @@ import type { Preview } from '@storybook/react-vite';
 
 // A galeria consome tokens e componentes do jeito que uma aplicação consumiria:
 // pelo CSS gerado. Se o build quebrar, a própria galeria quebra — é o canário.
-import '@rizzopark/tokens/css';
-import '@rizzopark/styles/styles.css';
+import '@venice-sistemas/tokens/css';
+import '@venice-sistemas/styles/styles.css';
 
 const preview: Preview = {
   parameters: {
@@ -20,7 +20,7 @@ const preview: Preview = {
        * acessibilidade é o primeiro item a cair sob prazo.
        *
        * `color-contrast` fica de fora: o contraste é verificado contra os valores
-       * resolvidos do build em @rizzopark/tokens, onde quebra o CI. Duas checagens
+       * resolvidos do build em @venice-sistemas/tokens, onde quebra o CI. Duas checagens
        * da mesma coisa acabam discordando, e aí ninguém confia em nenhuma.
        */
       test: 'error',

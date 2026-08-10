@@ -1,5 +1,5 @@
 {
-  "name": "@rizzopark/sandbox-angular",
+  "name": "@venice-sistemas/sandbox-angular",
   "version": "0.0.0",
   "private": true,
   "description": "App Angular mínimo — mostra o mesmo Button do sandbox Next, para comparação lado a lado",
@@ -15,9 +15,9 @@
     "@angular/compiler": "^20.3.27",
     "@angular/core": "^20.3.27",
     "@angular/platform-browser": "^20.3.27",
-    "@rizzopark/angular": "workspace:*",
-    "@rizzopark/styles": "workspace:*",
-    "@rizzopark/tokens": "workspace:*",
+    "@venice-sistemas/angular": "workspace:*",
+    "@venice-sistemas/styles": "workspace:*",
+    "@venice-sistemas/tokens": "workspace:*",
     "rxjs": "^7.8.1",
     "zone.js": "^0.15.0"
   },

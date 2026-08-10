@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Button, type ButtonSize, type ButtonVariant } from '@rizzopark/react';
+import { Button, type ButtonSize, type ButtonVariant } from '@venice-sistemas/react';
 
 const VARIANTS: ButtonVariant[] = ['default', 'destructive', 'outline', 'secondary', 'ghost', 'link'];
 const SIZES: ButtonSize[] = ['default', 'sm', 'lg', 'icon'];

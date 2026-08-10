@@ -3,7 +3,7 @@
  *
  * O Tailwind é FERRAMENTA DE BUILD, não requisito de quem consome. Este arquivo é
  * compilado para dist/styles.css; a aplicação importa o CSS pronto e pronto. Quem
- * já usa Tailwind pode adicionalmente consumir @rizzopark/tokens/tailwind, mas isso
+ * já usa Tailwind pode adicionalmente consumir @venice-sistemas/tokens/tailwind, mas isso
  * é conveniência, não dependência (PA-9).
  *
  * O prefixo `ds` isola as nossas utilitárias das de um consumidor que também use
@@ -18,7 +18,7 @@
 @source './**/*.ts';
 
 /**
- * Este arquivo NÃO importa @rizzopark/tokens/css, de propósito.
+ * Este arquivo NÃO importa @venice-sistemas/tokens/css, de propósito.
  *
  * `@theme inline` emite `var(--rp-…)` direto nas utilitárias, então a variável não
  * precisa estar definida em build time — quem a define é o consumidor, importando
@@ -29,8 +29,8 @@
  *
  * O consumidor importa os dois, nesta ordem:
  *
- *   import '@rizzopark/tokens/css';
- *   import '@rizzopark/react/styles.css';
+ *   import '@venice-sistemas/tokens/css';
+ *   import '@venice-sistemas/react/styles.css';
  */
 
 /**

@@ -282,8 +282,8 @@ forma alguma. Descartada sem mais análise.
 > — **Tokens:** fonte única em JSON neutro → saídas para CSS custom properties (web), objetos
 > TS (RN) e o que mais surgir. Não sabem que React existe.
 > — **Contrato de componente** (§5.3): especificação única, revisada uma vez.
-> — **Implementações:** `@rizzopark/react` (web, React DOM) e — quando justificado —
-> `@rizzopark/native` (RN). Cada uma usa o melhor da sua plataforma.
+> — **Implementações:** `@venice-sistemas/react` (web, React DOM) e — quando justificado —
+> `@venice-sistemas/native` (RN). Cada uma usa o melhor da sua plataforma.
 >
 > **Justificativa.** A opção 2 (RNW) unifica o código ao preço de **rebaixar a acessibilidade
 > da web**, que é justamente onde há exposição pública e provável exigência contratual (P-04).
@@ -320,7 +320,7 @@ forma alguma. Descartada sem mais análise.
 > React Aria é a mais completa em a11y e a mais verbosa de estilizar.
 >
 > **Consequência.** A escolha é **P-11**, resolvida com um spike de 1 dia. Arquiteturalmente
-> o que importa é o **encapsulamento**: a aplicação importa `@rizzopark/react`, nunca a
+> o que importa é o **encapsulamento**: a aplicação importa `@venice-sistemas/react`, nunca a
 > headless direto. Isso mantém a troca possível. No RN, o equivalente não existe — a
 > acessibilidade é feita à mão com `accessibilityRole`/`accessibilityState`, o que é mais um
 > motivo para adiar o pacote RN.
@@ -333,7 +333,7 @@ forma alguma. Descartada sem mais análise.
 > tenha pedido — e dobrar o custo do DS antes de ele provar valor uma vez.
 >
 > **Decisão.** Fase 1 entrega **tokens para RN** (os apps já podem consumir cores, espaços e
-> tipografia corretos) e **nenhum componente RN**. O pacote `@rizzopark/native` é criado
+> tipografia corretos) e **nenhum componente RN**. O pacote `@venice-sistemas/native` é criado
 > quando um destes gatilhos disparar:
 > — um dos apps RN entrar em refresh/reescrita de UI (**P-02**);
 > — um terceiro app RN aparecer;
@@ -381,14 +381,14 @@ forma alguma. Descartada sem mais análise.
                  │ import                                             │ import
                  ▼                                                    ▼
         ┌──────────────────┐                            ┌──────────────────────────┐
-        │ @rizzopark/react │                            │ @rizzopark/native        │
+        │ @venice-sistemas/react │                            │ @venice-sistemas/native        │
         │  (web · React DOM)│                           │  (AD-03 — adiado)        │
         └────────┬─────────┘                            └────────────┬─────────────┘
                  │                    ┌──────────────────────────────┘
                  │                    │
                  ▼                    ▼
       ┌──────────────────────────────────────────────────────────────────┐
-      │ @rizzopark/tokens        fonte: JSON (DTCG)                      │
+      │ @venice-sistemas/tokens        fonte: JSON (DTCG)                      │
       │   ├─ tokens.css     → web (Next.js) + S2Way CakePHP              │
       │   ├─ tokens.ts      → web (tipos) + React Native (objetos)       │
       │   └─ tokens.json    → Figma / outros alvos                       │
@@ -642,7 +642,7 @@ precisam ser modeladas de forma **semântica** justamente porque o valor concret
 > cantos). Mitigável adotando as métricas do conjunto escolhido.
 >
 > **Consequência.** O pipeline de duas saídas é o argumento que **pode** justificar
-> `@rizzopark/icons` como pacote separado mais cedo do que a v1.0 supunha — ver AD-19.
+> `@venice-sistemas/icons` como pacote separado mais cedo do que a v1.0 supunha — ver AD-19.
 > Os ícones customizados dependem de quem saiba desenhá-los (**P-08**); sem designer,
 > comece 100% com o conjunto pronto.
 
@@ -729,7 +729,7 @@ Sujeito a AD-12. Como ordem de grandeza para um admin de gestão:
 
 | Nível | Definição | Conhece domínio? | Onde mora | Teste |
 |---|---|---|---|---|
-| **Component** | Unidade indivisível de UI com API própria. | Não | `@rizzopark/react` (e futuramente `/native`) | Faz sentido isolado, sem contexto de tela? |
+| **Component** | Unidade indivisível de UI com API própria. | Não | `@venice-sistemas/react` (e futuramente `/native`) | Faz sentido isolado, sem contexto de tela? |
 | **Pattern** | Composição recomendada de componentes para problema recorrente. | Não | Documentação (código só se comprovado) | Duas telas diferentes resolveriam isto do mesmo jeito? |
 | **Template** | Estrutura de página inteira, reutilizável entre produtos. | Não | Pacote, **se** ≥2 superfícies | Mais de uma superfície teria esta mesma casca? |
 | **Application UI** | Tela concreta, com regra de negócio. | **Sim** | Aplicação | Precisa saber o que é uma vaga para funcionar? |
@@ -1145,11 +1145,11 @@ interativo tem teste de teclado e de axe?*
 > ```
 > rizzo-park-design-system/
 > ├── packages/
-> │   ├── tokens/          @rizzopark/tokens    → PUBLICADO (fase 1)
+> │   ├── tokens/          @venice-sistemas/tokens    → PUBLICADO (fase 1)
 > │   │                      saídas: .css · .ts (web) · .native.ts (RN) · .json
-> │   ├── react/           @rizzopark/react     → PUBLICADO (fase 1)
-> │   ├── icons/           @rizzopark/icons     → PLANEJADO (ver gatilho abaixo)
-> │   └── native/          @rizzopark/native    → PLANEJADO (AD-03)
+> │   ├── react/           @venice-sistemas/react     → PUBLICADO (fase 1)
+> │   ├── icons/           @venice-sistemas/icons     → PLANEJADO (ver gatilho abaixo)
+> │   └── native/          @venice-sistemas/native    → PLANEJADO (AD-03)
 > ├── apps/
 > │   ├── docs/            Storybook            → privado
 > │   └── sandbox/         Next.js de fumaça    → privado
@@ -1164,7 +1164,7 @@ interativo tem teste de teclado e de axe?*
 > de duas saídas de build (SVG inline e `react-native-svg`) a partir de uma fonte única
 > (AD-11) — o que é trabalho de pacote, não de subpath. **Gatilho:** criar junto com o pacote
 > RN, ou antes se o conjunto de ícones de domínio crescer o suficiente para pesar no build.
-> Até lá, `@rizzopark/react/icons`.
+> Até lá, `@venice-sistemas/react/icons`.
 > — **native: planejado, não construído** (AD-03).
 > — **sandbox: essencial.** Um Next.js real no repo pega erro de RSC, `"use client"` e
 > bundling antes do consumidor. Vale mais que vários testes unitários.
@@ -1191,7 +1191,7 @@ componente. Isso mataria a velocidade — e com um pacote RN futuro, mataria dua
 | Testes | **Vitest + Testing Library + axe** | Mesmo runner do `parking-new` — menos troca de contexto. RN usaria Jest + RNTL quando existir. |
 | Versionamento | **Changesets** (AD-18) | |
 | CI | **GitHub Actions** | O ecossistema já roda K8s, então há infra e cultura de CI. |
-| Registro | **PENDENTE — P-15** | GitHub Packages é o de menor atrito (a org `Venice-Sistemas` existe); npm privado tem melhor DX. Definir também o escopo: `@rizzopark` ou `@venice`. |
+| Registro | **GitHub Packages** (P-15 decidida) | Gratuito no repositório privado que já existe. O registro npm do GitHub exige que o escopo seja igual ao nome da org, então o escopo é `@venice-sistemas` — não é preferência, é restrição. Cada consumidor e o CI precisam de `.npmrc` com PAT. |
 | Lint / formatação | ESLint + Prettier alinhados ao `parking-new` | + `eslint-plugin-jsx-a11y` |
 
 ### 16.3 Pipeline de CI
@@ -1271,7 +1271,7 @@ justificativa de um pacote versionado.
 | ID | Pergunta | Informação faltante | Por que importa | O que ela altera |
 |---|---|---|---|---|
 | **P-01** | Cada município tem identidade visual própria (cor, logo)? | Se há exigência contratual de marca por prefeitura. VM por cidade e contrato por município são indícios fortes, não confirmação. | É a decisão estruturante do sistema de tokens. E, por F-2, se a resposta for sim, tema em runtime deixa de ser precaução e vira requisito. | AD-05 (component tokens entram na fase 1), AD-08, escopo do Foundation de cor, esforço de teste. |
-| **P-02** | Os apps React Native passarão por refresh/reescrita de UI? Em que horizonte? | Roadmap dos apps. | É o gatilho de AD-03. Sem refresh à vista, um pacote de componentes RN não tem consumidor — e reescrever a UI de app em produção sem demanda é o pior investimento possível. | Se e quando `@rizzopark/native` existe; se `@rizzopark/icons` é antecipado; escopo das fases 2 e 3. |
+| **P-02** | Os apps React Native passarão por refresh/reescrita de UI? Em que horizonte? | Roadmap dos apps. | É o gatilho de AD-03. Sem refresh à vista, um pacote de componentes RN não tem consumidor — e reescrever a UI de app em produção sem demanda é o pior investimento possível. | Se e quando `@venice-sistemas/native` existe; se `@venice-sistemas/icons` é antecipado; escopo das fases 2 e 3. |
 | **P-03** | Os serviços Next.js (auxiliares e OCR) usam Tailwind? | Stack real desses projetos. | Se usam, um DS em CSS Modules sem preset será contornado — o time escreverá utilitários com valores literais e o DS perde a razão de existir. | AD-04; se o preset Tailwind é entregável da fase 1. |
 | **P-04** | Há exigência contratual/legal de acessibilidade nos contratos municipais (eMAG, WCAG, nível)? | Texto de edital ou contrato. | Muda a11y de boa prática para requisito com consequência jurídica — e pode exigir laudo formal. Os serviços citizen-facing são a superfície exposta. | AD-15 (nível), orçamento de auditoria, necessidade de relatório de conformidade. |
 | **P-05** | Existe identidade visual definida (paleta, tipografia, licenciamento de fonte)? | Manual de marca, se houver. | Cor institucional pode reprovar em contraste; fonte licenciada pode não ter licença de webfont — e RN exige a fonte empacotada no app, que é outra licença. | Geração da paleta (AD-07), Foundation de tipografia, hospedagem/empacotamento de fontes. |
@@ -1284,7 +1284,7 @@ justificativa de um pacote versionado.
 | **P-12** | A reescrita do `parking-new` inclui um novo frontend administrativo? Quando começa? | Roadmap da reescrita. O backend está em curso; o frontend não aparece no inventário. | É o consumidor natural nº 1 e a âncora de AD-12. Sem ele, a fase 1 perde a tela real e o DS vira especulação. | Viabilidade e cronograma da fase 1 inteira; inventário de componentes. |
 | **P-13** | As superfícies são construídas pelo mesmo time, ou há times/fornecedores distintos? | Organização das equipes. | Steward único (AD-17) pressupõe proximidade. Com fornecedores distintos, é preciso um fórum leve de alinhamento e contratos mais explícitos. | Modelo de governança, formato da documentação, R-4. |
 | **P-14** | Como o time hoje coordena a propagação de mudanças entre as VMs das cidades? | Processo de deploy existente do S2Way. | AD-19 deve reaproveitar o mecanismo que já existe, não inventar outro. | Implementação prática de AD-19, janela de suporte, ferramenta de rastreio de versão. |
-| **P-15** | Onde os pacotes serão publicados, e sob qual escopo (`@rizzopark` ou `@venice`)? | Se há org npm paga; preferência entre GitHub Packages e npm privado. | Afeta autenticação de CI, `.npmrc` dos consumidores e atrito de onboarding em N repositórios. | Configuração de release, nomenclatura. |
+| **P-15** | ~~Onde os pacotes serão publicados, e sob qual escopo?~~ **RESPONDIDA:** GitHub Packages, escopo `@venice-sistemas`. | — | O escopo veio junto: o registro npm do GitHub exige que ele seja igual ao nome da org. As duas perguntas eram uma só. | Feito: escopo renomeado no repositório. Pendente: `.npmrc` dos consumidores e PAT no CI. |
 
 **Bloqueantes para iniciar a fase 1:** **P-12** (existe tela real?), **P-03** (Tailwind?),
 **P-01** (white-label?). **P-11** se resolve com um spike. Os demais podem ser respondidos
@@ -1354,8 +1354,8 @@ partir de duplicação real.
 ### Fase 3 — Estabilização e decisão sobre React Native
 
 - Declarar `1.0.0` (critério de AD-18 atendido).
-- **Reavaliar AD-03 com P-02 respondido.** Se houver refresh de app à vista, `@rizzopark/native`
-  e `@rizzopark/icons` entram aqui, com os contratos já escritos desde a fase 1.
+- **Reavaliar AD-03 com P-02 respondido.** Se houver refresh de app à vista, `@venice-sistemas/native`
+  e `@venice-sistemas/icons` entram aqui, com os contratos já escritos desde a fase 1.
 - Templates, se ≥2 superfícies compartilharem casca (AD-13).
 - Motion, se houver interação que justifique.
 - Density, se P-07 confirmar.

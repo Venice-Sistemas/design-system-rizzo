@@ -1,5 +1,5 @@
 {
-  "extends": "@rizzopark/ts-config/base.json",
+  "extends": "@venice-sistemas/ts-config/base.json",
   "include": ["src"],
   "exclude": ["node_modules", "dist"]
 }

@@ -65,12 +65,12 @@ const config: StorybookConfig = {
   ],
   framework: { name: '@storybook/react-vite', options: {} },
   // Sem autodocs: ainda não existem componentes do Design System, só páginas de
-  // foundations. Ele passa a fazer sentido junto de @rizzopark/react.
+  // foundations. Ele passa a fazer sentido junto de @venice-sistemas/react.
   typescript: { reactDocgen: false },
 
   viteFinal: async (config) => {
     /**
-     * @rizzopark/tokens é um link de workspace, então o Vite o enxerga dentro de
+     * @venice-sistemas/tokens é um link de workspace, então o Vite o enxerga dentro de
      * node_modules e o PRÉ-EMPACOTA como dependência de terceiro. Dependência
      * pré-empacotada não é observada nem invalidada — o resultado é que rodar
      * `pnpm build` nos tokens não muda nada na galeria, e ela passa a mostrar
@@ -82,7 +82,7 @@ const config: StorybookConfig = {
      */
     config.optimizeDeps = {
       ...config.optimizeDeps,
-      exclude: [...(config.optimizeDeps?.exclude ?? []), '@rizzopark/tokens'],
+      exclude: [...(config.optimizeDeps?.exclude ?? []), '@venice-sistemas/tokens'],
     };
     // Excluir da otimização é necessário mas não suficiente: o diretório também
     // precisa ser observado, porque fica fora da raiz deste app.

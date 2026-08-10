@@ -10,8 +10,8 @@
  * rode o build, e a galeria muda sem nenhuma edição aqui.
  */
 
-import semantic from '@rizzopark/tokens';
-import primitivesJson from '@rizzopark/tokens/primitives.json';
+import semantic from '@venice-sistemas/tokens';
+import primitivesJson from '@venice-sistemas/tokens/primitives.json';
 
 export type Leaf = string | number;
 

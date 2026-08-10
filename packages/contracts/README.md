@@ -1,4 +1,4 @@
-# @rizzopark/contracts
+# @venice-sistemas/contracts
 
 O contrato de cada componente, em forma executável.
 
@@ -21,7 +21,7 @@ funcionam sobre qualquer framework que renderize para o DOM. A plataforma só pr
 
 ```
 // no pacote da plataforma, em um arquivo de teste
-import { runButtonContract } from '@rizzopark/contracts/button';
+import { runButtonContract } from '@venice-sistemas/contracts/button';
 
 runButtonContract({
   render: (props) => { /* monta o componente no document.body */ },

@@ -29,7 +29,7 @@ export function useAccessibleName<T extends HTMLElement>(forwarded: Ref<T> | und
       if (!hasName) {
         warned.current = true;
         console.warn(
-          '[@rizzopark/react] Controle sem nome acessível. Um botão só de ícone precisa de `aria-label` — ' +
+          '[@venice-sistemas/react] Controle sem nome acessível. Um botão só de ícone precisa de `aria-label` — ' +
             'sem ele o leitor de tela anuncia apenas "botão", e o usuário não tem como saber o que ele faz.',
           node,
         );

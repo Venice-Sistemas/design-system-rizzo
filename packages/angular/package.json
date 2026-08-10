@@ -1,5 +1,5 @@
 {
-  "name": "@rizzopark/angular",
+  "name": "@venice-sistemas/angular",
   "version": "0.0.0",
   "description": "Componentes Angular do Design System — demonstração de segunda plataforma",
   "license": "UNLICENSED",
@@ -22,8 +22,8 @@
     "@angular/core": "^19.0.0 || ^20.0.0"
   },
   "dependencies": {
-    "@rizzopark/styles": "workspace:*",
-    "@rizzopark/tokens": "workspace:*"
+    "@venice-sistemas/styles": "workspace:*",
+    "@venice-sistemas/tokens": "workspace:*"
   },
   "devDependencies": {
     "@analogjs/vite-plugin-angular": "^1.10.0",
@@ -35,8 +35,8 @@
     "@angular/platform-browser": "^20.3.27",
     "@angular/platform-browser-dynamic": "^20.0.7",
     "@angular/router": "^20.3.27",
-    "@rizzopark/contracts": "workspace:*",
-    "@rizzopark/ts-config": "workspace:*",
+    "@venice-sistemas/contracts": "workspace:*",
+    "@venice-sistemas/ts-config": "workspace:*",
     "@testing-library/angular": "^17.3.0",
     "jsdom": "^25.0.1",
     "rxjs": "^7.8.1",

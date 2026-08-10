@@ -1,4 +1,4 @@
-# @rizzopark/tokens
+# @venice-sistemas/tokens
 
 Fonte única de verdade dos nossos valores visuais.
 
@@ -11,21 +11,21 @@ sabe que React existe.
 ## Uso
 
 ```bash
-pnpm add @rizzopark/tokens
+pnpm add @venice-sistemas/tokens
 ```
 
 **Web** — importe o CSS uma vez, na raiz da aplicação:
 
 ```
-@rizzopark/tokens/css        variáveis CSS + @font-face da Poppins
-@rizzopark/tokens/tailwind   camada @theme do Tailwind v4 (opcional, importar DEPOIS do css)
-@rizzopark/tokens/shadcn     ponte para apps que já são shadcn — ver abaixo
-@rizzopark/tokens            objetos tipados, quando precisar do valor em JS
+@venice-sistemas/tokens/css        variáveis CSS + @font-face da Poppins
+@venice-sistemas/tokens/tailwind   camada @theme do Tailwind v4 (opcional, importar DEPOIS do css)
+@venice-sistemas/tokens/shadcn     ponte para apps que já são shadcn — ver abaixo
+@venice-sistemas/tokens            objetos tipados, quando precisar do valor em JS
 ```
 
 ### Adotando num app que já é shadcn
 
-`@rizzopark/tokens/shadcn` declara as 41 variáveis do contrato do shadcn com os nossos
+`@venice-sistemas/tokens/shadcn` declara as 41 variáveis do contrato do shadcn com os nossos
 valores. Importe depois do `@import 'tailwindcss'`, remova essas declarações do seu `:root`,
 e **não mexa no seu `@theme inline`** — ele mapeia exatamente as mesmas variáveis.
 
@@ -51,11 +51,11 @@ o build **falha** se o mapa apontar para um token que não existe.
 **React Native:**
 
 ```
-@rizzopark/tokens/native     objetos com número em vez de rem, e sombra no formato RN
+@venice-sistemas/tokens/native     objetos com número em vez de rem, e sombra no formato RN
 ```
 
 A Poppins precisa ser empacotada e linkada no app RN — os arquivos estão em
-`@rizzopark/tokens/fonts/`. No web isso é automático via `@font-face`.
+`@venice-sistemas/tokens/fonts/`. No web isso é automático via `@font-face`.
 
 ---
 

@@ -2,7 +2,7 @@
  * Auxiliares de RENDERIZAÇÃO DA DOCUMENTAÇÃO.
  *
  * Nada aqui faz parte do Design System. São componentes descartáveis a serviço
- * da galeria — quando `@rizzopark/react` existir, estes continuam aqui e não
+ * da galeria — quando `@venice-sistemas/react` existir, estes continuam aqui e não
  * migram. Se algo daqui parecer promovível, é sinal de que o critério de entrada
  * (§9.1) precisa ser aplicado, não de que basta mover o arquivo.
  *
@@ -11,7 +11,7 @@
  */
 
 import type { CSSProperties, ReactNode } from 'react';
-import { check, contrast, WCAG } from '@rizzopark/tokens/contrast';
+import { check, contrast, WCAG } from '@venice-sistemas/tokens/contrast';
 import { isHex, type FlatToken, type Leaf } from '../lib/tokens';
 
 const mono: CSSProperties = { fontFamily: 'var(--rp-typography-family-mono)', fontSize: '0.8125rem' };

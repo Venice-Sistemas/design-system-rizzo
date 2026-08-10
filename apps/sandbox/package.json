@@ -1,5 +1,5 @@
 {
-  "name": "@rizzopark/sandbox",
+  "name": "@venice-sistemas/sandbox",
   "version": "0.0.0",
   "private": true,
   "description": "App Next.js de fumaça — verifica o pacote como um consumidor real o consumiria",
@@ -10,9 +10,9 @@
     "start": "next start -p 3100"
   },
   "dependencies": {
-    "@rizzopark/react": "workspace:*",
-    "@rizzopark/styles": "workspace:*",
-    "@rizzopark/tokens": "workspace:*",
+    "@venice-sistemas/react": "workspace:*",
+    "@venice-sistemas/styles": "workspace:*",
+    "@venice-sistemas/tokens": "workspace:*",
     "next": "^15.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"

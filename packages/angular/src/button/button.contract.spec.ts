@@ -1,7 +1,7 @@
 /**
  * Conformidade do Button de Angular ao contrato compartilhado.
  *
- * As asserções não estão aqui — são as mesmas de @rizzopark/contracts/button que
+ * As asserções não estão aqui — são as mesmas de @venice-sistemas/contracts/button que
  * rodam contra o React. Este arquivo só ensina o Angular a montar o componente.
  *
  * É a prova de que a segunda plataforma não precisa ler a primeira: o contrato e
@@ -10,7 +10,7 @@
 
 import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { runButtonContract } from '@rizzopark/contracts/button';
+import { runButtonContract } from '@venice-sistemas/contracts/button';
 import { RpButton } from './button.component';
 
 /**

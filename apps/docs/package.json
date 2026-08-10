@@ -1,5 +1,5 @@
 {
-  "name": "@rizzopark/docs",
+  "name": "@venice-sistemas/docs",
   "version": "0.0.0",
   "private": true,
   "description": "Galeria e documentação do Design System da Rizzo Park",
@@ -11,12 +11,13 @@
     "preview": "vite preview --outDir storybook-static"
   },
   "dependencies": {
-    "@rizzopark/react": "workspace:^",
-    "@rizzopark/styles": "workspace:*",
-    "@rizzopark/tokens": "workspace:*"
+    "@venice-sistemas/react": "workspace:^",
+    "@venice-sistemas/styles": "workspace:*",
+    "@venice-sistemas/tokens": "workspace:*"
   },
   "devDependencies": {
     "@storybook/addon-a11y": "^9.1.20",
+    "@venice-sistemas/ts-config": "workspace:*",
     "@storybook/addon-docs": "^9.0.0",
     "@storybook/react-vite": "^9.0.0",
     "@types/react": "^19.0.0",

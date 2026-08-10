@@ -3,12 +3,12 @@
  *
  * Os números desta página têm que ser idênticos aos do teste que roda no CI —
  * as duas coisas leem o mesmo contrato, resolvem contra a mesma saída de build e
- * usam a mesma função de contraste (@rizzopark/tokens/contrast). Se divergirem,
+ * usam a mesma função de contraste (@venice-sistemas/tokens/contrast). Se divergirem,
  * uma das duas está lendo a fonte errada, e isso é um defeito.
  */
 
-import contract from '@rizzopark/tokens/contrast-pairs.json';
-import { check } from '@rizzopark/tokens/contrast';
+import contract from '@venice-sistemas/tokens/contrast-pairs.json';
+import { check } from '@venice-sistemas/tokens/contrast';
 import { primitiveTokens, semanticTokens } from '../lib/tokens';
 import { Verdict } from './ui';
 
