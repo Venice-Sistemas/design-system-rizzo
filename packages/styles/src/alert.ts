@@ -3,10 +3,11 @@ import { cva } from 'class-variance-authority';
 /**
  * Receita do Alert — mensagem persistente sobre o estado de algo na tela.
  *
- * Quatro tons. Existem quatro famílias de feedback nos tokens (sucesso, perigo,
- * aviso, informação), todas com superfície, borda, texto e ícone medidos no
- * contrato de contraste, nos dois temas. Expor menos deixaria as outras serem
- * improvisadas com opacidade na tela.
+ * QUATRO tons, não dois. O shadcn traz `default` e `destructive`; existem quatro
+ * famílias de feedback nos tokens (sucesso, perigo, aviso, informação), todas com
+ * superfície, borda, texto e ícone medidos no contrato de contraste, nos dois
+ * temas. Expor só duas deixaria as outras serem improvisadas com opacidade na
+ * tela — que é exatamente o que o shadcn faz com `bg-destructive/10`.
  *
  * Nenhuma cor vem de opacidade. Valor gerado por alfa não está no contrato e muda
  * conforme o que estiver atrás.

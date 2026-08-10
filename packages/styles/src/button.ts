@@ -9,7 +9,7 @@ import { cn } from './cn';
  * outra plataforma web importam daqui — se cada uma tivesse a sua cópia, as
  * tabelas divergiriam na primeira vez que alguém mexesse em uma.
  *
- * Três decisões registradas no contrato:
+ * Três desvios deliberados do shadcn padrão, registrados no contrato:
  *
  *   1. Hover e active vêm de TOKEN MEDIDO, não de `bg-primary/90`. Valor gerado
  *      por opacidade não está no contrato de contraste e muda conforme o fundo.
@@ -68,7 +68,8 @@ export const buttonVariants = cva(
           'ds:not-disabled:hover:text-link-hover ds:not-disabled:hover:underline',
         ],
       },
-      // Altura vem de TOKEN, não de um número solto: implementação que hardcoda deixa os
+      // Altura vem de TOKEN, não de `h-9`. Os valores coincidem com os do shadcn,
+      // mas quem manda é o token: implementação que hardcoda o número deixa os
       // tokens decorativos e a próxima plataforma sem de onde derivar a medida.
       size: {
         default: 'ds:h-[var(--rp-size-control-md)] ds:px-4 ds:py-2 ds:has-[svg]:px-3',
