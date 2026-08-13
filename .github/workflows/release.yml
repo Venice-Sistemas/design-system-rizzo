@@ -1,42 +1,35 @@
 name: Release
 
-# `develop` é a branch de trabalho e de publicação — o `.npmrc` do repositório
-# declara isso em `publish-branch`.
+# Publicar é o que acontece quando `develop` entra em `main`. Preparar a versão
+# é outra coisa, e acontece antes (.github/workflows/version.yml).
 on:
   push:
-    branches: [develop]
+    branches: [main]
 
-# Sem `cancel-in-progress`: cancelar uma execução no meio de um `changeset
-# publish` deixa parte dos pacotes publicada e parte não, e versão publicada não
-# volta atrás.
+# Sem `cancel-in-progress`: cancelar no meio de um `changeset publish` deixa
+# parte dos pacotes publicada e parte não, e versão publicada não volta atrás.
 concurrency:
-  group: release-develop
+  group: release-main
   cancel-in-progress: false
 
 permissions:
-  # Empurrar o commit de versão e as tags.
+  # Empurrar as tags que o `changeset publish` cria.
   contents: write
-  # Abrir e atualizar a PR "Version Packages".
-  pull-requests: write
   # Publicar no GitHub Packages. É o que substitui o PAT pessoal: o
   # GITHUB_TOKEN alcança os pacotes deste repositório sem credencial de ninguém.
   packages: write
 
 jobs:
   release:
-    name: Versionar e publicar
+    name: Publicar
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
     steps:
       - uses: actions/checkout@v5
         with:
-          # O changesets compara com a base para saber quais pacotes mudaram;
-          # com o histórico raso ele não enxerga nada.
           fetch-depth: 0
 
-      # Antes do setup-node, senão `cache: pnpm` não encontra o gerenciador. A
-      # versão vem do `packageManager` do package.json.
       - uses: pnpm/action-setup@v4
 
       - uses: actions/setup-node@v5
@@ -53,21 +46,20 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # A suíte roda aqui porque na execução que abre a PR de versão nada é
-      # publicado — e é justamente nela que dá tempo de descobrir o problema.
-      # No `publish`, o `prepublishOnly` de cada pacote roda de novo.
-      - name: Testar
-        run: pnpm -r run test
-
-      # `version` e `publish` chamam os scripts do repositório, não comandos
-      # próprios: o que roda aqui é o mesmo que se roda na máquina, então
-      # "passou local" e "passou no CI" continuam querendo dizer a mesma coisa.
-      - uses: changesets/action@v1
-        with:
-          version: pnpm run version-packages
-          publish: pnpm run release
-          commit: 'chore: publica a versao dos pacotes'
-          title: 'chore: versao dos pacotes'
+      # `release` é o script do repositório (`build` de todos os pacotes +
+      # `changeset publish`), não um comando próprio deste arquivo: o que roda
+      # aqui é o mesmo que se roda na máquina.
+      #
+      # É idempotente por natureza — o `changeset publish` compara com o
+      # registro e não republica o que já está lá. Merge em `main` sem versão
+      # nova simplesmente não publica nada.
+      - name: Construir e publicar
+        run: pnpm run release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # O `changeset publish` cria as tags localmente e não as envia. Sem este
+      # passo o pacote sai publicado e o repositório fica sem a marca de qual
+      # commit gerou aquela versão.
+      - name: Enviar as tags
+        run: git push --follow-tags
