@@ -28,8 +28,18 @@ export const selectSlots = {
     'ds:data-[state=open]:[&>svg:last-child]:rotate-180',
   ].join(' '),
 
-  /** O chevron do próprio componente, não um ícone que o consumidor põe. */
-  chevron: 'ds:opacity-50 ds:transition-transform ds:motion-reduce:transition-none',
+  /**
+   * O chevron do próprio componente, não um ícone que o consumidor põe.
+   *
+   * **Sem transição, e isso não é esquecimento.** O giro usa a propriedade
+   * `rotate`, cujo valor inicial é `none` — que não interpola com ângulo. Com
+   * `transition-transform` aqui a transição empaca e o chevron fica parado em
+   * `0deg`: some a animação *e* o giro. Declarar `rotate-0` como base também
+   * não resolve, porque aí é ele que vence a regra de `data-[state=open]`.
+   *
+   * Girar sem animar é melhor que não girar.
+   */
+  chevron: 'ds:opacity-50',
 
   /** Vazio, o gatilho mostra o placeholder com o token medido para isso. */
   placeholder: 'ds:text-placeholder',
