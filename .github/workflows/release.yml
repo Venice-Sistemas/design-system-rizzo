@@ -1,7 +1,9 @@
 name: Release
 
-# Publicar é o que acontece quando `develop` entra em `main`. Preparar a versão
-# é outra coisa, e acontece antes (.github/workflows/version.yml).
+# `develop` entrando em `main` é o sinal de "está tudo certo": aqui a versão é
+# calculada, o pacote é construído e publicado, tudo no mesmo merge.
+#
+# Não há loop: push feito com o GITHUB_TOKEN não dispara workflow de novo.
 on:
   push:
     branches: [main]
@@ -13,7 +15,7 @@ concurrency:
   cancel-in-progress: false
 
 permissions:
-  # Empurrar as tags que o `changeset publish` cria.
+  # Empurrar o commit de versão e as tags.
   contents: write
   # Publicar no GitHub Packages. É o que substitui o PAT pessoal: o
   # GITHUB_TOKEN alcança os pacotes deste repositório sem credencial de ninguém.
@@ -21,15 +23,18 @@ permissions:
 
 jobs:
   release:
-    name: Publicar
+    name: Versionar e publicar
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
     steps:
       - uses: actions/checkout@v5
         with:
+          # O changesets precisa do histórico para saber o que mudou.
           fetch-depth: 0
 
+      # Antes do setup-node, senão `cache: pnpm` não encontra o gerenciador. A
+      # versão vem do `packageManager` do package.json.
       - uses: pnpm/action-setup@v4
 
       - uses: actions/setup-node@v5
@@ -46,20 +51,47 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # `release` é o script do repositório (`build` de todos os pacotes +
+      # Última chance de barrar: depois do publish não há volta, porque versão
+      # publicada não se despublica.
+      - name: Testar
+        run: pnpm -r run test
+
+      - name: Identificar quem assina o commit de versão
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+
+      # Consome os changesets: sobe as versões, escreve os changelogs e apaga
+      # os arquivos de `.changeset/`.
+      - name: Calcular a versão
+        run: pnpm run version-packages
+
+      # `git status --porcelain`, não `git diff`: os CHANGELOG.md podem nascer
+      # aqui, e arquivo novo não aparece no diff. Merge sem changeset pendente
+      # não versiona nada e segue em frente — não é erro, é um merge que não
+      # muda o que está publicado.
+      - name: Registrar a versão
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo 'Nenhum changeset pendente — nada a versionar.'
+          else
+            git add -A
+            git commit -m 'chore: versao dos pacotes'
+          fi
+
+      # `release` é o script do repositório (build de todos os pacotes +
       # `changeset publish`), não um comando próprio deste arquivo: o que roda
       # aqui é o mesmo que se roda na máquina.
       #
-      # É idempotente por natureza — o `changeset publish` compara com o
-      # registro e não republica o que já está lá. Merge em `main` sem versão
-      # nova simplesmente não publica nada.
+      # Idempotente por natureza — o `changeset publish` compara com o registro
+      # e não republica o que já está lá.
       - name: Construir e publicar
         run: pnpm run release
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # O `changeset publish` cria as tags localmente e não as envia. Sem este
-      # passo o pacote sai publicado e o repositório fica sem a marca de qual
-      # commit gerou aquela versão.
-      - name: Enviar as tags
+      # As tags saem do `changeset publish`, que as cria localmente e não as
+      # envia. Sem isto o pacote sai publicado e o repositório fica sem a marca
+      # de qual commit gerou aquela versão.
+      - name: Enviar o commit e as tags
         run: git push --follow-tags
