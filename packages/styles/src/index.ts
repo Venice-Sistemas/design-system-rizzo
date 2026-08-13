@@ -10,3 +10,4 @@ export { checkboxSlots } from './checkbox';
 export { overlayScrim, overlayPanel, overlayCentered, overlayAnchored, overlaySlots } from './overlay';
 export { dialogSlots } from './dialog';
 export { popoverSlots, menuSlots, menuItemVariants, type MenuItemVariant } from './menu';
+export { selectSlots } from './select';

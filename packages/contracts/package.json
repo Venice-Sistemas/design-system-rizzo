@@ -14,6 +14,10 @@
       "types": "./src/input.d.ts",
       "default": "./src/input.mjs"
     },
+    "./select": {
+      "types": "./src/select.d.ts",
+      "default": "./src/select.mjs"
+    },
     "./alert": {
       "types": "./src/alert.d.ts",
       "default": "./src/alert.mjs"

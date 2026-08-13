@@ -66,3 +66,15 @@ export {
   type DropdownMenuContentProps,
   type DropdownMenuItemProps,
 } from './dropdown-menu/dropdown-menu';
+export {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+  SelectSeparator,
+  type SelectTriggerProps,
+  type SelectValueProps,
+  type SelectContentProps,
+  type SelectItemProps,
+} from './select/select';

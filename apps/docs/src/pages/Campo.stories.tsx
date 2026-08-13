@@ -1,5 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Checkbox, Input, Label } from '@venice-sistemas/react';
+import {
+  Checkbox,
+  Input,
+  Label,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@venice-sistemas/react';
 
 /**
  * Input, Label e Checkbox numa página só.
@@ -164,6 +173,41 @@ export const Autenticacao: Story = {
     <Campo>
       <Label htmlFor="senha">Senha</Label>
       <Input id="senha" type="password" autoComplete="current-password" />
+    </Campo>
+  ),
+};
+
+export const Escolha: Story = {
+  name: 'Select',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Escolha de **um** valor entre opções conhecidas. Contrato em `docs/contracts/select.md`.\n\n' +
+          'O gatilho tem a altura e a borda do `Input` de propósito: os dois ficam lado a lado em ' +
+          'formulários, e alturas de origens diferentes desalinham a linha.\n\n' +
+          '`Tab` alcança o gatilho — o modelo é de campo, não de menu, onde `Tab` fecha. E `Escape` ' +
+          'fecha **sem** alterar o valor: cancelar uma escolha não pode deixar o campo diferente de ' +
+          'como estava.',
+      },
+    },
+  },
+  render: () => (
+    <Campo>
+      <Label htmlFor="estado">Estado</Label>
+      <Select defaultValue="SP">
+        <SelectTrigger id="estado">
+          <SelectValue placeholder="Selecione" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="SP">São Paulo</SelectItem>
+          <SelectItem value="RJ">Rio de Janeiro</SelectItem>
+          <SelectItem value="MG">Minas Gerais</SelectItem>
+          <SelectItem value="AC" disabled>
+            Acre — indisponível
+          </SelectItem>
+        </SelectContent>
+      </Select>
     </Campo>
   ),
 };
