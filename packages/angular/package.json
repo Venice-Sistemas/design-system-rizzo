@@ -1,6 +1,6 @@
 {
   "name": "@venice-sistemas/angular",
-  "version": "0.0.0",
+  "version": "0.5.0",
   "description": "Componentes Angular do Design System — demonstração de segunda plataforma",
   "license": "UNLICENSED",
   "type": "module",

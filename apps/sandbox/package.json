@@ -1,6 +1,6 @@
 {
   "name": "@venice-sistemas/sandbox",
-  "version": "0.0.0",
+  "version": "0.5.0",
   "private": true,
   "description": "App Next.js de fumaça — verifica o pacote como um consumidor real o consumiria",
   "license": "UNLICENSED",

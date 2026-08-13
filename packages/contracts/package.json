@@ -1,6 +1,6 @@
 {
   "name": "@venice-sistemas/contracts",
-  "version": "0.0.0",
+  "version": "0.5.0",
   "description": "Suítes de conformidade — o contrato de cada componente em forma executável",
   "license": "UNLICENSED",
   "private": true,
