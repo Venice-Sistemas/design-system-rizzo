@@ -1,4 +1,5 @@
 import { inputVariants } from './input';
+import { menuSlots } from './menu';
 import { overlayAnchored, overlayPanel } from './overlay';
 
 /**
@@ -16,13 +17,19 @@ export const selectSlots = {
     inputVariants(),
     'ds:items-center ds:justify-between ds:gap-2',
     'ds:cursor-pointer ds:text-left',
-    // O valor pode ser mais longo que o campo; o chevron não encolhe.
-    'ds:[&>span]:truncate',
-    'ds:[&>svg]:size-4 ds:[&>svg]:shrink-0 ds:[&>svg]:opacity-50',
-    // Só o chevron gira. O painel abre por conta do Radix.
-    'ds:data-[state=open]:[&>svg]:rotate-180 ds:[&>svg]:transition-transform',
-    'ds:motion-reduce:[&>svg]:transition-none',
+    /* O valor ocupa a sobra e os ícones não encolhem: sem `flex-1` o
+     * `justify-between` espalharia ícone, valor e chevron em três pontos da
+     * linha, em vez de agrupar ícone e valor à esquerda. */
+    'ds:[&>span]:flex-1 ds:[&>span]:min-w-0 ds:[&>span]:truncate',
+    'ds:[&>svg]:size-4 ds:[&>svg]:shrink-0',
+    /* Só o último `svg` gira, que é o chevron — ele é renderizado depois dos
+     * filhos. Mirar todo `svg` faria o ícone da esquerda girar junto, e girar um
+     * pino de mapa porque a lista abriu não quer dizer nada. */
+    'ds:data-[state=open]:[&>svg:last-child]:rotate-180',
   ].join(' '),
+
+  /** O chevron do próprio componente, não um ícone que o consumidor põe. */
+  chevron: 'ds:opacity-50 ds:transition-transform ds:motion-reduce:transition-none',
 
   /** Vazio, o gatilho mostra o placeholder com o token medido para isso. */
   placeholder: 'ds:text-placeholder',
@@ -36,7 +43,20 @@ export const selectSlots = {
     'ds:min-w-(--radix-select-trigger-width)',
   ].join(' '),
 
-  viewport: 'ds:p-0',
+  /**
+   * O teto de altura mora no painel, e a rolagem aqui: quem rola precisa ser o
+   * elemento com altura limitada, não o de fora.
+   */
+  viewport: 'ds:p-0 ds:overflow-y-auto',
+
+  group: 'ds:p-0',
+
+  /**
+   * Mesmo rótulo do menu. Os dois são título de seção dentro de painel
+   * flutuante, e divergir aqui é o tipo de diferença que ninguém decide — só
+   * aparece quando alguém mexe num dos dois.
+   */
+  label: menuSlots.label,
 
   /**
    * `highlighted`, não `hover`: teclado e mouse compartilham UM destaque, como
@@ -50,7 +70,11 @@ export const selectSlots = {
     'ds:data-[highlighted]:bg-accent ds:data-[highlighted]:text-accent-foreground',
     // Desabilitado continua na lista e continua anunciado — some só o clique.
     'ds:data-[disabled]:pointer-events-none ds:data-[disabled]:opacity-50',
-    'ds:min-h-[var(--rp-size-target-min)]',
+    'ds:[&>svg]:size-4 ds:[&>svg]:shrink-0',
+    /* A altura do campo, não a do alvo de toque: a opção fica embaixo do
+     * gatilho e a diferença de 8px aparece como degrau. Segue passando no
+     * mínimo de 24px do WCAG 2.5.8. */
+    'ds:min-h-[var(--rp-size-control-md)]',
   ].join(' '),
 
   /** A marca de selecionado ocupa a calha que o `pl-8` do item reservou. */

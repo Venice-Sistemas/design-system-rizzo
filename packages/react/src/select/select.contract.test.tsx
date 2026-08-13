@@ -11,7 +11,9 @@ import { runSelectContract } from '@venice-sistemas/contracts/select';
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
+  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from './select';
@@ -22,6 +24,19 @@ interface Opcao {
   disabled?: boolean;
 }
 
+interface Grupo {
+  label: string;
+  opcoes: Opcao[];
+}
+
+function Opcoes({ opcoes }: { opcoes: Opcao[] }) {
+  return opcoes.map((opcao) => (
+    <SelectItem key={opcao.value} value={opcao.value} disabled={opcao.disabled}>
+      {opcao.label}
+    </SelectItem>
+  ));
+}
+
 let container: HTMLDivElement | null = null;
 let root: Root | null = null;
 
@@ -29,8 +44,9 @@ runSelectContract({
   nome: 'Select (react)',
 
   render(props) {
-    const { opcoes, placeholder, ...raiz } = props as {
-      opcoes: Opcao[];
+    const { opcoes, grupos, placeholder, ...raiz } = props as {
+      opcoes?: Opcao[];
+      grupos?: Grupo[];
       placeholder?: string;
     } & Record<string, unknown>;
 
@@ -45,11 +61,14 @@ runSelectContract({
             <SelectValue placeholder={placeholder} />
           </SelectTrigger>
           <SelectContent>
-            {opcoes.map((opcao) => (
-              <SelectItem key={opcao.value} value={opcao.value} disabled={opcao.disabled}>
-                {opcao.label}
-              </SelectItem>
-            ))}
+            {grupos
+              ? grupos.map((grupo) => (
+                  <SelectGroup key={grupo.label}>
+                    <SelectLabel>{grupo.label}</SelectLabel>
+                    <Opcoes opcoes={grupo.opcoes} />
+                  </SelectGroup>
+                ))
+              : <Opcoes opcoes={opcoes ?? []} />}
           </SelectContent>
         </Select>,
       );

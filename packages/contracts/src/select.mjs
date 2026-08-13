@@ -29,7 +29,8 @@ export function runSelectContract({ render, cleanup, nome = 'Select' }) {
   ];
 
   const montar = async (props = {}) => {
-    await render({ 'aria-label': 'Estado', opcoes: OPCOES, ...props });
+    const lista = props.grupos ? {} : { opcoes: OPCOES };
+    await render({ 'aria-label': 'Estado', ...lista, ...props });
     return document.querySelector('[data-slot="select-trigger"]');
   };
 
@@ -186,6 +187,68 @@ export function runSelectContract({ render, cleanup, nome = 'Select' }) {
       it('propaga aria-invalid para o gatilho', async () => {
         const gatilho = await montar({ 'aria-invalid': true });
         expect(gatilho.getAttribute('aria-invalid')).toBe('true');
+      });
+    });
+
+    describe('grupo', () => {
+      const GRUPOS = [
+        { label: 'Sudeste', opcoes: [OPCOES[0], OPCOES[1], OPCOES[2]] },
+        { label: 'Sul', opcoes: [{ value: 'PR', label: 'Paraná' }] },
+      ];
+
+      it('expõe o papel group', async () => {
+        const gatilho = await montar({ grupos: GRUPOS });
+        await abrir(gatilho);
+
+        const grupos = document.querySelectorAll('[data-slot="select-group"]');
+        expect(grupos.length).toBe(GRUPOS.length);
+        for (const grupo of grupos) {
+          expect(grupo.getAttribute('role')).toBe('group');
+        }
+      });
+
+      it('nomeia o grupo pelo rótulo', async () => {
+        const gatilho = await montar({ grupos: GRUPOS });
+        await abrir(gatilho);
+
+        const grupo = document.querySelector('[data-slot="select-group"]');
+        const id = grupo.getAttribute('aria-labelledby');
+
+        expect(id).toBeTruthy();
+        expect(document.getElementById(id).textContent).toBe('Sudeste');
+      });
+
+      it('o rótulo não é opção — não entra na contagem da lista', async () => {
+        const gatilho = await montar({ grupos: GRUPOS });
+        await abrir(gatilho);
+
+        const rotulos = document.querySelectorAll('[data-slot="select-label"]');
+        expect(rotulos.length).toBe(GRUPOS.length);
+        for (const rotulo of rotulos) {
+          expect(rotulo.getAttribute('role')).not.toBe('option');
+        }
+
+        const itens = document.querySelectorAll('[data-slot="select-item"]');
+        expect(itens.length).toBe(
+          GRUPOS.reduce((total, grupo) => total + grupo.opcoes.length, 0),
+        );
+      });
+
+      it('escolhe uma opção de dentro do grupo', async () => {
+        const escolhas = [];
+        const gatilho = await montar({
+          grupos: GRUPOS,
+          onValueChange: (valor) => escolhas.push(valor),
+        });
+
+        await abrir(gatilho);
+        await userEvent.click(
+          [...document.querySelectorAll('[data-slot="select-item"]')].find(
+            (item) => item.textContent.includes('Paraná'),
+          ),
+        );
+
+        expect(escolhas).toEqual(['PR']);
       });
     });
   });

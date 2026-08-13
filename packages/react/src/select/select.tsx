@@ -67,6 +67,32 @@ export function SelectContent({
   );
 }
 
+export interface SelectGroupProps
+  extends React.ComponentProps<typeof SelectPrimitive.Group> {}
+
+export function SelectGroup({ className, ...props }: SelectGroupProps) {
+  return (
+    <SelectPrimitive.Group
+      data-slot="select-group"
+      className={cn(selectSlots.group, className)}
+      {...props}
+    />
+  );
+}
+
+export interface SelectLabelProps
+  extends React.ComponentProps<typeof SelectPrimitive.Label> {}
+
+export function SelectLabel({ className, ...props }: SelectLabelProps) {
+  return (
+    <SelectPrimitive.Label
+      data-slot="select-label"
+      className={cn(selectSlots.label, className)}
+      {...props}
+    />
+  );
+}
+
 export interface SelectItemProps
   extends React.ComponentProps<typeof SelectPrimitive.Item> {}
 
@@ -108,7 +134,13 @@ export function SelectSeparator({
 
 function Chevron() {
   return (
-    <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+    <svg
+      data-slot="select-chevron"
+      viewBox="0 0 16 16"
+      className={selectSlots.chevron}
+      fill="none"
+      aria-hidden="true"
+    >
       <path
         d="M4 6l4 4 4-4"
         stroke="currentColor"

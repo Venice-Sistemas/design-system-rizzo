@@ -34,21 +34,24 @@ nota; quem usa leitor de tela recebe a categoria errada.
 
 ## API
 
-Seis partes, não as onze do shadcn:
+Oito partes, não as onze do shadcn:
 
 | Parte | Descrição |
 | --- | --- |
 | `Select` | Raiz. Aceita `value`, `defaultValue`, `onValueChange`, `disabled`, `name`, `required` |
-| `SelectTrigger` | O que abre. Tem a altura e a borda do `Input`, e declara `aria-invalid` |
+| `SelectTrigger` | O que abre. Tem a altura e a borda do `Input`, e declara `aria-invalid`. Aceita um ícone antes do `SelectValue` |
 | `SelectValue` | O valor escolhido dentro do gatilho. Aceita `placeholder` |
 | `SelectContent` | O painel de opções |
+| `SelectGroup` | Agrupa opções sob um rótulo. Só faz sentido com `SelectLabel` dentro |
+| `SelectLabel` | O rótulo do grupo. **Não é opção:** não recebe foco, não é escolhível |
 | `SelectItem` | Uma opção. Aceita `value` e `disabled` |
 | `SelectSeparator` | Divisor visual |
 
-**Ficaram de fora:** `SelectGroup`, `SelectLabel`, `SelectScrollUpButton`,
-`SelectScrollDownButton` e `SelectIcon`. Cinco partes sem consumidor hoje. Entram
-quando houver demanda — é a regra do repositório, e adicionar depois custa menos
-que manter o que ninguém usa.
+**Ficaram de fora:** `SelectScrollUpButton`, `SelectScrollDownButton` e
+`SelectIcon`. Os dois botões de rolagem são a afordância do modo `item-aligned`
+do Radix; no modo `popper`, que é o nosso, a barra de rolagem nativa já atende
+roda, trackpad e toque. Entram se aparecer consumidor — adicionar depois custa
+menos que manter o que ninguém usa.
 
 Nenhum tipo de biblioteca externa aparece na superfície pública.
 
@@ -59,13 +62,55 @@ SelectTrigger  ┌────────────────────�
                │ São Paulo         ▾  │   ← SelectValue + chevron decorativo
                └──────────────────────┘
 SelectContent  ┌──────────────────────┐
+               │ Sudeste              │   ← SelectLabel, dentro de SelectGroup
                │ ✓ São Paulo          │   ← SelectItem selecionado
                │   Rio de Janeiro     │
+               │ ──────────────────── │   ← SelectSeparator
+               │ Sul                  │
+               │   Paraná             │
                └──────────────────────┘
 ```
 
 O gatilho é visualmente um campo, não um botão: ele fica ao lado de `Input` em
 formulários, e altura ou borda diferentes desalinham a linha.
+
+**A opção tem a altura do campo**, não a do alvo de toque. A lista abre colada ao
+gatilho, e 8px de diferença entre os dois viram um degrau visível. O mínimo de
+24px do WCAG 2.5.8 continua satisfeito com folga; o de 44px do 2.5.5, que é AAA,
+deixa de ser — é uma troca deliberada, não um descuido.
+
+## Ícone
+
+O gatilho aceita **um ícone antes do `SelectValue`**:
+
+```tsx
+<SelectTrigger>
+  <MapPin aria-hidden />
+  <SelectValue placeholder="Selecione" />
+</SelectTrigger>
+```
+
+Ele é dimensionado e impedido de encolher pelo próprio gatilho; a cor fica com
+quem o coloca. **Não gira ao abrir** — a rotação mira o chevron pelo `data-slot`,
+e girar um pino de mapa porque a lista abriu não comunica nada.
+
+O ícone é decorativo: leva `aria-hidden`. Se ele for a única pista do que o campo
+significa, o problema é a falta de rótulo, e ícone nenhum resolve.
+
+`SelectItem` também aceita ícone, pela mesma regra de dimensionamento.
+
+## Lista longa
+
+O painel cresce até o que couber entre o gatilho e a borda da janela, e a partir
+daí **rola**. O teto vem do Radix, que mede o espaço disponível; não é um número
+escolhido à mão, porque o espaço depende de onde o gatilho está na tela.
+
+Rolar não muda o valor: o destaque acompanha a seta do teclado, e só `Enter`
+escolhe.
+
+A rolagem **não tem asserção na suíte** — jsdom não faz layout, então nada ali
+rola de verdade e um teste passaria sem provar nada. É verificada no Storybook,
+na story `Escolha` com as 27 UFs.
 
 ## Estados
 
@@ -115,11 +160,16 @@ uma escolha não pode deixar o campo diferente de como estava.
 
 ## Acessibilidade
 
-- **Papel:** `combobox` no gatilho, `listbox` no painel, `option` nos itens
+- **Papel:** `combobox` no gatilho, `listbox` no painel, `option` nos itens,
+  `group` no `SelectGroup`
 - **Nome acessível:** do `Label` associado, ou de `aria-label` no gatilho
+- **Grupo:** o `SelectLabel` nomeia o grupo por `aria-labelledby`. O rótulo não é
+  `option` e não entra na contagem — anunciar "1 de 32" numa lista de 27 opções
+  mais 5 títulos faz a pessoa procurar cinco itens que não existem
 - **Anunciado:** o valor escolhido, a posição na lista, e o estado aberto/fechado
   via `aria-expanded`
-- **Alvo de toque:** altura de `size.control.md`, ≥ 36px
+- **Alvo de toque:** `size.control.md` no gatilho **e na opção** — 36px. Passa no
+  mínimo de 24px do WCAG 2.5.8 (AA); não alcança os 44px do 2.5.5 (AAA)
 - **Auditoria manual:** pendente
 
 Opção desabilitada **continua anunciada**, com `aria-disabled` — pular esconde

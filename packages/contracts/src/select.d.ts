@@ -4,10 +4,16 @@ export interface SelectContractOption {
   disabled?: boolean;
 }
 
+export interface SelectContractGroup {
+  label: string;
+  opcoes: SelectContractOption[];
+}
+
 export interface SelectContractHarness {
   /**
-   * Monta o componente no document.body. Recebe `opcoes` além das props do
-   * componente — cada plataforma decide como transformá-las em itens.
+   * Monta o componente no document.body. Recebe `opcoes` — ou `grupos`, e aí as
+   * opções vêm agrupadas sob rótulos. Cada plataforma decide como transformá-las
+   * em itens.
    */
   render: (props: Record<string, unknown>) => void | Promise<void>;
   /** Desmonta o que `render` montou. */
