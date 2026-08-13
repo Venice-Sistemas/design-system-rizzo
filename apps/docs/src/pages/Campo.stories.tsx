@@ -1,5 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Checkbox, Input, Label } from '@venice-sistemas/react';
+import {
+  Checkbox,
+  Input,
+  Label,
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from '@venice-sistemas/react';
 
 /**
  * Input, Label e Checkbox numa página só.
@@ -164,6 +175,119 @@ export const Autenticacao: Story = {
     <Campo>
       <Label htmlFor="senha">Senha</Label>
       <Input id="senha" type="password" autoComplete="current-password" />
+    </Campo>
+  ),
+};
+
+/** Decorativo: o campo já tem rótulo, e o pino não acrescenta nome acessível. */
+function PinoDeMapa() {
+  return (
+    <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path
+        d="M8 1.5a4.5 4.5 0 0 0-4.5 4.5c0 3.2 4.5 8.5 4.5 8.5s4.5-5.3 4.5-8.5A4.5 4.5 0 0 0 8 1.5Z"
+        stroke="currentColor"
+        strokeWidth="1.3"
+      />
+      <circle cx="8" cy="6" r="1.6" stroke="currentColor" strokeWidth="1.3" />
+    </svg>
+  );
+}
+
+const UFS_POR_REGIAO = [
+  {
+    regiao: 'Norte',
+    ufs: [
+      ['AC', 'Acre'],
+      ['AP', 'Amapá'],
+      ['AM', 'Amazonas'],
+      ['PA', 'Pará'],
+      ['RO', 'Rondônia'],
+      ['RR', 'Roraima'],
+      ['TO', 'Tocantins'],
+    ],
+  },
+  {
+    regiao: 'Nordeste',
+    ufs: [
+      ['AL', 'Alagoas'],
+      ['BA', 'Bahia'],
+      ['CE', 'Ceará'],
+      ['MA', 'Maranhão'],
+      ['PB', 'Paraíba'],
+      ['PE', 'Pernambuco'],
+      ['PI', 'Piauí'],
+      ['RN', 'Rio Grande do Norte'],
+      ['SE', 'Sergipe'],
+    ],
+  },
+  {
+    regiao: 'Centro-Oeste',
+    ufs: [
+      ['DF', 'Distrito Federal'],
+      ['GO', 'Goiás'],
+      ['MT', 'Mato Grosso'],
+      ['MS', 'Mato Grosso do Sul'],
+    ],
+  },
+  {
+    regiao: 'Sudeste',
+    ufs: [
+      ['ES', 'Espírito Santo'],
+      ['MG', 'Minas Gerais'],
+      ['RJ', 'Rio de Janeiro'],
+      ['SP', 'São Paulo'],
+    ],
+  },
+  {
+    regiao: 'Sul',
+    ufs: [
+      ['PR', 'Paraná'],
+      ['RS', 'Rio Grande do Sul'],
+      ['SC', 'Santa Catarina'],
+    ],
+  },
+] as const;
+
+export const Escolha: Story = {
+  name: 'Select',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Escolha de **um** valor entre opções conhecidas. Contrato em `docs/contracts/select.md`.\n\n' +
+          'O gatilho tem a altura e a borda do `Input` de propósito: os dois ficam lado a lado em ' +
+          'formulários, e alturas de origens diferentes desalinham a linha.\n\n' +
+          '`Tab` alcança o gatilho — o modelo é de campo, não de menu, onde `Tab` fecha. E `Escape` ' +
+          'fecha **sem** alterar o valor: cancelar uma escolha não pode deixar o campo diferente de ' +
+          'como estava.\n\n' +
+          'As 27 UFs agrupadas por região são também a verificação da **rolagem**, que a suíte de ' +
+          'contrato não alcança: jsdom não faz layout, então nada ali rola de verdade. O painel ' +
+          'cresce até o que couber entre o gatilho e a borda da janela, e a partir daí rola. ' +
+          'O rótulo de região não é opção — a seta do teclado passa por cima dele.',
+      },
+    },
+  },
+  render: () => (
+    <Campo>
+      <Label htmlFor="estado">Estado</Label>
+      <Select defaultValue="SP">
+        <SelectTrigger id="estado">
+          <PinoDeMapa />
+          <SelectValue placeholder="Selecione" />
+        </SelectTrigger>
+        <SelectContent>
+          {UFS_POR_REGIAO.map(({ regiao, ufs }) => (
+            <SelectGroup key={regiao}>
+              <SelectLabel>{regiao}</SelectLabel>
+              {ufs.map(([sigla, nome]) => (
+                <SelectItem key={sigla} value={sigla}>
+                  {nome}
+                </SelectItem>
+              ))}
+            </SelectGroup>
+          ))}
+        </SelectContent>
+      </Select>
     </Campo>
   ),
 };

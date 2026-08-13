@@ -1,12 +1,17 @@
 # Mudando um componente
 
-Como uma alteração no Button chega ao React, ao Angular e ao React Native sem que nenhum
-deles fique para trás.
+Como uma alteração chega às plataformas **que têm consumidor** sem que nenhuma delas fique
+para trás.
 
 O problema que este processo resolve não é técnico, é de atenção: **é fácil mudar a
 plataforma que você está mexendo e esquecer as outras.** Quando isso acontece, a divergência
 não dá erro — o botão do app simplesmente passa a se comportar diferente do da web, e ninguém
 descobre até um usuário reclamar.
+
+**Hoje a única plataforma com consumidor é o React.** Angular e React Native existem como
+alvo do contrato, não como entrega pendente: o Button em `packages/angular` é a prova de que
+o contrato atravessa framework, e ficou nisso. Nenhum sistema da casa usa Angular. Componente
+novo **não** nasce em Angular — nasce quando aparecer o sistema que precisa dele.
 
 ---
 
@@ -19,7 +24,7 @@ Sempre a mesma, e a inversão é a origem de quase todo problema:
 2. suíte             packages/contracts/src/{componente}.mjs
 3. tokens            packages/tokens/  (se envolver valor novo)
         ↓
-4. implementações    react · angular · native
+4. implementação     react — e só as outras que tiverem consumidor
 ```
 
 **Contrato primeiro, sempre.** Mudar o código antes é o que produz contrato desatualizado, e
