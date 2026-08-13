@@ -51,6 +51,12 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      # Antes dos testes, e não por gosto: o pacote de React consome o `styles`
+      # pelo `dist`, que em checkout limpo não existe. Sem isto a suíte falha
+      # por artefato ausente, não por divergência de componente.
+      - name: Construir
+        run: pnpm --filter './packages/*' run build
+
       # Última chance de barrar: depois do publish não há volta, porque versão
       # publicada não se despublica.
       - name: Testar
@@ -79,12 +85,14 @@ jobs:
             git commit -m 'chore: versao dos pacotes'
           fi
 
-      # `release` é o script do repositório (build de todos os pacotes +
-      # `changeset publish`), não um comando próprio deste arquivo: o que roda
-      # aqui é o mesmo que se roda na máquina.
+      # `release` é o script do repositório, não um comando próprio deste
+      # arquivo: o que roda aqui é o mesmo que se roda na máquina.
       #
-      # Idempotente por natureza — o `changeset publish` compara com o registro
-      # e não republica o que já está lá.
+      # Ele constrói de novo, e isso é proposital — a versão acabou de mudar, e
+      # o artefato precisa sair com ela, não com a anterior.
+      #
+      # Idempotente por natureza: o `changeset publish` compara com o registro e
+      # não republica o que já está lá.
       - name: Construir e publicar
         run: pnpm run release
         env:
